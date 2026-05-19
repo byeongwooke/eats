@@ -1775,22 +1775,25 @@ textarea.form-input {
   fill: currentColor;
 }
 
-/* Redesigned consolidated Introduce button */
+/* Redesigned consolidated Introduce button (Vibrant Orange Highlight for maximum visibility) */
 .brand-btn-intro {
   width: 100%;
-  background: linear-gradient(135deg, var(--clr-primary), var(--clr-primary-dark));
-  color: #fff !important;
+  background-color: #ff6b35; /* Eyecatching vibrant orange accent */
+  color: #ffffff !important; /* Pure white high-contrast text */
+  font-size: 0.95rem;
   font-weight: 700;
+  padding: 1.05rem 1.5rem; /* Balanced comfortable padding */
+  border-radius: 12px;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(255, 126, 41, 0.2);
+  box-shadow: 0 4px 14px rgba(255, 107, 53, 0.25);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .brand-btn-intro:hover {
+  background-color: #e0531c; /* Deeper tone on hover for visual depth */
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 126, 41, 0.4);
-  background: linear-gradient(135deg, var(--clr-primary-light), var(--clr-primary));
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.45);
 }
 
 /* ==========================================
