@@ -761,16 +761,48 @@ ul {
   transform: scale(1.08);
 }
 
-.menu-brand-badge {
+.menu-badges-wrap {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
+  top: 1.2rem;
+  left: 1.2rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 5;
+}
+
+.menu-brand-badge {
   background-color: var(--clr-primary);
   color: #fff;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.4rem 1rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.4rem 0.9rem;
   border-radius: 30px;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.menu-signature-badge {
+  background: linear-gradient(135deg, #ff5e36, #ff2a68); /* Highly visible hot F&B gold best badge */
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 0.4rem 0.9rem;
+  border-radius: 30px;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 12px rgba(255, 42, 104, 0.4);
+  animation: shine-badge 3s infinite ease-in-out;
+}
+
+@keyframes shine-badge {
+  0%, 100% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
+  50% {
+    filter: brightness(1.2) contrast(1.1);
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(255, 42, 104, 0.6);
+  }
 }
 
 .menu-overlay {
