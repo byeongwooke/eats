@@ -1842,6 +1842,30 @@ textarea.form-input {
   }
 }
 
+/* Tablet Spacing Optimization to prevent header wrapping */
+@media (max-width: 1024px) {
+  .nav-list {
+    gap: 1.2rem;
+  }
+  
+  .nav-link {
+    font-size: 0.85rem;
+  }
+  
+  /* Hide scrollbars on all touch-scrollable areas on tablet/mobile for maximum screen space */
+  .branches-scroll-container,
+  .menu-carousel-track-container {
+    -ms-overflow-style: none !important;  /* IE and Edge */
+    scrollbar-width: none !important;  /* Firefox */
+    -webkit-overflow-scrolling: touch !important; /* Inertial scrolling */
+  }
+  
+  .branches-scroll-container::-webkit-scrollbar,
+  .menu-carousel-track-container::-webkit-scrollbar {
+    display: none !important; /* Chrome, Safari, Opera */
+  }
+}
+
 @media (max-width: 991px) {
   :root {
     --header-height: 80px;
@@ -1931,6 +1955,28 @@ textarea.form-input {
   
   .section-title {
     font-size: 2.2rem;
+  }
+  
+  /* Reflow brand grid to premium horizontal card swipe on mobile */
+  .brands-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1.5rem;
+    padding: 1rem 0.5rem 2rem;
+    margin-top: 1rem;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .brands-grid::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .brand-card {
+    flex: 0 0 85vw; /* 85% width card layout */
+    scroll-snap-align: center;
   }
   
   .menu-slide {
