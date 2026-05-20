@@ -1456,12 +1456,13 @@ textarea.form-input {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease;
-  display: flex;
+  display: none !important; /* ★ 닫혀있을 때 연산 완전 제외 display: none */
   align-items: center;
   justify-content: center;
 }
 
 .modal-overlay.active {
+  display: flex !important; /* ★ 활성화 시에만 display: flex */
   opacity: 1;
   pointer-events: auto;
 }
@@ -2241,5 +2242,18 @@ textarea.form-input {
   #brands.active .brand-card-pc:nth-child(2) { transition-delay: 0.15s; }
   #brands.active .brand-card-pc:nth-child(3) { transition-delay: 0.3s; }
   #brands.active .brand-card-pc:nth-child(4) { transition-delay: 0.45s; }
+
+  /* 팝업을 감싸고 있는 PC용 브랜드 컨테이너 최적화 */
+  .brands-container-pc, #brands-container-pc {
+    /* 1. 하드웨어 가속 레이어 생성 및 그래픽 연산 격리 */
+    will-change: transform, opacity;
+    transform: translateZ(0); 
+    contain: paint; /* 중요: 자식(레이어 팝업)의 렌더링 영역이 부모 밖으로 연산 누수되는 것을 차단 */
+  }
+
+  /* 2. 레이어 팝업 초기 상태 방어막 점검 */
+  .brand-popup-layer, .modal-overlay, #brand-detail-modal {
+    will-change: auto; /* 부모가 움직이는 동안에는 연산에서 완전히 제외 */
+  }
 }
 

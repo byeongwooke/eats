@@ -409,6 +409,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const brandTabPanels = document.querySelectorAll('.brand-tab-panel');
 
   if (brandModal && brandModalClose && brandIntroBtns.length > 0) {
+    // Ensure popup is completely excluded from painting initially
+    brandModal.style.display = 'none';
     
     // Open Modal and populate data
     brandIntroBtns.forEach(btn => {
@@ -485,6 +487,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Show Modal
+        brandModal.style.display = 'flex';
+        // Force reflow
+        brandModal.offsetHeight;
         brandModal.classList.add('active');
         document.body.style.overflow = 'hidden'; // Scroll lock
       });
@@ -493,6 +498,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Close Modal helper
     const closeBrandModal = () => {
       brandModal.classList.remove('active');
+      setTimeout(() => {
+        // Ensure display none is only set if the modal is still closed (to handle quick reopen clicks)
+        if (!brandModal.classList.contains('active')) {
+          brandModal.style.display = 'none';
+        }
+      }, 400); // Wait for transition fade-out
       document.body.style.overflow = ''; // Scroll unlock
     };
 
