@@ -2045,34 +2045,43 @@ textarea.form-input {
   }
 }
 
-/* Mobile Sub-Brands Swipable Track */
-.brands-grid-mobile {
-  display: flex !important;
-  overflow-x: auto !important;
-  scroll-snap-type: x mandatory !important;
-  gap: 1.5rem !important;
-  padding: 1rem 0.5rem 2rem !important;
-  margin-top: 1rem !important;
-  -webkit-overflow-scrolling: touch !important;
-  -ms-overflow-style: none !important;
-  scrollbar-width: none !important;
+/* PC Desktop Hiding Safeguard (Vite Build Standard) */
+@media (min-width: 1025px) {
+  .brand-card-mobile {
+    display: none !important; /* PC 화면에서는 모바일 카드를 강제로 숨김 */
+  }
 }
 
-.brands-grid-mobile::-webkit-scrollbar {
-  display: none !important;
-}
-
-.brand-card-mobile {
-  flex: 0 0 85vw !important;
-  scroll-snap-align: center !important;
-  background-color: var(--clr-bg-card);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  transition: transform 0.3s ease;
+/* Mobile Sub-Brands List (Vertical Layout Override) */
+@media (max-width: 768px) {
+  .brands-grid-mobile {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2rem !important;
+    padding: 1rem 0 !important;
+    margin-top: 1rem !important;
+    overflow-x: visible !important;
+    scroll-snap-type: none !important;
+    -webkit-overflow-scrolling: auto !important;
+  }
+  
+  .brands-grid-mobile::-webkit-scrollbar {
+    display: none !important;
+  }
+  
+  .brand-card-mobile {
+    width: 100% !important;
+    flex: 0 0 auto !important;
+    scroll-snap-align: none !important;
+    background-color: var(--clr-bg-card);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease;
+  }
 }
 
 .brand-img-wrap-mobile {
