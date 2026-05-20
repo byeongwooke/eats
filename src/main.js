@@ -74,27 +74,27 @@ document.addEventListener('DOMContentLoaded', () => {
     revealObserver.observe(element);
   });
 
-  // PC sub-brand cards premium IntersectionObserver (20~30% visible threshold)
+  // PC sub-brand cards premium IntersectionObserver (15% visible threshold)
   const pcBrandCards = document.querySelectorAll('.brand-card-pc');
   if (pcBrandCards.length > 0) {
-    const pcBrandCallback = (entries, observer) => {
+    const observerOptions = {
+      root: null,      // viewport 기준
+      threshold: 0.15      // 브랜드 카드가 화면에 15% 정도 모습을 드러냈을 때 딱 발동!
+    };
+    
+    const brandObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
+          // 화면에 진입하면 애니메이션 클래스 부여 
           entry.target.classList.add('is-animated');
+          // 한 번 나타난 후에는 관찰을 해제하여 리소스 낭비 방지
           observer.unobserve(entry.target);
         }
       });
-    };
+    }, observerOptions);
     
-    const pcBrandObserver = new IntersectionObserver(pcBrandCallback, {
-      root: null,
-      threshold: 0.25, // trigger when exactly 25% is visible
-      rootMargin: '0px 0px -20px 0px'
-    });
-    
-    pcBrandCards.forEach(card => {
-      pcBrandObserver.observe(card);
-    });
+    // 각 카드에 옵저버 바인딩
+    pcBrandCards.forEach(card => brandObserver.observe(card));
   }
 
   /* ==========================================================================
