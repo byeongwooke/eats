@@ -74,29 +74,27 @@ document.addEventListener('DOMContentLoaded', () => {
     revealObserver.observe(element);
   });
 
-  // 1. 대상 요소 전수 수집
-  const pcBrandCards = document.querySelectorAll('.brand-card-pc');
+  // 1. 기존의 브랜드 카드 개별 감시 로직은 완전히 삭제해 주세요.
+  // 2. 부모 컨테이너인 #brands 딱 하나만 타겟팅합니다.
+  const brandsSection = document.getElementById('brands');
 
-  // [디버깅 코드] 터미널 콘솔창에서 4개의 카드가 정상적으로 찍히는지 반드시 확인
-  console.log("수집된 PC 브랜드 카드 개수:", pcBrandCards.length); 
-
-  if (pcBrandCards.length > 0) {
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px 0px -10% 0px', // 화면 하단에서 10% 더 들어왔을 때 확실하게 발동하도록 마진 조정
-      threshold: 0.05                 // 카드가 단 5%만 보여도 애니메이션을 안전하게 가동 (방어막 구축)
-    };
-
-    const brandObserver = new IntersectionObserver((entries) => {
+  if (brandsSection) {
+    const brandsObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('is-animated');
-          brandObserver.unobserve(entry.target);
+          // 섹션이 화면에 들어오면 부모에게 'active' 클래스 딱 하나만 추가
+          entry.target.classList.add('active');
+          // 한 번 발동 후 감시 해제 (리소스 최적화)
+          observer.unobserve(entry.target);
         }
       });
-    }, observerOptions);
+    }, {
+      root: null,
+      rootMargin: '0px 0px -15% 0px', // 화면 하단에서 15% 진입 시 발동
+      threshold: 0.1
+    });
 
-    pcBrandCards.forEach(card => brandObserver.observe(card));
+    brandsObserver.observe(brandsSection);
   }
 
   /* ==========================================================================

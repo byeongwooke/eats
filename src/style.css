@@ -2193,42 +2193,53 @@ textarea.form-input {
 /* ==========================================================================
    16. PC Brand Cards Hardware Acceleration & Smooth Scroll Reveals
    ========================================================================== */
-.brand-card-pc {
-  will-change: transform, opacity;
-  transform: translateY(20px) translate3d(0, 0, 0);
-  opacity: 0;
-  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
-              opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.brand-card-pc.is-animated {
-  opacity: 1 !important;
-  transform: translateY(0) translate3d(0, 0, 0) !important;
-}
-
 /* PC 화면 최상위 중단점 확인 */
 @media (min-width: 1025px) {
-  #brands {
+  /* 1. 브랜드 섹션 전체를 감싸는 최상위 컨테이너 중앙 정렬 */
+  #brands-container-pc {
     display: grid !important;
-    grid-template-columns: repeat(2, 1fr); /* PC 버전은 깔끔한 2x2 그리드 유지 */
-    gap: 30px;
-    visibility: visible !important;
-    opacity: 1 !important;
+    grid-template-columns: repeat(2, 1fr) !important; /* 깔끔한 2x2 그리드 유지 */
+    gap: 40px 30px !important;                        /* 카드 간 여백 조정 */
+    
+    /* ★ 핵심 정렬 방어 코드 */
+    width: 100% !important;
+    max-width: 1200px !important;                     /* 본문 영역 최대 너비 제한 */
+    margin: 80px auto !important;                     /* 상하 여백 및 좌우 자동 중앙 정렬 */
+    box-sizing: border-box !important;
   }
 
-  /* 애니메이션이 꼬여서 아예 안 나오는 현상을 막기 위한 일시적 방어 코드 */
-  /* 만약 스크립트 에러가 의심된다면 아래 opacity를 1로 바꾸어 데이터가 살아있는지 먼저 확인하세요 */
-  .brand-card-pc {
-    opacity: 0; 
-    transform: translateY(20px);
+  /* 2. 하단 '이츠베럴만의 핵심 독점 경쟁력' 섹션 컨테이너 점검 */
+  #advantages-container {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important; /* 4열 카드 유지 */
+    gap: 2rem !important;
+    width: 100% !important;
+    max-width: 1200px !important;                     /* 상단 브랜드 섹션과 대칭을 이루도록 폭 일치 */
+    margin: 0 auto !important;                        /* 좌우 자동 중앙 정렬 */
+    box-sizing: border-box !important;
+  }
+
+  /* [초기 상태] 부모에게 active가 없을 때 자식 카드들은 숨김 및 대기 */
+  #brands .brand-card-pc {
+    opacity: 0;
+    transform: translateY(30px) translate3d(0, 0, 0); /* 하드웨어 가속 */
+    will-change: transform, opacity;
+    
+    /* 자연스러운 감속을 위한 큐빅 베지에 단일화 */
     transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
                 opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
-  /* 클래스가 정상적으로 붙었을 때의 확정 상태 */
-  .brand-card-pc.is-animated {
+  /* [발동 상태] 부모인 #brands에 active 클래스가 붙으면 자식들이 순차적으로 작동 */
+  #brands.active .brand-card-pc {
     opacity: 1 !important;
-    transform: translateY(0) !important;
+    transform: translateY(0) translate3d(0, 0, 0) !important;
   }
+
+  /* 개별 스크립트 연산 없이 CSS 자체에서 안전하게 시차(Delay) 부여 */
+  #brands.active .brand-card-pc:nth-child(1) { transition-delay: 0s; }
+  #brands.active .brand-card-pc:nth-child(2) { transition-delay: 0.15s; }
+  #brands.active .brand-card-pc:nth-child(3) { transition-delay: 0.3s; }
+  #brands.active .brand-card-pc:nth-child(4) { transition-delay: 0.45s; }
 }
 
