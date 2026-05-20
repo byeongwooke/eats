@@ -417,7 +417,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const branchesListWrap = document.getElementById('branches-list-wrap');
         let branchesHtml = '<div class="branches-list">';
         data.branches.forEach(branch => {
-          const searchUrl = `https://map.naver.com/v5/search/${encodeURIComponent(branch.name + ' ' + branch.address)}`;
+          // Extract clean road address, filtering out any accidental brand prefixes or delimiters for Naver Map compatibility
+          let pureAddress = branch.address;
+          if (pureAddress.includes('|')) {
+            pureAddress = pureAddress.split('|')[1].trim();
+          } else if (pureAddress.includes('점')) {
+            pureAddress = pureAddress.split('점')[1].trim();
+          } else {
+            pureAddress = pureAddress.trim();
+          }
+          
+          const searchUrl = `https://map.naver.com/v5/search/${encodeURIComponent(pureAddress)}`;
           branchesHtml += `
             <a href="${searchUrl}" target="_blank" class="branch-item-link">
               <div class="branch-item-info">
