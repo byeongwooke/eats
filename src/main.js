@@ -74,6 +74,29 @@ document.addEventListener('DOMContentLoaded', () => {
     revealObserver.observe(element);
   });
 
+  // PC sub-brand cards premium IntersectionObserver (20~30% visible threshold)
+  const pcBrandCards = document.querySelectorAll('.brand-card-pc');
+  if (pcBrandCards.length > 0) {
+    const pcBrandCallback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-animated');
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+    
+    const pcBrandObserver = new IntersectionObserver(pcBrandCallback, {
+      root: null,
+      threshold: 0.25, // trigger when exactly 25% is visible
+      rootMargin: '0px 0px -20px 0px'
+    });
+    
+    pcBrandCards.forEach(card => {
+      pcBrandObserver.observe(card);
+    });
+  }
+
   /* ==========================================================================
      4. Responsive Signature Menu Carousel/Slider (Pixel-Perfect calculations)
      ========================================================================== */
