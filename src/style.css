@@ -2194,7 +2194,6 @@ textarea.form-input {
 /* ==========================================================================
    16. PC Brand Cards Hardware Acceleration & Smooth Scroll Reveals
    ========================================================================== */
-/* PC 화면 최상위 중단점 확인 */
 @media (min-width: 1025px) {
   /* 1. 브랜드 섹션 전체를 감싸는 최상위 컨테이너 중앙 정렬 */
   #brands-container-pc {
@@ -2202,7 +2201,7 @@ textarea.form-input {
     grid-template-columns: repeat(2, 1fr) !important; /* 깔끔한 2x2 그리드 유지 */
     gap: 40px 30px !important;                        /* 카드 간 여백 조정 */
     
-    /* ★ 핵심 정렬 방어 코드 */
+    /* 핵심 정렬 방어 코드 */
     width: 100% !important;
     max-width: 1200px !important;                     /* 본문 영역 최대 너비 제한 */
     margin: 80px auto !important;                     /* 상하 여백 및 좌우 자동 중앙 정렬 */
@@ -2220,40 +2219,38 @@ textarea.form-input {
     box-sizing: border-box !important;
   }
 
-  /* [초기 상태] 부모에게 active가 없을 때 자식 카드들은 숨김 및 대기 */
+  /* ★ [완전 교정] 상하 이동 연산을 완전 박멸하고 전역 트랜지션과의 충돌을 원천 차단 */
   #brands .brand-card-pc {
-    opacity: 0;
-    transform: translateY(30px) translate3d(0, 0, 0); /* 하드웨어 가속 */
-    will-change: transform, opacity;
+    opacity: 0 !important;
+    transform: none !important; /* 물리적 이동을 완벽 배제하여 브라우저 연산 오버헤드 삭제 */
+    will-change: opacity;
     
-    /* 자연스러운 감속을 위한 큐빅 베지에 단일화 */
-    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
-                opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    /* 상단 전역 스타일과의 충돌을 완전히 제압하기 위해 !important 가속 부여 */
+    transition: opacity 0.4s ease-in-out !important; 
   }
 
-  /* [발동 상태] 부모인 #brands에 active 클래스가 붙으면 자식들이 순차적으로 작동 */
+  /* [발동 상태] 부모인 #brands에 active 클래스가 붙으면 제자리에서 고급스럽게 노출 */
   #brands.active .brand-card-pc {
     opacity: 1 !important;
-    transform: translateY(0) translate3d(0, 0, 0) !important;
+    transform: none !important;
   }
 
-  /* 개별 스크립트 연산 없이 CSS 자체에서 안전하게 시차(Delay) 부여 */
-  #brands.active .brand-card-pc:nth-child(1) { transition-delay: 0s; }
-  #brands.active .brand-card-pc:nth-child(2) { transition-delay: 0.15s; }
-  #brands.active .brand-card-pc:nth-child(3) { transition-delay: 0.3s; }
-  #brands.active .brand-card-pc:nth-child(4) { transition-delay: 0.45s; }
+  /* CSS 자체에서 기계적 오차 없이 안전하게 순차 시차(Delay) 부여 */
+  #brands.active .brand-card-pc:nth-child(1) { transition-delay: 0s !important; }
+  #brands.active .brand-card-pc:nth-child(2) { transition-delay: 0.12s !important; }
+  #brands.active .brand-card-pc:nth-child(3) { transition-delay: 0.24s !important; }
+  #brands.active .brand-card-pc:nth-child(4) { transition-delay: 0.36s !important; }
 
   /* 팝업을 감싸고 있는 PC용 브랜드 컨테이너 최적화 */
   .brands-container-pc, #brands-container-pc {
-    /* 1. 하드웨어 가속 레이어 생성 및 그래픽 연산 격리 */
-    will-change: transform, opacity;
-    transform: translateZ(0); 
-    contain: paint; /* 중요: 자식(레이어 팝업)의 렌더링 영역이 부모 밖으로 연산 누수되는 것을 차단 */
+    will-change: opacity;
+    transform: none !important;
+    contain: paint; 
   }
 
-  /* 2. 레이어 팝업 초기 상태 방어막 점검 */
+  /* 레이어 팝업 초기 상태 방어막 점검 */
   .brand-popup-layer, .modal-overlay, #brand-detail-modal {
-    will-change: auto; /* 부모가 움직이는 동안에는 연산에서 완전히 제외 */
+    will-change: auto; 
   }
 }
 
