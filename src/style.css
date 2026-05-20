@@ -2027,3 +2027,157 @@ textarea.form-input {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   15. High-Fidelity PC & Mobile Environment Separation & Tap Targets
+   ========================================================================== */
+
+/* Device-Specific Visibility Controls */
+@media (min-width: 769px) {
+  .mobile-only {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .pc-only {
+    display: none !important;
+  }
+}
+
+/* Mobile Sub-Brands Swipable Track */
+.brands-grid-mobile {
+  display: flex !important;
+  overflow-x: auto !important;
+  scroll-snap-type: x mandatory !important;
+  gap: 1.5rem !important;
+  padding: 1rem 0.5rem 2rem !important;
+  margin-top: 1rem !important;
+  -webkit-overflow-scrolling: touch !important;
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+.brands-grid-mobile::-webkit-scrollbar {
+  display: none !important;
+}
+
+.brand-card-mobile {
+  flex: 0 0 85vw !important;
+  scroll-snap-align: center !important;
+  background-color: var(--clr-bg-card);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  transition: transform 0.3s ease;
+}
+
+.brand-img-wrap-mobile {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-img-wrap-mobile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.brand-info-mobile {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-logo-text-mobile {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+  color: var(--clr-text-dark);
+}
+
+.brand-logo-text-mobile span {
+  color: var(--clr-primary);
+}
+
+.brand-desc-mobile {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--clr-text-muted);
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.brand-triggers-mobile {
+  margin-top: auto;
+}
+
+.brand-btn-mobile {
+  width: 100%;
+  background-color: #ff6b35;
+  color: #ffffff !important;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 1.05rem 1.5rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(255, 107, 53, 0.25);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+/* Mobile Signature Menu Carousel (Single visible card to prevent shrinking & text wrapping) */
+@media (max-width: 768px) {
+  #menu-slider-outer-mobile {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  #menu-slider-container-mobile {
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  #menu-slider-track-mobile {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    width: 100%;
+  }
+  
+  .menu-slide-mobile {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+  }
+}
+
+/* Touch Target Minimum Comfort Area (44px Minimum Tap Targets) */
+@media (max-width: 768px) {
+  .mobile-tap-target,
+  .brand-btn-mobile,
+  .carousel-btn,
+  .brand-btn-intro,
+  .branch-item-link,
+  .nav-cta,
+  .mobile-nav-toggle {
+    min-height: 44px !important;
+    min-width: 44px !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+}
+

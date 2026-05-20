@@ -77,174 +77,173 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================================================
      4. Responsive Signature Menu Carousel/Slider (Pixel-Perfect calculations)
      ========================================================================== */
-  const track = document.getElementById('menu-slider-track');
-  const prevBtn = document.getElementById('menu-prev-btn');
-  const nextBtn = document.getElementById('menu-next-btn');
-  const originalSlides = Array.from(document.querySelectorAll('.menu-slide'));
-  
-  if (track && prevBtn && nextBtn && originalSlides.length > 0) {
-    // Dynamic cloning: Clone the first 3 slides and append to the end for seamless infinite desktop scrolling
-    const visibleCountDesktop = 3;
-    for (let i = 0; i < visibleCountDesktop; i++) {
-      const clone = originalSlides[i].cloneNode(true);
-      clone.classList.add('menu-slide-clone');
-      clone.id = `menu-slide-clone-${i + 1}`;
-      track.appendChild(clone);
-    }
+  function initMenuCarousel(outerId, trackId, prevBtnId, nextBtnId, slideClass, isMobile) {
+    const track = document.getElementById(trackId);
+    const prevBtn = document.getElementById(prevBtnId);
+    const nextBtn = document.getElementById(nextBtnId);
+    const originalSlides = Array.from(document.querySelectorAll(slideClass));
     
-    let currentIndex = 0;
-    let autoPlayInterval = null;
-    let isTransitioning = false;
-    
-    const getVisibleCount = () => {
-      const width = window.innerWidth;
-      if (width > 1100) return 3; // Desktop
-      if (width > 768) return 2;  // Tablet
-      return 1;                   // Mobile
-    };
-    
-    const getSlideWidthAndGap = () => {
-      const slideWidth = originalSlides[0].getBoundingClientRect().width;
-      const gap = parseFloat(window.getComputedStyle(track).gap) || 32;
-      return { slideWidth, gap };
-    };
-    
-    const updateCarousel = (animate = true) => {
-      const { slideWidth, gap } = getSlideWidthAndGap();
-      const amountToMove = currentIndex * (slideWidth + gap);
-      
-      if (animate) {
-        track.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
-      } else {
-        track.style.transition = 'none';
+    if (track && prevBtn && nextBtn && originalSlides.length > 0) {
+      // Dynamic cloning: Clone the first 3 slides (or 1 on mobile) and append to the end for seamless infinite scrolling
+      const visibleCount = isMobile ? 1 : 3;
+      for (let i = 0; i < visibleCount; i++) {
+        const clone = originalSlides[i].cloneNode(true);
+        clone.classList.add('menu-slide-clone');
+        clone.id = `${trackId}-clone-${i + 1}`;
+        track.appendChild(clone);
       }
       
-      track.style.transform = `translateX(-${amountToMove}px)`;
+      let currentIndex = 0;
+      let autoPlayInterval = null;
+      let isTransitioning = false;
       
-      // Infinite carousel always allows navigation, keep controls enabled
-      prevBtn.classList.remove('disabled');
-      nextBtn.classList.remove('disabled');
-    };
-    
-    const nextSlide = () => {
-      if (isTransitioning) return;
-      isTransitioning = true;
+      const getSlideWidthAndGap = () => {
+        const slideWidth = originalSlides[0].getBoundingClientRect().width;
+        const gap = parseFloat(window.getComputedStyle(track).gap) || (isMobile ? 0 : 32);
+        return { slideWidth, gap };
+      };
       
-      currentIndex++;
-      updateCarousel(true);
-      
-      // When reaching the cloned slide (index equals original size)
-      if (currentIndex === originalSlides.length) {
-        setTimeout(() => {
-          track.style.transition = 'none';
-          currentIndex = 0;
-          updateCarousel(false);
-          // Trigger reflow to apply jump immediately
-          track.offsetHeight;
-          isTransitioning = false;
-        }, 600); // Match CSS transition time
-      } else {
-        setTimeout(() => {
-          isTransitioning = false;
-        }, 600);
-      }
-    };
-    
-    const prevSlide = () => {
-      if (isTransitioning) return;
-      isTransitioning = true;
-      
-      if (currentIndex === 0) {
-        // Instant transitionless jump to the end clone (index 12)
-        track.style.transition = 'none';
-        currentIndex = originalSlides.length;
-        updateCarousel(false);
-        // Force reflow
-        track.offsetHeight;
+      const updateCarousel = (animate = true) => {
+        const { slideWidth, gap } = getSlideWidthAndGap();
+        const amountToMove = currentIndex * (slideWidth + gap);
         
-        // Slide smoothly to the last original slide (index 11)
-        setTimeout(() => {
+        if (animate) {
+          track.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+        } else {
+          track.style.transition = 'none';
+        }
+        
+        track.style.transform = `translateX(-${amountToMove}px)`;
+        
+        // Infinite carousel always allows navigation, keep controls enabled
+        prevBtn.classList.remove('disabled');
+        nextBtn.classList.remove('disabled');
+      };
+      
+      const nextSlide = () => {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        
+        currentIndex++;
+        updateCarousel(true);
+        
+        // When reaching the cloned slide (index equals original size)
+        if (currentIndex === originalSlides.length) {
+          setTimeout(() => {
+            track.style.transition = 'none';
+            currentIndex = 0;
+            updateCarousel(false);
+            // Trigger reflow to apply jump immediately
+            track.offsetHeight;
+            isTransitioning = false;
+          }, 600); // Match CSS transition time
+        } else {
+          setTimeout(() => {
+            isTransitioning = false;
+          }, 600);
+        }
+      };
+      
+      const prevSlide = () => {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        
+        if (currentIndex === 0) {
+          // Instant transitionless jump to the end clone
+          track.style.transition = 'none';
+          currentIndex = originalSlides.length;
+          updateCarousel(false);
+          // Force reflow
+          track.offsetHeight;
+          
+          // Slide smoothly to the last original slide
+          setTimeout(() => {
+            currentIndex--;
+            updateCarousel(true);
+            setTimeout(() => {
+              isTransitioning = false;
+            }, 600);
+          }, 20);
+        } else {
           currentIndex--;
           updateCarousel(true);
           setTimeout(() => {
             isTransitioning = false;
           }, 600);
-        }, 20);
-      } else {
-        currentIndex--;
-        updateCarousel(true);
-        setTimeout(() => {
-          isTransitioning = false;
-        }, 600);
-      }
-    };
-    
-    // Auto Play Controls (3000ms loop interval)
-    const startAutoPlay = () => {
-      stopAutoPlay();
-      autoPlayInterval = setInterval(nextSlide, 3000);
-    };
-    
-    const stopAutoPlay = () => {
-      if (autoPlayInterval) {
-        clearInterval(autoPlayInterval);
-        autoPlayInterval = null;
-      }
-    };
-    
-    // Navigation Events
-    nextBtn.addEventListener('click', () => {
-      nextSlide();
-      startAutoPlay(); // Reset timer
-    });
-    
-    prevBtn.addEventListener('click', () => {
-      prevSlide();
-      startAutoPlay(); // Reset timer
-    });
-    
-    // Pause auto play on hover to let the user inspect details
-    const outerWrap = document.getElementById('menu-slider-outer');
-    if (outerWrap) {
-      outerWrap.addEventListener('mouseenter', stopAutoPlay);
-      outerWrap.addEventListener('mouseleave', startAutoPlay);
-    }
-    
-    // Mobile Touch Swipes
-    let startX = 0;
-    let endX = 0;
-    
-    track.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      stopAutoPlay();
-    }, { passive: true });
-    
-    track.addEventListener('touchend', (e) => {
-      endX = e.changedTouches[0].clientX;
-      const diffX = startX - endX;
-      if (Math.abs(diffX) > 50) {
-        if (diffX > 0) {
-          nextSlide();
-        } else {
-          prevSlide();
         }
+      };
+      
+      // Auto Play Controls (3000ms loop interval)
+      const startAutoPlay = () => {
+        stopAutoPlay();
+        autoPlayInterval = setInterval(nextSlide, 3000);
+      };
+      
+      const stopAutoPlay = () => {
+        if (autoPlayInterval) {
+          clearInterval(autoPlayInterval);
+          autoPlayInterval = null;
+        }
+      };
+      
+      // Navigation Events
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        startAutoPlay(); // Reset timer
+      });
+      
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        startAutoPlay(); // Reset timer
+      });
+      
+      // Pause auto play on hover to let the user inspect details
+      const outerWrap = document.getElementById(outerId);
+      if (outerWrap) {
+        outerWrap.addEventListener('mouseenter', stopAutoPlay);
+        outerWrap.addEventListener('mouseleave', startAutoPlay);
       }
+      
+      // Mobile Touch Swipes
+      let startX = 0;
+      let endX = 0;
+      
+      track.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        stopAutoPlay();
+      }, { passive: true });
+      
+      track.addEventListener('touchend', (e) => {
+        endX = e.changedTouches[0].clientX;
+        const diffX = startX - endX;
+        if (Math.abs(diffX) > 50) {
+          if (diffX > 0) {
+            nextSlide();
+          } else {
+            prevSlide();
+          }
+        }
+        startAutoPlay();
+      }, { passive: true });
+      
+      // Recalculate on screen resize
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          updateCarousel(false);
+        }, 100);
+      });
+      
+      // Initial run
       startAutoPlay();
-    }, { passive: true });
-    
-    // Recalculate on screen resize
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        updateCarousel(false);
-      }, 100);
-    });
-    
-    // Initial run
-    startAutoPlay();
-    updateCarousel(false);
+      updateCarousel(false);
+    }
   }
+
+  // Initialize both carousel tracks independently
+  initMenuCarousel('menu-slider-outer-pc', 'menu-slider-track-pc', 'menu-prev-btn-pc', 'menu-next-btn-pc', '.menu-slide-pc', false);
+  initMenuCarousel('menu-slider-outer-mobile', 'menu-slider-track-mobile', 'menu-prev-btn-mobile', 'menu-next-btn-mobile', '.menu-slide-mobile', true);
 
   /* ==========================================================================
      5. Franchise Inquiry Form Validation & Success Modal Popup
