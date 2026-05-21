@@ -2191,6 +2191,16 @@ textarea.form-input {
   }
 }
 
+@media (max-width: 768px) {
+  .table-container {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .cost-table {
+    min-width: 600px;
+  }
+}
+
 /* ==========================================================================
    16. PC Brand Cards Hardware Acceleration & Smooth Scroll Reveals
    ========================================================================== */
