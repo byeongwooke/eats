@@ -585,4 +585,31 @@ document.addEventListener('DOMContentLoaded', () => {
       step.classList.add('active');
     });
   });
+
+  /* ==========================================================================
+     8. Number Counting Animation for Achievements
+     ========================================================================== */
+  const counters = document.querySelectorAll('.stat-number');
+  const countObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const target = +entry.target.getAttribute('data-target');
+        let count = 0;
+        const speed = target / 100;
+        const updateCount = () => {
+          count += speed;
+          if (count < target) {
+            entry.target.innerText = Math.floor(count);
+            setTimeout(updateCount, 20);
+          } else {
+            entry.target.innerText = target.toLocaleString();
+          }
+        };
+        updateCount();
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(counter => countObserver.observe(counter));
 });
