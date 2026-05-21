@@ -81,15 +81,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const brandsObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          // 컨테이너가 화면에 들어올 때 클래스 추가
+          // 화면에 닿자마자 멈칫거림 없이 즉시 active 부여
           entry.target.classList.add('active');
           observer.unobserve(entry.target);
         }
       });
     }, {
       root: null,
-      rootMargin: '0px 0px -10% 0px', // 카드가 화면 하단에서 10% 쯤 보일 때 정확히 애니메이션 발동
-      threshold: 0.1
+      // [수정 핵심] 마진을 대폭 줄여서 화면 하단에 50px 정도만 닿아도 바로 발동 준비
+      rootMargin: '0px 0px -50px 0px',
+      // [수정 핵심] 컨테이너가 10%가 아닌, 단 2%만 보여도 지연 없이 즉각 실행
+      threshold: 0.02
     });
 
     brandsObserver.observe(brandsContainerPc);
