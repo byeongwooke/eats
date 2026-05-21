@@ -54,32 +54,25 @@ document.addEventListener('DOMContentLoaded', () => {
      ========================================================================== */
   const revealElements = Array.from(document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right'));
   const brandsContainerPc = document.getElementById('brands-container-pc');
-  const counters = Array.from(document.querySelectorAll('.stat-number'));
+  const counters = Array.from(document.querySelectorAll('.count-num'));
   const heroBgImg = document.querySelector('.hero-bg img');
 
-  // Time-based smooth quadratic easing count animation powered by requestAnimationFrame
-  const animateCounter = (element) => {
-    const target = +element.getAttribute('data-target');
-    const duration = 1500; // 1.5 seconds animation duration
-    let startTime = null;
-
-    const step = (timestamp) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      // Easing out quadratic
-      const easeProgress = progress * (2 - progress);
-      const currentVal = Math.floor(easeProgress * target);
-
-      element.innerText = currentVal.toLocaleString();
-
-      if (progress < 1) {
-        requestAnimationFrame(step);
+  // Fast count animation powered by requestAnimationFrame
+  const animateCounter = (el) => {
+    const target = parseInt(el.getAttribute('data-target'));
+    let current = 0;
+    const increment = target / 30; // 속도 조절
+    
+    const update = () => {
+      current += increment;
+      if (current < target) {
+        el.innerText = Math.ceil(current);
+        requestAnimationFrame(update);
       } else {
-        element.innerText = target.toLocaleString();
+        el.innerText = target;
       }
     };
-
-    requestAnimationFrame(step);
+    update();
   };
 
   let isTicking = false;
