@@ -593,27 +593,24 @@ ul {
   border-color: rgba(193, 125, 75, 0.15);
 }
 
-/* 브랜드 카드 이미지 영역 고정 및 로고 최적화 */
+/* 브랜드 로고 카드 스타일 수정 (aspect-ratio & object-fit 최적화) */
 .brand-img-wrap,
 .brand-card .brand-image {
   position: relative;
   width: 100%;
-  height: 250px; /* 로고 영역의 높이를 고정하여 균일성 확보 */
-  overflow: hidden;
-  background-color: #f9f9f9; /* 로고 주변 배경색 */
+  height: 200px; /* 너무 높으면 로고가 작아 보이므로 적절히 조정 */
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #ffffff; /* 흰색 배경으로 통일하여 공백 이질감 제거 */
+  overflow: hidden;
 }
 
 .brand-img-wrap img,
 .brand-card .brand-image img {
-  width: 100%;
-  height: 100%;
-  /* 핵심: 이미지가 찌그러지지 않고 영역 내에 꽉 차게 하되 잘림 방지 */
-  object-fit: contain; 
-  /* 로고 주변에 약간의 여백(Padding)을 주어 잘림 원천 봉쇄 */
-  padding: 20px; 
+  max-width: 80%;  /* 박스 너비의 80%까지만 차지하도록 하여 여유 확보 */
+  max-height: 80%; /* 박스 높이의 80%까지만 차지하도록 하여 여유 확보 */
+  object-fit: contain; /* 로고가 잘리지 않고 전체가 다 보이게 함 */
   transition: transform 0.3s ease;
 }
 
