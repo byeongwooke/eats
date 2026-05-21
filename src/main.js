@@ -74,27 +74,25 @@ document.addEventListener('DOMContentLoaded', () => {
     revealObserver.observe(element);
   });
 
-  // 1. 기존의 브랜드 카드 개별 감시 로직은 완전히 삭제해 주세요.
-  // 2. 부모 컨테이너인 #brands 딱 하나만 타겟팅합니다.
-  const brandsSection = document.getElementById('brands');
+  // 부모 섹션이 아니라, 실제 카드가 담긴 2x2 그리드 컨테이너를 타겟팅합니다!
+  const brandsContainerPc = document.getElementById('brands-container-pc');
 
-  if (brandsSection) {
+  if (brandsContainerPc) {
     const brandsObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          // 섹션이 화면에 들어오면 부모에게 'active' 클래스 딱 하나만 추가
+          // 컨테이너가 화면에 들어올 때 클래스 추가
           entry.target.classList.add('active');
-          // 한 번 발동 후 감시 해제 (리소스 최적화)
           observer.unobserve(entry.target);
         }
       });
     }, {
       root: null,
-      rootMargin: '0px 0px -15% 0px', // 화면 하단에서 15% 진입 시 발동
+      rootMargin: '0px 0px -10% 0px', // 카드가 화면 하단에서 10% 쯤 보일 때 정확히 애니메이션 발동
       threshold: 0.1
     });
 
-    brandsObserver.observe(brandsSection);
+    brandsObserver.observe(brandsContainerPc);
   }
 
   /* ==========================================================================
