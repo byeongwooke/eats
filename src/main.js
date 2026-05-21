@@ -50,52 +50,143 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ==========================================================================
-     3. Intersection Observer for Elegant Scroll Reveals (Kakao Mobility Style)
+     3. High-Performance requestAnimationFrame Scroll Animations & GPU Parallax
      ========================================================================== */
-  const revealElements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right');
-  
-  const revealCallback = (entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        // Unobserve to keep performance fast and prevent repeats once displayed
-        observer.unobserve(entry.target);
-      }
-    });
-  };
-  
-  const revealObserver = new IntersectionObserver(revealCallback, {
-    root: null, // viewport
-    threshold: 0.1, // trigger early when 10% is visible
-    rootMargin: '0px 0px -40px 0px' // offset bottom slightly for anticipation
-  });
-  
-  revealElements.forEach(element => {
-    revealObserver.observe(element);
-  });
-
-  // 부모 섹션이 아니라, 실제 카드가 담긴 2x2 그리드 컨테이너를 타겟팅합니다!
+  const revealElements = Array.from(document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right'));
   const brandsContainerPc = document.getElementById('brands-container-pc');
+  const counters = Array.from(document.querySelectorAll('.stat-number'));
+  const heroBgImg = document.querySelector('.hero-bg img');
 
-  if (brandsContainerPc) {
-    const brandsObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // 화면에 닿자마자 멈칫거림 없이 즉시 active 부여
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      root: null,
-      // [수정 핵심] 마진을 대폭 줄여서 화면 하단에 50px 정도만 닿아도 바로 발동 준비
-      rootMargin: '0px 0px -50px 0px',
-      // [수정 핵심] 컨테이너가 10%가 아닌, 단 2%만 보여도 지연 없이 즉각 실행
-      threshold: 0.02
+  // Time-based smooth quadratic easing count animation powered by requestAnimationFrame
+  const animateCounter = (element) => {
+    const target = +element.getAttribute('data-target');
+    const duration = 1500; // 1.5 seconds animation duration
+    let startTime = null;
+
+    const step = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      // Easing out quadratic
+      const easeProgress = progress * (2 - progress);
+      const currentVal = Math.floor(easeProgress * target);
+
+      element.innerText = currentVal.toLocaleString();
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        element.innerText = target.toLocaleString();
+      }
+    };
+
+    requestAnimationFrame(step);
+  };
+
+  let isTicking = false;
+
+  const checkScrollAnimations = () => {
+    const viewportHeight = window.innerHeight;
+    const scrollY = window.scrollY;
+
+    // A. Hero Parallax zoom/translate (Kakao Mobility Style)
+    if (heroBgImg && scrollY < viewportHeight) {
+      const scaleVal = 1 + scrollY * 0.0005;
+      const translateVal = scrollY * 0.4;
+      heroBgImg.style.transform = `scale(${scaleVal}) translateY(${translateVal}px) translateZ(0)`;
+    }
+
+    // B. Reveal Elements
+    for (let i = revealElements.length - 1; i >= 0; i--) {
+      const el = revealElements[i];
+      const rect = el.getBoundingClientRect();
+      if (rect.top < viewportHeight - 40 && rect.bottom > 0) {
+        el.classList.add('revealed');
+        revealElements.splice(i, 1);
+      }
+    }
+
+    // C. Brands Container
+    if (brandsContainerPc) {
+      const rect = brandsContainerPc.getBoundingClientRect();
+      if (rect.top < viewportHeight - 50 && rect.bottom > 0) {
+        brandsContainerPc.classList.add('active');
+      }
+    }
+
+    // D. Stat Counters
+    for (let i = counters.length - 1; i >= 0; i--) {
+      const counter = counters[i];
+      const rect = counter.getBoundingClientRect();
+      if (rect.top < viewportHeight * 0.95 && rect.bottom > 0) {
+        animateCounter(counter);
+        counters.splice(i, 1);
+      }
+    }
+
+    isTicking = false;
+  };
+
+  const onScroll = () => {
+    if (!isTicking) {
+      requestAnimationFrame(checkScrollAnimations);
+      isTicking = true;
+    }
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  // Perform initial paint check immediately
+  requestAnimationFrame(checkScrollAnimations);
+
+  // requestAnimationFrame-based custom smooth scroll function for all local anchor links
+  const smoothScrollTo = (targetSelector) => {
+    const targetElement = document.querySelector(targetSelector);
+    if (!targetElement) return;
+
+    const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - 80; // offset for sticky header
+    const startPosition = window.scrollY;
+    const distance = targetPosition - startPosition;
+    const duration = 800;
+    let startTime = null;
+
+    const animation = (currentTime) => {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const run = ease(timeElapsed, startPosition, distance, duration);
+      window.scrollTo(0, run);
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation);
+      }
+    };
+
+    const ease = (t, b, c, d) => {
+      t /= d / 2;
+      if (t < 1) return c / 2 * t * t + b;
+      t--;
+      return -c / 2 * (t * (t - 2) - 1) + b;
+    };
+
+    requestAnimationFrame(animation);
+  };
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = anchor.getAttribute('href');
+      if (targetId === '#') return;
+      smoothScrollTo(targetId);
     });
+  });
 
-    brandsObserver.observe(brandsContainerPc);
-  }
+  // Brand card click listeners (navigate to Baedal Minjok search portal in new window)
+  const brandCards = document.querySelectorAll('.brand-card, .brand-card-mobile');
+  brandCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      // If clicking the intro/detail modal button, keep its default popup handler active
+      if (e.target.closest('.brand-btn-intro')) return;
+      // Navigate to Baedal Minjok search in new tab
+      window.open('https://www.baemin.com', '_blank');
+    });
+  });
 
   /* ==========================================================================
      4. Responsive Signature Menu Carousel/Slider (Pixel-Perfect calculations)
@@ -585,31 +676,4 @@ document.addEventListener('DOMContentLoaded', () => {
       step.classList.add('active');
     });
   });
-
-  /* ==========================================================================
-     8. Number Counting Animation for Achievements
-     ========================================================================== */
-  const counters = document.querySelectorAll('.stat-number');
-  const countObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const target = +entry.target.getAttribute('data-target');
-        let count = 0;
-        const speed = target / 100;
-        const updateCount = () => {
-          count += speed;
-          if (count < target) {
-            entry.target.innerText = Math.floor(count);
-            setTimeout(updateCount, 20);
-          } else {
-            entry.target.innerText = target.toLocaleString();
-          }
-        };
-        updateCount();
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  counters.forEach(counter => countObserver.observe(counter));
 });

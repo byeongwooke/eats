@@ -1458,6 +1458,7 @@ textarea.form-input {
   opacity: 0;
   transform: translateX(-40px);
   transition: opacity 1.2s cubic-bezier(0.215, 0.61, 0.355, 1), transform 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+  will-change: transform, opacity;
 }
 
 .scroll-reveal-left.revealed {
@@ -1469,6 +1470,7 @@ textarea.form-input {
   opacity: 0;
   transform: translateX(40px);
   transition: opacity 1.2s cubic-bezier(0.215, 0.61, 0.355, 1), transform 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+  will-change: transform, opacity;
 }
 
 .scroll-reveal-right.revealed {
@@ -2078,7 +2080,12 @@ textarea.form-input {
 
 @media (max-width: 768px) {
   .pc-only {
-    display: none !important;
+    visibility: hidden !important;
+    transform: scale(0) !important;
+    position: absolute !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
   }
 }
 
