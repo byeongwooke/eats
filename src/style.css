@@ -2468,4 +2468,148 @@ textarea.form-input {
   }
 }
 
+/* ==========================================================================
+   18. BEST MENU Section - Grid & Premium Card Layout
+   ========================================================================== */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 무조건 4열 고정 */
+  gap: 15px;
+  margin-top: 40px;
+}
 
+.menu-card {
+  position: relative;
+  aspect-ratio: 3/4; /* 직사각형 이미지 비율 */
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+              box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background-color: var(--clr-bg-dark); /* Fallback dark background */
+}
+
+/* Semi-transparent dark overlay for high readability of text */
+.menu-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 13, 16, 0.5) 0%,
+    rgba(10, 13, 16, 0.15) 30%,
+    rgba(10, 13, 16, 0.15) 70%,
+    rgba(10, 13, 16, 0.75) 100%
+  );
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.menu-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.brand-tag {
+  position: absolute;
+  top: 15px; left: 0; right: 0;
+  text-align: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  z-index: 2;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-family: var(--font-family);
+}
+
+.menu-name {
+  position: absolute;
+  bottom: 15px; left: 0; right: 0;
+  text-align: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  z-index: 2;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  font-family: var(--font-family);
+}
+
+/* Hover effects */
+.menu-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.menu-card:hover img {
+  transform: scale(1.08);
+}
+
+.menu-card:hover::after {
+  opacity: 0.85;
+}
+
+/* Load More Button Styles */
+.more-btn-wrap {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.btn-more {
+  background-color: transparent;
+  border: 2px solid var(--clr-primary);
+  color: var(--clr-primary);
+  padding: 12px 35px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  letter-spacing: 1px;
+}
+
+.btn-more:hover {
+  background-color: var(--clr-primary);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(193, 125, 75, 0.3);
+}
+
+/* Staggered Card Dynamic Entrance Animation */
+.fade-in-card {
+  opacity: 0;
+  transform: translateY(25px);
+  animation: cardFadeIn 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes cardFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustment for Best Menu */
+@media (max-width: 768px) {
+  .brand-tag {
+    font-size: 0.6rem;
+    top: 8px;
+    letter-spacing: 1px;
+  }
+  .menu-name {
+    font-size: 0.7rem;
+    bottom: 8px;
+  }
+  .menu-grid {
+    gap: 8px;
+    margin-top: 25px;
+  }
+  .btn-more {
+    padding: 10px 25px;
+    font-size: 0.9rem;
+  }
+}
