@@ -2365,3 +2365,107 @@ textarea.form-input {
   }
 }
 
+/* ==========================================================================
+   17. Review Rolling Marquee Section & Animations
+   ========================================================================== */
+#review {
+  padding: 80px 0;
+  overflow: hidden;
+  background: var(--clr-bg-light); /* HSL light theme cream background */
+  border-top: 1px solid var(--clr-border);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.review-message {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.review-message h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.4;
+  color: var(--clr-text-dark);
+  letter-spacing: -1px;
+}
+
+.stars {
+  font-size: 2rem;
+  color: #ffce31;
+  margin-top: 10px;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.review-track {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+  padding: 10px 0;
+}
+
+.track-inner {
+  display: flex;
+  gap: 20px;
+  animation: marquee 30s linear infinite;
+}
+
+/* Pause animation on hover for interactive feel */
+.review-track:hover .track-inner {
+  animation-play-state: paused;
+}
+
+/* 상단: 우에서 좌 */
+.track-top .track-inner {
+  animation-direction: normal;
+}
+
+/* 하단: 좌에서 우 */
+.track-bottom .track-inner {
+  animation-direction: reverse;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.track-inner img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+              box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Elegant micro-animation scale hover effect */
+.track-inner img:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+}
+
+/* Responsive adjustment for review section */
+@media (max-width: 768px) {
+  #review {
+    padding: 50px 0;
+  }
+  .review-message h2 {
+    font-size: 1.6rem;
+  }
+  .track-inner img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+  }
+}
+
+
