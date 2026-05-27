@@ -2817,6 +2817,7 @@ textarea.form-input {
   align-items: center;
   gap: 0.6rem;
   overflow: hidden;
+  width: 100%; /* 너비를 꽉 채워 말줄임표가 작동할 공간 확보 */
 }
 
 .branch-brand-tag {
@@ -2836,22 +2837,26 @@ textarea.form-input {
 .branch-brand-tag.omuzip { background-color: var(--clr-accent); color: var(--clr-bg-dark); }
 .branch-brand-tag.kimchi { background-color: #e53935; }
 
+/* 상호명과 주소 텍스트가 줄바꿈되지 않도록 강제 제어 */
+.branch-card-item-content h4,
+.branch-card-item-content p {
+  white-space: nowrap;          /* 절대 다음 줄로 넘어가지 않게 고정 */
+  overflow: hidden;             /* 삐져나간 글자 숨김 */
+  text-overflow: ellipsis;      /* 잘린 부분은 '...'으로 예쁘게 처리 */
+  margin: 0;
+  width: 100%;
+}
+
 .branch-card-name {
   font-size: 1.05rem;
   font-weight: 700;
   color: var(--clr-text-dark);
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 
 .branch-card-addr {
   font-size: 0.85rem;
   color: var(--clr-text-muted);
   line-height: 1.4;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 
 .branch-card-icon {
