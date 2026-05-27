@@ -1839,19 +1839,27 @@ textarea.form-input {
 
 .branch-item-link,
 .branch-card {
+  /* 카드 규격 강제 고정 */
+  width: 100%;       /* 부모 컨테이너 너비에 맞춤 */
+  height: 100px;     /* 정담덮밥 기준의 깔끔한 높이로 강제 고정 */
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  
+  /* 내부 정렬 */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  padding: 20px;
-  min-height: 120px; /* 정담덮밥 카드 기준 최소 높이 */
+  padding: 0 20px;
+  
+  /* 잘림 방지 및 레이아웃 유지 */
+  overflow: hidden; 
+  box-sizing: border-box;
+  
+  /* 디자인 요소 */
   border-radius: 12px;
   text-decoration: none;
   color: #fff;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-sizing: border-box;
-  overflow: hidden; /* 잘림 방지 */
 }
 
 .branch-item-link:hover,
@@ -1867,6 +1875,9 @@ textarea.form-input {
   flex-direction: column;
   gap: 0.3rem;
   text-align: left;
+  overflow: hidden; /* 영역 밖 콘텐츠 숨김 */
+  flex-grow: 1;     /* 남은 가로 공간 채움 */
+  margin-right: 15px; /* 아이콘과의 여백 확보 */
 }
 
 .branch-item-name {
@@ -1874,6 +1885,9 @@ textarea.form-input {
   font-weight: 700;
   color: #fff;
   transition: color 0.3s ease;
+  white-space: nowrap;      /* 줄바꿈 금지 */
+  overflow: hidden;         /* 넘치는 텍스트 숨김 */
+  text-overflow: ellipsis;  /* 생략 부호(...) 표시 */
 }
 
 .branch-item-link:hover .branch-item-name,
@@ -1885,6 +1899,9 @@ textarea.form-input {
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.5);
   line-height: 1.4;
+  white-space: nowrap;      /* 줄바꿈 금지 */
+  overflow: hidden;         /* 넘치는 텍스트 숨김 */
+  text-overflow: ellipsis;  /* 생략 부호(...) 표시 */
 }
 
 .branch-item-icon {
