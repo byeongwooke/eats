@@ -2808,68 +2808,49 @@ textarea.form-input {
   transform: scale(1.1);
 }
 
-/* Right Column: Stylized Map */
+/* Right Column: Interactive Map */
 .branch-map-container {
-  position: relative;
   width: 100%;
+  height: 520px;
   border-radius: 24px;
   background-color: var(--clr-bg-dark);
   border: 1px solid var(--clr-border-dark);
   overflow: hidden;
-  padding: 3rem;
-  aspect-ratio: 4 / 5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   box-shadow: var(--shadow-lg);
+  position: relative;
+  z-index: 1;
 }
 
-.korea-svg-map {
-  width: 100%;
-  height: 100%;
-  max-height: 480px;
-  object-fit: contain;
+/* Luxury Dark Mode Map Filter for OpenStreetMap */
+.leaflet-tile-container {
+  filter: invert(100%) hue-rotate(180deg) brightness(85%) contrast(90%);
 }
 
-.korea-mainland,
-.korea-island,
-.korea-island-dot {
-  transition: stroke 0.3s ease, fill 0.3s ease;
+.leaflet-container {
+  background-color: var(--clr-bg-dark) !important;
+  font-family: var(--font-family) !important;
 }
 
-/* Neon glow stroke style for South Korea vector */
-.branch-map-container:hover .korea-mainland,
-.branch-map-container:hover .korea-island {
-  stroke: rgba(193, 125, 75, 0.2);
-}
-
-/* Absolute Pulse Pin overlays */
-.pulse-point-container {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
-  z-index: 10;
+/* Custom interactive pulse markers */
+.pulse-marker {
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: auto !important;
 }
 
-.pulse-point {
-  width: 12px;
-  height: 12px;
+.pulse-ring {
+  width: 14px;
+  height: 14px;
   background-color: #ff5722; /* 브랜드 포인트 컬러 */
   border-radius: 50%;
   position: relative;
   border: 2px solid #fff;
   box-shadow: 0 0 8px rgba(255, 87, 34, 0.6);
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s ease;
-  z-index: 2;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Pulsing water wave animations */
-.pulse-point::after {
+.pulse-ring::after {
   content: '';
   position: absolute;
   top: -8px; left: -8px; right: -8px; bottom: -8px;
@@ -2884,17 +2865,17 @@ textarea.form-input {
   100% { transform: scale(3.5); opacity: 0; }
 }
 
-/* Custom interactive highlight when matching branch card is hovered */
-.pulse-point-container.highlight .pulse-point {
-  background-color: var(--clr-accent);
-  border-color: #fff;
-  transform: scale(1.5);
-  box-shadow: 0 0 15px var(--clr-accent);
+/* Highlight state (from hovering list cards) */
+.pulse-marker.highlight .pulse-ring {
+  background-color: var(--clr-accent) !important;
+  border-color: #fff !important;
+  transform: scale(1.5) !important;
+  box-shadow: 0 0 15px var(--clr-accent) !important;
 }
 
-.pulse-point-container.highlight .pulse-point::after {
-  border-color: var(--clr-accent);
-  animation: ripple-fast 1s infinite;
+.pulse-marker.highlight .pulse-ring::after {
+  border-color: var(--clr-accent) !important;
+  animation: ripple-fast 1.0s infinite !important;
 }
 
 @keyframes ripple-fast {
@@ -2902,41 +2883,47 @@ textarea.form-input {
   100% { transform: scale(4.5); opacity: 0; }
 }
 
-/* Dynamic Pin labels appearing on top of markers */
-.pulse-label {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -100%) translateY(-10px);
-  background-color: var(--clr-bg-dark);
-  color: var(--clr-text-light);
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-size: 0.72rem;
-  font-weight: 700;
+/* Custom Styled Leaflet Tooltips */
+.leaflet-tooltip-pane .leaflet-tooltip {
+  background-color: var(--clr-bg-dark) !important;
+  color: var(--clr-text-light) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  padding: 6px 12px !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
   white-space: nowrap;
-  pointer-events: none;
-  opacity: 0.75;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  z-index: 1;
 }
 
-.pulse-point-container:hover .pulse-point {
-  transform: scale(1.3);
-  background-color: #fff;
-  border-color: #ff5722;
+.leaflet-tooltip-left:before { border-left-color: var(--clr-bg-dark) !important; }
+.leaflet-tooltip-right:before { border-right-color: var(--clr-bg-dark) !important; }
+.leaflet-tooltip-top:before { border-top-color: var(--clr-bg-dark) !important; }
+.leaflet-tooltip-bottom:before { border-bottom-color: var(--clr-bg-dark) !important; }
+
+/* Elegant Custom Zoom Controls */
+.leaflet-bar {
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: var(--shadow-md) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
 }
 
-.pulse-point-container:hover .pulse-label,
-.pulse-point-container.highlight .pulse-label {
-  opacity: 1;
-  transform: translate(-50%, -100%) translateY(-14px) scale(1.05);
-  background-color: var(--clr-primary);
-  border-color: var(--clr-primary);
-  color: #fff;
-  box-shadow: 0 6px 15px rgba(193, 125, 75, 0.4);
+.leaflet-bar a {
+  background-color: var(--clr-bg-dark) !important;
+  color: var(--clr-text-light) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  transition: var(--transition-fast) !important;
+}
+
+.leaflet-bar a:hover {
+  background-color: var(--clr-primary) !important;
+  color: #fff !important;
+}
+
+.leaflet-bar a.leaflet-disabled {
+  background-color: hsl(210, 20%, 8%) !important;
+  color: rgba(255, 255, 255, 0.2) !important;
 }
 
 /* Captions and explanations */
@@ -2980,8 +2967,7 @@ textarea.form-input {
   }
   
   .branch-map-container {
-    aspect-ratio: 4 / 3.2;
-    padding: 2rem;
+    height: 400px;
   }
   
   .branch-map-list-wrap {
@@ -2991,19 +2977,7 @@ textarea.form-input {
 
 @media (max-width: 768px) {
   .branch-map-container {
-    aspect-ratio: 4 / 4.2;
-    padding: 1rem;
-  }
-  
-  .pulse-label {
-    font-size: 0.65rem;
-    padding: 3px 8px;
-    transform: translate(-50%, -100%) translateY(-8px);
-  }
-  
-  .pulse-point-container:hover .pulse-label,
-  .pulse-point-container.highlight .pulse-label {
-    transform: translate(-50%, -100%) translateY(-11px) scale(1.05);
+    height: 350px;
   }
   
   .branch-card-item {

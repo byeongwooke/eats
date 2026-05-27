@@ -555,11 +555,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ==========================================================================
-     8. National Branch Map - Dynamic Data Binding & Interactive Dual Hover
+     8. National Branch Map - Leaflet.js Interactive Map & Geocoded Address Links
      ========================================================================== */
   const mapListWrap = document.getElementById('branch-map-list-wrap');
   const mapFilterBtns = document.querySelectorAll('.map-filter-btn');
-  const mapPins = document.querySelectorAll('.pulse-point-container');
 
   // Extract and combine all branches from BRAND_DATA
   const allBranches = [];
@@ -579,22 +578,80 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Function to classify geographic region based on address string
-  const getRegionKey = (address) => {
-    if (address.includes('서울') || address.includes('역삼') || address.includes('홍대') || address.includes('마포')) return 'seoul';
-    if (address.includes('인천') || address.includes('일산') || address.includes('고양') || address.includes('청라')) return 'incheon-west';
-    if (address.includes('의정부') || address.includes('양주') || address.includes('포천')) return 'gyeonggi-north';
-    if (address.includes('천안') || address.includes('충청') || address.includes('목천') || address.includes('풍세')) return 'chungcheong';
-    // Gyeonggi East: Namyangju, Byeollae, Guri, Pyeongnae, Jinjeop, Hwado, etc.
-    if (address.includes('남양주') || address.includes('구리') || address.includes('별내') || address.includes('오남') || address.includes('화도') || address.includes('다산')) return 'gyeonggi-east';
-    // Fallback based on text match
-    return 'seoul';
+  // Geocoding Helper: Map branch names to real South Korea Latitude/Longitude coordinates
+  const getBranchCoords = (name, address) => {
+    // Exact mapping for each branch by name or matching keyword
+    if (name.includes('별내')) return [37.6384, 127.1105];
+    if (name.includes('강북')) return [37.6396, 127.0255];
+    if (name.includes('노원')) return [37.6542, 127.0568];
+    if (name.includes('구리') || name.includes('다산')) return [37.6011, 127.1436];
+    if (name.includes('목천')) return [36.7725, 127.2246];
+    if (name.includes('풍세')) return [36.7328, 127.1352];
+    if (name.includes('의정부')) return [37.7381, 127.0337];
+    if (name.includes('오남') || name.includes('진접')) return [37.7122, 127.2025];
+    if (name.includes('주안')) return [37.4623, 126.6806];
+    if (name.includes('양주')) return [37.8143, 127.0458];
+    if (name.includes('장항') || name.includes('일산')) return [37.6582, 126.7701];
+    if (name.includes('평내') || name.includes('호평')) return [37.6368, 127.2285];
+    if (name.includes('포천')) return [37.8949, 127.2003];
+    if (name.includes('청라') || name.includes('연희')) return [37.5312, 126.6272];
+    if (name.includes('월계') || name.includes('공릉')) return [37.6258, 127.0733];
+    if (name.includes('장안')) return [37.5614, 127.0645];
+    if (name.includes('상봉')) return [37.5962, 127.0855];
+    if (name.includes('화도') || name.includes('마석')) return [37.6508, 127.2435];
+    
+    // Default region mappings based on address text
+    if (address.includes('역삼') || name.includes('강남')) return [37.4979, 127.0276];
+    if (address.includes('마포') || address.includes('홍대') || name.includes('홍대')) return [37.5568, 126.9238];
+    if (address.includes('서울')) return [37.5665, 126.9780];
+    if (address.includes('남양주')) return [37.6360, 127.2165];
+    if (address.includes('인천')) return [37.4563, 126.7052];
+    if (address.includes('천안')) return [36.8151, 127.1139];
+    
+    // Fallback coordinates (South Korea Center)
+    return [36.5, 127.5];
   };
 
-  // Render branches in list
+  // Initialize Leaflet Map
+  let map;
+  let markerGroup;
+  const activeMarkers = {};
+
+  const initLeafletMap = () => {
+    const container = document.getElementById('branch-map-container');
+    if (!container || typeof L === 'undefined') return;
+
+    // Create map instance
+    map = L.map('branch-map-container', {
+      zoomControl: true,
+      scrollWheelZoom: true,
+      doubleClickZoom: true,
+      touchZoom: true
+    }).setView([36.5, 127.8], 7.5);
+
+    // Add OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      minZoom: 6,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Initialize marker group layer
+    markerGroup = L.layerGroup().addTo(map);
+  };
+
+  // Render branches list and Leaflet markers
   const renderMapBranches = (brandFilter = 'all') => {
     if (!mapListWrap) return;
     mapListWrap.innerHTML = '';
+
+    // Reset markers on map
+    if (markerGroup) {
+      markerGroup.clearLayers();
+    }
+    
+    // Reset active marker references
+    Object.keys(activeMarkers).forEach(key => delete activeMarkers[key]);
 
     const filtered = brandFilter === 'all' 
       ? allBranches 
@@ -606,12 +663,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     filtered.forEach(branch => {
-      const region = getRegionKey(branch.address);
+      const coords = getBranchCoords(branch.name, branch.address);
       const card = document.createElement('div');
       card.className = 'branch-card-item';
-      card.setAttribute('data-region', region);
 
-      // Clean address for map search compatibility
+      // Clean address for map search URL
       let pureAddress = branch.address;
       if (pureAddress.includes('|')) {
         pureAddress = pureAddress.split('|')[1].trim();
@@ -637,54 +693,109 @@ document.addEventListener('DOMContentLoaded', () => {
         </a>
       `;
 
-      // Hover interaction from Card to Map Pin
+      // Create Leaflet pulse marker
+      if (map && markerGroup) {
+        const pulseIcon = L.divIcon({
+          className: 'pulse-marker',
+          html: '<div class="pulse-ring"></div>',
+          iconSize: [20, 20],
+          iconAnchor: [10, 10]
+        });
+
+        const marker = L.marker(coords, { icon: pulseIcon }).addTo(markerGroup);
+        
+        // Bind responsive tooltip
+        marker.bindTooltip(`<strong>${branch.name}</strong><br><span style="font-size:0.65rem; opacity:0.8;">${branch.address}</span>`, {
+          direction: 'top',
+          offset: [0, -10]
+        });
+
+        activeMarkers[branch.name] = marker;
+
+        // Interaction: Map Marker Hover ➡️ Card List Focus
+        marker.on('mouseover', () => {
+          card.classList.add('active');
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          
+          const iconElement = marker.getElement();
+          if (iconElement) {
+            iconElement.classList.add('highlight');
+          }
+        });
+
+        marker.on('mouseout', () => {
+          card.classList.remove('active');
+          
+          const iconElement = marker.getElement();
+          if (iconElement) {
+            iconElement.classList.remove('highlight');
+          }
+        });
+
+        // Clicking marker opens detailed Naver Map
+        marker.on('click', () => {
+          window.open(searchUrl, '_blank');
+        });
+      }
+
+      // Interaction: Card Hover ➡️ Map Marker Pan & Highlight
       card.addEventListener('mouseenter', () => {
-        // Highlight active card
         card.classList.add('active');
-        // Find matching pin and add highlight class
-        const pin = document.getElementById(`pin-${region}`);
-        if (pin) pin.classList.add('highlight');
+        const marker = activeMarkers[branch.name];
+        if (marker) {
+          const iconElement = marker.getElement();
+          if (iconElement) {
+            iconElement.classList.add('highlight');
+          }
+          marker.openTooltip();
+          // Pan map smoothly to the marker
+          map.panTo(coords);
+        }
       });
 
       card.addEventListener('mouseleave', () => {
         card.classList.remove('active');
-        const pin = document.getElementById(`pin-${region}`);
-        if (pin) pin.classList.remove('highlight');
+        const marker = activeMarkers[branch.name];
+        if (marker) {
+          const iconElement = marker.getElement();
+          if (iconElement) {
+            iconElement.classList.remove('highlight');
+          }
+          marker.closeTooltip();
+        }
       });
 
-      // Clicking the card area navigates to Naver Map
+      // Card clicking triggers Naver Map
       card.addEventListener('click', (e) => {
-        if (e.target.closest('.branch-card-icon')) return; // Already handled by standard anchor behavior
+        if (e.target.closest('.branch-card-icon')) return;
         window.open(searchUrl, '_blank');
       });
 
       mapListWrap.appendChild(card);
     });
+
+    // Fit map view to show all markers beautifully
+    if (map && markerGroup && filtered.length > 0) {
+      try {
+        const markersArray = Object.values(activeMarkers);
+        const groupBounds = L.featureGroup(markersArray).getBounds();
+        if (groupBounds.isValid()) {
+          map.fitBounds(groupBounds, {
+            padding: [50, 50],
+            maxZoom: 13
+          });
+        }
+      } catch (err) {
+        console.warn('Leaflet fitBounds warning:', err);
+      }
+    }
   };
 
-  // Hover interaction from Map Pin to Card List
-  mapPins.forEach(pin => {
-    const region = pin.getAttribute('data-region');
-    
-    pin.addEventListener('mouseenter', () => {
-      pin.classList.add('highlight');
-      // Highlight matching cards in list and scroll to first one
-      const cards = mapListWrap.querySelectorAll(`.branch-card-item[data-region="${region}"]`);
-      cards.forEach((card, index) => {
-        card.classList.add('active');
-        // Scroll first matched card into view inside scrollable container
-        if (index === 0) {
-          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-      });
-    });
-
-    pin.addEventListener('mouseleave', () => {
-      pin.classList.remove('highlight');
-      const cards = mapListWrap.querySelectorAll(`.branch-card-item[data-region="${region}"]`);
-      cards.forEach(card => card.classList.remove('active'));
-    });
-  });
+  // Initialize Map and Render List
+  setTimeout(() => {
+    initLeafletMap();
+    renderMapBranches('all');
+  }, 100);
 
   // Filter click handler
   mapFilterBtns.forEach(btn => {
@@ -695,7 +806,4 @@ document.addEventListener('DOMContentLoaded', () => {
       renderMapBranches(brand);
     });
   });
-
-  // Initial rendering of all stores
-  renderMapBranches('all');
 });

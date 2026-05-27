@@ -17,9 +17,10 @@
     <meta property="og:image" content="/images/main_banner_hero.png" />
     <meta property="og:type" content="website" />
     
-    <!-- Custom Style Sheet (handled by Vite module bundler) -->
-    <script type="module" crossorigin src="/assets/index-yOiL1IWM.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CwaKI4gT.css">
+    <!-- Leaflet.js Mapping Library CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script type="module" crossorigin src="/assets/index-EEj86WQl.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Cf5f-ngP.css">
   </head>
   <body>
     
@@ -151,55 +152,8 @@
 
           <!-- Right Column: Interactive Map -->
           <div class="branch-map-right-col scroll-reveal-right">
-            <div class="branch-map-container">
-              <!-- South Korea Stylized SVG Vector Map -->
-              <svg class="korea-svg-map" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <linearGradient id="koreaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="var(--clr-bg-card-dark)" />
-                    <stop offset="100%" stop-color="hsl(210, 24%, 4%)" />
-                  </linearGradient>
-                </defs>
-                <!-- Stylized Abstract Korea Mainland Path -->
-                <path class="korea-mainland" d="M140,50 L185,42 L225,35 L265,38 L285,45 L325,65 L335,90 L345,130 L300,165 L330,225 L350,265 L380,295 L385,340 L370,360 L340,350 L310,380 L320,410 L270,410 L230,420 L200,430 L160,420 L120,410 L105,370 L125,320 L110,285 L95,270 L90,230 L120,200 L115,160 L125,120 L108,95 L115,75 Z" fill="url(#koreaGrad)" stroke="rgba(255, 255, 255, 0.08)" stroke-width="2" filter="drop-shadow(0px 10px 20px rgba(0,0,0,0.3))"/>
-                <!-- Jeju Island -->
-                <path class="korea-island" d="M140,465 A25,15 0 1,0 190,465 A25,15 0 1,0 140,465" fill="url(#koreaGrad)" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1.5"/>
-                <!-- Ulleungdo -->
-                <circle class="korea-island-dot" cx="375" cy="120" r="5" fill="url(#koreaGrad)" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1"/>
-                <!-- Dokdo -->
-                <circle class="korea-island-dot" cx="398" cy="125" r="3" fill="url(#koreaGrad)" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1"/>
-              </svg>
-
-              <!-- Interactive Pins (Pulse Points) Absolute Overlay -->
-              <!-- Seoul -->
-              <div class="pulse-point-container" id="pin-seoul" style="top: 24%; left: 36%;" data-region="seoul">
-                <div class="pulse-point"></div>
-                <div class="pulse-label">서울 권역</div>
-              </div>
-              
-              <!-- Gyeonggi East (Namyangju) -->
-              <div class="pulse-point-container" id="pin-gyeonggi-east" style="top: 22%; left: 45%;" data-region="gyeonggi-east">
-                <div class="pulse-point"></div>
-                <div class="pulse-label">경기 동부</div>
-              </div>
-              
-              <!-- Gyeonggi North -->
-              <div class="pulse-point-container" id="pin-gyeonggi-north" style="top: 16%; left: 40%;" data-region="gyeonggi-north">
-                <div class="pulse-point"></div>
-                <div class="pulse-label">경기 북부</div>
-              </div>
-              
-              <!-- Incheon / Gyeonggi West -->
-              <div class="pulse-point-container" id="pin-incheon-west" style="top: 25%; left: 28%;" data-region="incheon-west">
-                <div class="pulse-point"></div>
-                <div class="pulse-label">인천/경기 서부</div>
-              </div>
-              
-              <!-- Chungcheong -->
-              <div class="pulse-point-container" id="pin-chungcheong" style="top: 38%; left: 42%;" data-region="chungcheong">
-                <div class="pulse-point"></div>
-                <div class="pulse-label">충청 권역</div>
-              </div>
+            <div class="branch-map-container" id="branch-map-container">
+              <!-- Leaflet Map will be initialized here -->
             </div>
             
             <div class="map-caption-box">
@@ -846,6 +800,9 @@
         <button type="button" class="btn btn-primary modal-btn" id="modal-close-button">확인</button>
       </div>
     </div>
+
+    <!-- Leaflet.js Mapping Library JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <!-- Vite Vanilla JS Entry Script -->
   </body>
