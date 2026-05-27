@@ -2634,23 +2634,33 @@ textarea.form-input {
 /* Left Column: Filter & Scrollable List */
 .branch-map-filter-wrap {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
+  flex-wrap: nowrap; /* 강제 한 줄 유지 */
+  overflow-x: auto;  /* 가로로 길어지면 스크롤 가능 */
+  gap: 8px;
+  font-size: 0.85rem; /* 텍스트 크기 축소 */
   margin-bottom: 1.5rem;
   border-bottom: 1px solid var(--clr-border);
   padding-bottom: 1.2rem;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.branch-map-filter-wrap::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera 스크롤바 숨김 */
 }
 
 .map-filter-btn {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--clr-text-muted);
   border: 1px solid var(--clr-border);
   background-color: #fff;
-  padding: 8px 18px;
+  padding: 8px 16px;
   border-radius: 30px;
   cursor: pointer;
   transition: var(--transition-fast);
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 }
 
 .map-filter-btn:hover {
@@ -2667,14 +2677,37 @@ textarea.form-input {
 }
 
 .branch-map-list-wrap {
-  max-height: 480px;
-  overflow-y: auto;
+  max-height: 400px; /* 대략 5개 항목이 보일 높이 */
+  overflow-y: auto;  /* 5개 초과 시 세로 스크롤 활성화 */
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
   padding-right: 0.6rem;
   scrollbar-width: thin;
   scrollbar-color: hsl(24, 20%, 80%) var(--clr-bg-light);
+}
+
+/* Slogan Footer Text below the list */
+.brand-footer-text {
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px dashed var(--clr-border);
+}
+
+.brand-footer-text .main-text {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--clr-text-dark);
+  margin-bottom: 5px;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
+.brand-footer-text .sub-text {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--clr-text-muted);
+  line-height: 1.4;
 }
 
 /* Slim modern custom scrollbar for branch list */

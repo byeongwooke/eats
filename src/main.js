@@ -621,13 +621,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('branch-map-container');
     if (!container || typeof L === 'undefined') return;
 
-    // Create map instance
+    // Create map instance centered on Gangbuk Main Store
     map = L.map('branch-map-container', {
       zoomControl: true,
       scrollWheelZoom: true,
       doubleClickZoom: true,
       touchZoom: true
-    }).setView([36.5, 127.8], 7.5);
+    }).setView([37.64, 127.01], 14);
 
     // Add OpenStreetMap tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -641,7 +641,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Render branches list and Leaflet markers
-  const renderMapBranches = (brandFilter = 'all') => {
+  const renderMapBranches = (brandFilter = 'all', isInitial = false) => {
     if (!mapListWrap) return;
     mapListWrap.innerHTML = '';
 
@@ -774,8 +774,8 @@ document.addEventListener('DOMContentLoaded', () => {
       mapListWrap.appendChild(card);
     });
 
-    // Fit map view to show all markers beautifully
-    if (map && markerGroup && filtered.length > 0) {
+    // Fit map view to show all markers beautifully (Bypassed during initial load)
+    if (map && markerGroup && filtered.length > 0 && !isInitial) {
       try {
         const markersArray = Object.values(activeMarkers);
         const groupBounds = L.featureGroup(markersArray).getBounds();
@@ -794,7 +794,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize Map and Render List
   setTimeout(() => {
     initLeafletMap();
-    renderMapBranches('all');
+    renderMapBranches('all', true);
   }, 100);
 
   // Filter click handler
