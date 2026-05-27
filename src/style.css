@@ -2701,13 +2701,18 @@ textarea.form-input {
   box-shadow: 0 4px 10px rgba(193, 125, 75, 0.25);
 }
 
+/* 1. 리스트를 감싸는 부모 컨테이너 완벽 통제 */
 .branch-map-list-wrap {
-  max-height: 400px; /* 대략 5개 항목이 보일 높이 */
-  overflow-y: auto;  /* 5개 초과 시 세로 스크롤 활성화 */
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  padding-right: 0.6rem;
+  gap: 12px;                  /* 카드 사이의 여유로운 간격 */
+  
+  /* 딱 5개 정도만 보이고 나머지는 스크롤되도록 높이 강제 제한 */
+  max-height: 530px;          /* 96px 카드 5개 + 간격 높이 */
+  overflow-y: auto;           /* 넘치면 무조건 세로 스크롤 생성 */
+  
+  /* 스크롤바가 카드 디자인을 파먹지 않도록 우측 여백 확보 */
+  padding-right: 5px; 
   scrollbar-width: thin;
   scrollbar-color: hsl(24, 20%, 80%) var(--clr-bg-light);
 }
@@ -2762,8 +2767,15 @@ textarea.form-input {
   border: 1px dashed var(--clr-border);
 }
 
-/* Branch List Card Item */
+/* 2. 개별 브랜드 카드 (절대 찌그러지지 않게 방어) */
 .branch-card-item {
+  /* ★ 핵심: 카드가 많아져도 절대 자기 높이(96px)를 줄이지 않게 강제 방어 ★ */
+  flex-shrink: 0 !important;  
+  
+  height: 96px !important;    /* 정담덮밥 기준 깔끔한 높이 고정 */
+  min-height: 96px;           /* 혹시 모를 축소 한 번 더 방어 */
+  
+  /* 아래는 기존 스타일 유지 */
   background-color: var(--clr-bg-card);
   border-radius: 14px;
   border: 1px solid var(--clr-border);
@@ -2773,7 +2785,6 @@ textarea.form-input {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  height: 96px; /* 모든 브랜드 카드에 동일한 height 적용하여 균일함 유지 */
   box-sizing: border-box;
   transition: var(--transition-smooth);
   position: relative;
