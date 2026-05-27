@@ -621,13 +621,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('branch-map-container');
     if (!container || typeof L === 'undefined') return;
 
-    // Create map instance centered on Gangbuk Main Store
+    // Create map instance centered on Gangbuk Main Store (optimized Zoom 11)
     map = L.map('branch-map-container', {
       zoomControl: true,
       scrollWheelZoom: true,
       doubleClickZoom: true,
       touchZoom: true
-    }).setView([37.64, 127.01], 14);
+    }).setView([37.64, 127.01], 11);
 
     // Add OpenStreetMap tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
