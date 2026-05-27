@@ -421,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
           
           const searchUrl = `https://map.naver.com/v5/search/${encodeURIComponent(pureAddress)}`;
           branchesHtml += `
-            <a href="${searchUrl}" target="_blank" class="branch-item-link">
+            <a href="${searchUrl}" target="_blank" class="branch-card">
               <div class="branch-item-info">
                 <span class="branch-item-name">${branch.name}</span>
                 <span class="branch-item-address">${branch.address}</span>

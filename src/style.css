@@ -1837,20 +1837,25 @@ textarea.form-input {
   gap: 0.8rem;
 }
 
-.branch-item-link {
+.branch-item-link,
+.branch-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.04);
-  padding: 1rem 1.2rem;
-  border-radius: 14px;
+  padding: 20px;
+  min-height: 120px; /* 정담덮밥 카드 기준 최소 높이 */
+  border-radius: 12px;
   text-decoration: none;
   color: #fff;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-sizing: border-box;
+  overflow: hidden; /* 잘림 방지 */
 }
 
-.branch-item-link:hover {
+.branch-item-link:hover,
+.branch-card:hover {
   background: rgba(255, 126, 41, 0.08);
   border-color: rgba(255, 126, 41, 0.3);
   transform: translateY(-2px);
@@ -1871,13 +1876,15 @@ textarea.form-input {
   transition: color 0.3s ease;
 }
 
-.branch-item-link:hover .branch-item-name {
+.branch-item-link:hover .branch-item-name,
+.branch-card:hover .branch-item-name {
   color: var(--clr-primary);
 }
 
 .branch-item-address {
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.5);
+  line-height: 1.4;
 }
 
 .branch-item-icon {
@@ -1888,7 +1895,8 @@ textarea.form-input {
   transition: all 0.3s ease;
 }
 
-.branch-item-link:hover .branch-item-icon {
+.branch-item-link:hover .branch-item-icon,
+.branch-card:hover .branch-item-icon {
   color: var(--clr-primary);
   transform: translateX(3px);
 }
