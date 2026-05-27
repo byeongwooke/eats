@@ -3081,3 +3081,313 @@ textarea.form-input {
   }
 }
 
+/* ==========================================
+   15. Multi-brand Success Showcase Styles
+   ========================================== */
+.multibrand-section {
+  background-color: var(--clr-bg-dark);
+  padding: 8rem 0;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.case-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.tag-accent {
+  color: var(--clr-accent);
+  font-weight: 700;
+  letter-spacing: 4px;
+  font-size: 0.88rem;
+  display: block;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.section-sub {
+  color: var(--clr-text-muted);
+  font-size: 1.15rem;
+  margin-top: 0.8rem;
+  font-weight: 300;
+}
+
+.case-showcase {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5rem;
+  margin-top: 1rem;
+}
+
+/* Base Case Card styling */
+.case-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 28px;
+  padding: 3.5rem 2.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: var(--transition-smooth);
+  width: 350px;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  box-sizing: border-box;
+}
+
+/* BEFORE Card: Darker, grayscale, smaller for psychological distance */
+.case-card.before {
+  opacity: 0.45;
+  filter: grayscale(85%) blur(0.5px);
+  transform: scale(0.9);
+}
+
+.case-card.before:hover {
+  opacity: 0.75;
+  filter: none;
+  transform: scale(0.93);
+}
+
+/* AFTER Card: Bright, premium, large, with copper glow */
+.case-card.after {
+  width: 390px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.005) 100%);
+  border: 1px solid rgba(255, 87, 34, 0.25);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), 0 0 30px rgba(255, 87, 34, 0.06);
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+.case-card.after:hover {
+  transform: scale(1.08);
+  border-color: rgba(255, 87, 34, 0.4);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 40px rgba(255, 87, 34, 0.15);
+}
+
+/* Dynamic Tags */
+.brand-tag {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 4px 14px;
+  border-radius: 30px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.brand-tag.accent {
+  background: var(--clr-primary);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+}
+
+/* Logos Wrapper styling */
+.logo-wrap {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+}
+
+.before-logo {
+  max-height: 65px;
+  max-width: 170px;
+  object-fit: contain;
+}
+
+.logo-group {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+}
+
+.after-logo {
+  max-height: 65px;
+  max-width: 110px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+.case-card .label {
+  font-size: 0.88rem;
+  color: var(--clr-text-muted);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.price-wrap {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.price-static {
+  font-size: 65px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -1px;
+}
+
+.currency {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--clr-text-muted);
+  margin-right: 0.2rem;
+}
+
+.currency.accent {
+  color: #ff5722;
+  text-shadow: 0 0 10px rgba(255, 87, 34, 0.4);
+}
+
+.unit {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--clr-text-muted);
+  margin-left: 0.2rem;
+}
+
+.unit.accent {
+  color: #ff5722;
+  text-shadow: 0 0 10px rgba(255, 87, 34, 0.4);
+}
+
+/* Transformation Arrow Vector Icon styling */
+.transformation-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.15);
+  transition: var(--transition-smooth);
+}
+
+.transformation-arrow svg {
+  width: 54px;
+  height: 54px;
+  fill: currentColor;
+  transition: var(--transition-smooth);
+}
+
+.case-showcase:hover .transformation-arrow {
+  color: #ff5722;
+  transform: translateX(5px);
+  filter: drop-shadow(0 0 10px rgba(255, 87, 34, 0.6));
+}
+
+/* AFTER Price Counter (Vibrant 100px with glow) */
+.case-card.after .price-count {
+  font-size: 100px; /* PC 기준 */
+  font-weight: 900;
+  color: #ff5722; /* 이츠베럴 브랜드 오렌지 */
+  text-shadow: 0 0 15px rgba(255, 87, 34, 0.5); /* 은은한 글로우 */
+  font-family: 'Outfit', sans-serif; /* 숫자가 돋보이는 폰트 */
+  letter-spacing: -2px;
+  line-height: 1;
+}
+
+/* 1. "빙글빙글" (슬롯머신 텀블러 효과) */
+.price-count.spinning {
+  display: inline-block;
+  animation: tumblerSpin 0.3s linear infinite;
+  filter: blur(1.5px); /* 빠른 속도감을 위한 블러 효과 추가 */
+}
+
+@keyframes tumblerSpin {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8%); } /* 살짝 위로 튀는 느낌 */
+  100% { transform: translateY(0); }
+}
+
+/* 2. "슉슉!" (카운팅 완료 후 AFTER 영역 최종 폭발 강조) */
+.case-card.after.reveal {
+  animation: revealPulse 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes revealPulse {
+  0% { transform: scale(0.8); opacity: 0; }
+  70% { transform: scale(1.1); } /* 살짝 커졌다가 */
+  100% { transform: scale(1.05); opacity: 1; } /* 제자리 */
+}
+
+/* ==========================================
+   Responsive Adjustments for Multibrand Success Showcase
+   ========================================== */
+@media (max-width: 1024px) {
+  .case-showcase {
+    gap: 1.5rem;
+  }
+  
+  .case-card.before {
+    width: 290px;
+    padding: 3rem 1.8rem;
+  }
+  
+  .case-card.before .price-static {
+    font-size: 50px;
+  }
+  
+  .case-card.after {
+    width: 330px;
+    padding: 3rem 1.8rem;
+  }
+  
+  .case-card.after .price-count {
+    font-size: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .multibrand-section {
+    padding: 5rem 0;
+  }
+  
+  .case-showcase {
+    flex-direction: column;
+    gap: 2.2rem;
+  }
+  
+  .case-card.before {
+    width: 100%;
+    max-width: 350px;
+    transform: scale(0.95);
+  }
+  
+  .case-card.before:hover {
+    transform: scale(0.97);
+  }
+  
+  .case-card.after {
+    width: 100%;
+    max-width: 380px;
+    transform: scale(1);
+  }
+  
+  .case-card.after:hover {
+    transform: scale(1.03);
+  }
+  
+  .transformation-arrow {
+    transform: rotate(90deg); /* 세로 방향으로 화살표 회전 */
+    margin: 0.5rem 0;
+  }
+  
+  .case-showcase:hover .transformation-arrow {
+    transform: rotate(90deg) translateX(5px);
+  }
+}
+

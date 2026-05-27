@@ -806,4 +806,60 @@ document.addEventListener('DOMContentLoaded', () => {
       renderMapBranches(brand);
     });
   });
+
+  /* ==========================================================================
+     9. Multi-brand Success Showcase - Intersection Observer & 60FPS Rolling Counter
+     ========================================================================== */
+  const multibrandSection = document.getElementById('multibrand');
+  const priceCountEl = document.querySelector('#multibrand .price-count');
+  const afterCardEl = document.querySelector('#multibrand .case-card.after');
+
+  if (multibrandSection && priceCountEl && afterCardEl) {
+    const startVal = 1400;
+    const targetVal = parseInt(priceCountEl.getAttribute('data-target')) || 4500;
+    const duration = 2000; // 2 seconds
+    const intervalTime = 16; // ~60fps (16ms)
+    
+    const countUp = () => {
+      // Add spinning effect (motion blur + jitter)
+      priceCountEl.classList.add('spinning');
+      
+      const startTime = Date.now();
+      
+      const timer = setInterval(() => {
+        const timePassed = Date.now() - startTime;
+        let progress = timePassed / duration;
+        if (progress > 1) progress = 1;
+        
+        // Easing function for smooth slowing down at the end (cubic ease-out)
+        const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+        const currentVal = startVal + (targetVal - startVal) * easeOutCubic;
+        
+        priceCountEl.textContent = Math.floor(currentVal).toLocaleString();
+        
+        if (progress === 1) {
+          clearInterval(timer);
+          priceCountEl.classList.remove('spinning');
+          afterCardEl.classList.add('reveal');
+        }
+      }, intervalTime);
+    };
+
+    const observerOptions = {
+      root: null,
+      threshold: 0.25 // Trigger when 25% of the section is visible
+    };
+    
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          countUp();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    
+    observer.observe(multibrandSection);
+  }
 });
+
