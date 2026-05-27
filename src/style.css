@@ -2613,3 +2613,409 @@ textarea.form-input {
     font-size: 0.9rem;
   }
 }
+
+/* ==========================================
+   14. Branch Map (매장 분포도) Premium Styles
+   ========================================== */
+.branch-map-section {
+  background-color: var(--clr-bg-light);
+  overflow: hidden;
+  border-top: 1px solid var(--clr-border);
+}
+
+.branch-map-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 3.5rem;
+  margin-top: 2rem;
+  align-items: start;
+}
+
+/* Left Column: Filter & Scrollable List */
+.branch-map-filter-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--clr-border);
+  padding-bottom: 1.2rem;
+}
+
+.map-filter-btn {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--clr-text-muted);
+  border: 1px solid var(--clr-border);
+  background-color: #fff;
+  padding: 8px 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.map-filter-btn:hover {
+  border-color: var(--clr-primary);
+  color: var(--clr-primary);
+  transform: translateY(-1px);
+}
+
+.map-filter-btn.active {
+  background-color: var(--clr-primary);
+  color: #fff;
+  border-color: var(--clr-primary);
+  box-shadow: 0 4px 10px rgba(193, 125, 75, 0.25);
+}
+
+.branch-map-list-wrap {
+  max-height: 480px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding-right: 0.6rem;
+  scrollbar-width: thin;
+  scrollbar-color: hsl(24, 20%, 80%) var(--clr-bg-light);
+}
+
+/* Slim modern custom scrollbar for branch list */
+.branch-map-list-wrap::-webkit-scrollbar {
+  width: 6px;
+}
+.branch-map-list-wrap::-webkit-scrollbar-track {
+  background: transparent;
+}
+.branch-map-list-wrap::-webkit-scrollbar-thumb {
+  background: hsl(24, 20%, 80%);
+  border-radius: 10px;
+}
+.branch-map-list-wrap::-webkit-scrollbar-thumb:hover {
+  background: var(--clr-primary);
+}
+
+/* Loading/Empty State */
+.branch-list-loading,
+.branch-list-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--clr-text-muted);
+  font-weight: 500;
+  background-color: var(--clr-bg-card);
+  border-radius: 12px;
+  border: 1px dashed var(--clr-border);
+}
+
+/* Branch List Card Item */
+.branch-card-item {
+  background-color: var(--clr-bg-card);
+  border-radius: 14px;
+  border: 1px solid var(--clr-border);
+  padding: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glassy background card items */
+.branch-card-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 4px; height: 100%;
+  background-color: transparent;
+  transition: var(--transition-fast);
+}
+
+.branch-card-item:hover,
+.branch-card-item.active {
+  background-color: #fff;
+  border-color: var(--clr-primary);
+  transform: translateX(6px);
+  box-shadow: var(--shadow-md);
+}
+
+.branch-card-item:hover::before,
+.branch-card-item.active::before {
+  background-color: var(--clr-primary);
+}
+
+.branch-card-item-content {
+  flex-grow: 1;
+}
+
+.branch-card-item-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.branch-brand-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+/* Brand specific badge colors */
+.branch-brand-tag.pasta { background-color: var(--clr-primary); }
+.branch-brand-tag.deopbap { background-color: #4caf50; }
+.branch-brand-tag.omuzip { background-color: var(--clr-accent); color: var(--clr-bg-dark); }
+.branch-brand-tag.kimchi { background-color: #e53935; }
+
+.branch-card-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--clr-text-dark);
+}
+
+.branch-card-addr {
+  font-size: 0.85rem;
+  color: var(--clr-text-muted);
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
+.branch-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--clr-text-muted);
+  transition: var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.branch-card-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.branch-card-item:hover .branch-card-icon,
+.branch-card-item.active .branch-card-icon {
+  background-color: rgba(193, 125, 75, 0.1);
+  color: var(--clr-primary);
+  transform: scale(1.1);
+}
+
+/* Right Column: Stylized Map */
+.branch-map-container {
+  position: relative;
+  width: 100%;
+  border-radius: 24px;
+  background-color: var(--clr-bg-dark);
+  border: 1px solid var(--clr-border-dark);
+  overflow: hidden;
+  padding: 3rem;
+  aspect-ratio: 4 / 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+}
+
+.korea-svg-map {
+  width: 100%;
+  height: 100%;
+  max-height: 480px;
+  object-fit: contain;
+}
+
+.korea-mainland,
+.korea-island,
+.korea-island-dot {
+  transition: stroke 0.3s ease, fill 0.3s ease;
+}
+
+/* Neon glow stroke style for South Korea vector */
+.branch-map-container:hover .korea-mainland,
+.branch-map-container:hover .korea-island {
+  stroke: rgba(193, 125, 75, 0.2);
+}
+
+/* Absolute Pulse Pin overlays */
+.pulse-point-container {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pulse-point {
+  width: 12px;
+  height: 12px;
+  background-color: #ff5722; /* 브랜드 포인트 컬러 */
+  border-radius: 50%;
+  position: relative;
+  border: 2px solid #fff;
+  box-shadow: 0 0 8px rgba(255, 87, 34, 0.6);
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s ease;
+  z-index: 2;
+}
+
+/* Pulsing water wave animations */
+.pulse-point::after {
+  content: '';
+  position: absolute;
+  top: -8px; left: -8px; right: -8px; bottom: -8px;
+  border: 2px solid #ff5722;
+  border-radius: 50%;
+  animation: ripple 2s infinite;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(3.5); opacity: 0; }
+}
+
+/* Custom interactive highlight when matching branch card is hovered */
+.pulse-point-container.highlight .pulse-point {
+  background-color: var(--clr-accent);
+  border-color: #fff;
+  transform: scale(1.5);
+  box-shadow: 0 0 15px var(--clr-accent);
+}
+
+.pulse-point-container.highlight .pulse-point::after {
+  border-color: var(--clr-accent);
+  animation: ripple-fast 1s infinite;
+}
+
+@keyframes ripple-fast {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(4.5); opacity: 0; }
+}
+
+/* Dynamic Pin labels appearing on top of markers */
+.pulse-label {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -100%) translateY(-10px);
+  background-color: var(--clr-bg-dark);
+  color: var(--clr-text-light);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0.75;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 1;
+}
+
+.pulse-point-container:hover .pulse-point {
+  transform: scale(1.3);
+  background-color: #fff;
+  border-color: #ff5722;
+}
+
+.pulse-point-container:hover .pulse-label,
+.pulse-point-container.highlight .pulse-label {
+  opacity: 1;
+  transform: translate(-50%, -100%) translateY(-14px) scale(1.05);
+  background-color: var(--clr-primary);
+  border-color: var(--clr-primary);
+  color: #fff;
+  box-shadow: 0 6px 15px rgba(193, 125, 75, 0.4);
+}
+
+/* Captions and explanations */
+.map-caption-box {
+  margin-top: 1.2rem;
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 12px;
+  border: 1px solid var(--clr-border);
+  padding: 0.8rem 1.2rem;
+}
+
+.map-caption-text {
+  font-size: 0.82rem;
+  color: var(--clr-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  line-height: 1.4;
+}
+
+.caption-icon {
+  width: 16px;
+  height: 16px;
+  fill: var(--clr-primary);
+  flex-shrink: 0;
+}
+
+/* ==========================================
+   Responsive Adjustments for Branch Map
+   ========================================== */
+@media (max-width: 1024px) {
+  .branch-map-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  
+  .branch-map-right-col {
+    order: -1; /* Map goes on top, address list below */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .branch-map-container {
+    aspect-ratio: 4 / 3.2;
+    padding: 2rem;
+  }
+  
+  .branch-map-list-wrap {
+    max-height: 380px;
+  }
+}
+
+@media (max-width: 768px) {
+  .branch-map-container {
+    aspect-ratio: 4 / 4.2;
+    padding: 1rem;
+  }
+  
+  .pulse-label {
+    font-size: 0.65rem;
+    padding: 3px 8px;
+    transform: translate(-50%, -100%) translateY(-8px);
+  }
+  
+  .pulse-point-container:hover .pulse-label,
+  .pulse-point-container.highlight .pulse-label {
+    transform: translate(-50%, -100%) translateY(-11px) scale(1.05);
+  }
+  
+  .branch-card-item {
+    padding: 1rem;
+  }
+  
+  .branch-card-name {
+    font-size: 0.95rem;
+  }
+  
+  .branch-card-addr {
+    font-size: 0.8rem;
+  }
+}
+

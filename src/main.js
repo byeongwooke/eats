@@ -553,4 +553,149 @@ document.addEventListener('DOMContentLoaded', () => {
       step.classList.add('active');
     });
   });
+
+  /* ==========================================================================
+     8. National Branch Map - Dynamic Data Binding & Interactive Dual Hover
+     ========================================================================== */
+  const mapListWrap = document.getElementById('branch-map-list-wrap');
+  const mapFilterBtns = document.querySelectorAll('.map-filter-btn');
+  const mapPins = document.querySelectorAll('.pulse-point-container');
+
+  // Extract and combine all branches from BRAND_DATA
+  const allBranches = [];
+  if (typeof BRAND_DATA !== 'undefined') {
+    Object.keys(BRAND_DATA).forEach(brandKey => {
+      const brandInfo = BRAND_DATA[brandKey];
+      brandInfo.branches.forEach(branch => {
+        allBranches.push({
+          ...branch,
+          brandKey: brandKey,
+          brandName: brandKey === 'pasta' ? '파스타히어' :
+                     brandKey === 'deopbap' ? '정담덮밥' :
+                     brandKey === 'omuzip' ? '오므집' :
+                     brandKey === 'kimchi' ? '부여김치찜' : '이츠베럴'
+        });
+      });
+    });
+  }
+
+  // Function to classify geographic region based on address string
+  const getRegionKey = (address) => {
+    if (address.includes('서울') || address.includes('역삼') || address.includes('홍대') || address.includes('마포')) return 'seoul';
+    if (address.includes('인천') || address.includes('일산') || address.includes('고양') || address.includes('청라')) return 'incheon-west';
+    if (address.includes('의정부') || address.includes('양주') || address.includes('포천')) return 'gyeonggi-north';
+    if (address.includes('천안') || address.includes('충청') || address.includes('목천') || address.includes('풍세')) return 'chungcheong';
+    // Gyeonggi East: Namyangju, Byeollae, Guri, Pyeongnae, Jinjeop, Hwado, etc.
+    if (address.includes('남양주') || address.includes('구리') || address.includes('별내') || address.includes('오남') || address.includes('화도') || address.includes('다산')) return 'gyeonggi-east';
+    // Fallback based on text match
+    return 'seoul';
+  };
+
+  // Render branches in list
+  const renderMapBranches = (brandFilter = 'all') => {
+    if (!mapListWrap) return;
+    mapListWrap.innerHTML = '';
+
+    const filtered = brandFilter === 'all' 
+      ? allBranches 
+      : allBranches.filter(b => b.brandKey === brandFilter);
+
+    if (filtered.length === 0) {
+      mapListWrap.innerHTML = '<div class="branch-list-empty">해당 브랜드의 가맹점이 없습니다.</div>';
+      return;
+    }
+
+    filtered.forEach(branch => {
+      const region = getRegionKey(branch.address);
+      const card = document.createElement('div');
+      card.className = 'branch-card-item';
+      card.setAttribute('data-region', region);
+
+      // Clean address for map search compatibility
+      let pureAddress = branch.address;
+      if (pureAddress.includes('|')) {
+        pureAddress = pureAddress.split('|')[1].trim();
+      } else if (pureAddress.includes('점')) {
+        pureAddress = pureAddress.split('점')[1].trim();
+      } else {
+        pureAddress = pureAddress.trim();
+      }
+      const searchUrl = `https://map.naver.com/v5/search/${encodeURIComponent(pureAddress)}`;
+
+      card.innerHTML = `
+        <div class="branch-card-item-content">
+          <div class="branch-card-item-header">
+            <span class="branch-brand-tag ${branch.brandKey}">${branch.brandName}</span>
+            <h4 class="branch-card-name">${branch.name}</h4>
+          </div>
+          <p class="branch-card-addr">${branch.address}</p>
+        </div>
+        <a href="${searchUrl}" target="_blank" class="branch-card-icon" title="네이버 지도로 보기">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
+        </a>
+      `;
+
+      // Hover interaction from Card to Map Pin
+      card.addEventListener('mouseenter', () => {
+        // Highlight active card
+        card.classList.add('active');
+        // Find matching pin and add highlight class
+        const pin = document.getElementById(`pin-${region}`);
+        if (pin) pin.classList.add('highlight');
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.classList.remove('active');
+        const pin = document.getElementById(`pin-${region}`);
+        if (pin) pin.classList.remove('highlight');
+      });
+
+      // Clicking the card area navigates to Naver Map
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.branch-card-icon')) return; // Already handled by standard anchor behavior
+        window.open(searchUrl, '_blank');
+      });
+
+      mapListWrap.appendChild(card);
+    });
+  };
+
+  // Hover interaction from Map Pin to Card List
+  mapPins.forEach(pin => {
+    const region = pin.getAttribute('data-region');
+    
+    pin.addEventListener('mouseenter', () => {
+      pin.classList.add('highlight');
+      // Highlight matching cards in list and scroll to first one
+      const cards = mapListWrap.querySelectorAll(`.branch-card-item[data-region="${region}"]`);
+      cards.forEach((card, index) => {
+        card.classList.add('active');
+        // Scroll first matched card into view inside scrollable container
+        if (index === 0) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      });
+    });
+
+    pin.addEventListener('mouseleave', () => {
+      pin.classList.remove('highlight');
+      const cards = mapListWrap.querySelectorAll(`.branch-card-item[data-region="${region}"]`);
+      cards.forEach(card => card.classList.remove('active'));
+    });
+  });
+
+  // Filter click handler
+  mapFilterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      mapFilterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const brand = btn.getAttribute('data-brand');
+      renderMapBranches(brand);
+    });
+  });
+
+  // Initial rendering of all stores
+  renderMapBranches('all');
 });
