@@ -3,6 +3,16 @@ import './style.css';
 document.addEventListener('DOMContentLoaded', () => {
   
   /* ==========================================================================
+     0. Mobile Safari 100vh Viewport Height Fix
+     ========================================================================== */
+  const setVh = () => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  };
+  setVh();
+  window.addEventListener('resize', setVh, { passive: true });
+  
+  /* ==========================================================================
      1. Sticky Header & Shrink Scroll Effect
      ========================================================================== */
   const header = document.getElementById('main-header');
