@@ -666,6 +666,43 @@ ul {
   margin: 0;
 }
 
+/* 하위 메뉴 영역 기본 숨김 처리 */
+.sub-menu-list {
+  display: none;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed #dee2e6;
+}
+
+.sub-menu-list ul.menu-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: #495057;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* [더보기] 버튼 디자인 */
+.btn-menu-more {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: transparent;
+  color: #212529;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.btn-menu-more:hover {
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
+}
+
 /* 📱 모바일 반응형 디테일 처리 (1개 브랜드씩 큼직하게 노출) */
 @media (max-width: 768px) {
   .brands-grid {
