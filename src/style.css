@@ -702,6 +702,53 @@ ul {
   background-color: #E64A19; /* 마우스 오버 시 약간 어두운 톤 */
 }
 
+/* ==========================================================================
+   id="signature-menu-section" 4분할 이미지 배경 및 불투명도 레이어
+   ========================================================================== */
+/* 섹션 기본 설정 (배경 가두기) */
+#signature-menu-section {
+  position: relative;
+  overflow: hidden; 
+}
+
+/* 4분할 배경 그리드 컨테이너 */
+.signature-bg-wrapper {
+  position: absolute;
+  top: 0; left: 0; 
+  width: 100%; height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  z-index: 0; /* 배경을 맨 뒤로 */
+}
+
+/* 각 그리드 이미지 꽉 채우기 */
+.bg-grid-img {
+  width: 100%; height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+/* 불투명도 레이어 (가독성 보호용 70% 블랙) */
+.bg-overlay {
+  position: absolute;
+  top: 0; left: 0; 
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); 
+}
+
+/* 전면 컨텐츠가 배경 위로 확실히 올라오도록 Z-index 부여 */
+#signature-menu-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* (선택) 배경이 어두워졌으므로 타이틀 텍스트 색상을 흰색으로 반전 */
+#signature-menu-section .brands-header .section-title,
+#signature-menu-section .brands-header .tag-sub {
+  color: #ffffff;
+}
+
 /* 📱 모바일 반응형 디테일 처리 (1개 브랜드씩 큼직하게 노출) */
 @media (max-width: 768px) {
   .brands-grid {
