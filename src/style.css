@@ -637,6 +637,27 @@ ul {
   letter-spacing: 0.5px;
 }
 
+/* 타이틀 영역 정렬 조율 */
+.brand-info-box h3.brand-title {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* 아이콘과 텍스트 사이의 간격 */
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #212529;
+  margin-bottom: 14px;
+}
+
+/* 원형 로고 아이콘 정밀 제어 */
+.brand-title-icon {
+  width: 32px;          /* 아이콘 가로 크기 고정 */
+  height: 32px;         /* 아이콘 세로 크기 고정 */
+  border-radius: 50% !important; /* 사각형 이미지를 완벽한 원형으로 커팅 */
+  object-fit: cover;    /* 비율 깨짐 없이 꽉 채움 */
+  border: 1px solid #e9ecef; /* 깔끔함을 더해줄 미세한 외곽 테두리 */
+  flex-shrink: 0;       /* 타이틀이 길어져도 구겨지지 않게 방어 */
+}
+
 .brand-desc {
   font-size: 0.92rem;
   line-height: 1.65;
