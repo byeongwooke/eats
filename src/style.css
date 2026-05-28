@@ -570,145 +570,96 @@ ul {
   }
 }
 
-/* ==========================================
-   6. Sub-Brands Section (2x2 Grid Layout)
-   ========================================== */
+/* ==========================================================================
+   id="brands" 담백한 프리미엄 UI 개편 스타일
+   ========================================================================== */
+#brands {
+  background-color: #f8f9fa; /* 연한 회색 배경을 깔아 흰색 카드를 극적으로 부각 */
+  padding: 100px 0;
+}
+
 .brands-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(4, 1fr); /* PC 화면: 무조건 가로 4개 칼정렬 */
+  gap: 24px;
+  margin-top: 50px;
 }
 
-.brand-card {
-  background-color: var(--clr-bg-card);
-  border-radius: 20px;
+.brand-card-item {
+  background-color: #ffffff !important; /* 카드 전체 레이아웃 흰색 배경으로 꽉 채움 */
+  border: 1px solid #e9ecef;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  transition: var(--transition-smooth);
-  border: 1px solid rgba(0, 0, 0, 0.03);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer; /* 클릭 가능하도록 커서 포인터 추가 */
 }
 
-.brand-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
-  border-color: rgba(193, 125, 75, 0.15);
+.brand-card-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
-/* 브랜드 로고 카드 스타일 수정 (aspect-ratio & object-fit 최적화) */
-.brand-img-wrap,
-.brand-card .brand-image {
-  position: relative;
+/* 로고가 돋보이도록 공백 없이 가득 채우는 박스 조정 */
+.brand-logo-box {
   width: 100%;
-  height: 200px; /* 너무 높으면 로고가 작아 보이므로 적절히 조정 */
+  height: 220px; /* 고정 크기로 균일함 유지 */
+  background-color: #ffffff !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff; /* 흰색 배경으로 통일하여 공백 이질감 제거 */
-  overflow: hidden;
+  padding: 35px; /* 사방 여백을 균일하게 주어 로고 시인성 극대화 */
+  border-bottom: 1px solid #f1f3f5;
+  box-sizing: border-box;
 }
 
-.brand-img-wrap img,
-.brand-card .brand-image img {
-  max-width: 80%;  /* 박스 너비의 80%까지만 차지하도록 하여 여유 확보 */
-  max-height: 80%; /* 박스 높이의 80%까지만 차지하도록 하여 여유 확보 */
-  object-fit: contain; /* 로고가 잘리지 않고 전체가 다 보이게 함 */
-  transition: transform 0.3s ease;
+.brand-logo-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* 이미지 비율 왜곡이나 잘림 없이 완벽하게 안착 */
 }
 
-/* 마우스 호버 시 살짝 확대되는 효과 추가 (고급스러운 느낌) */
-.brand-card:hover .brand-img-wrap img,
-.brand-card:hover .brand-image img {
-  transform: scale(1.05);
-}
-
-.brand-badge {
-  position: absolute;
-  top: 1.5rem;
-  left: 1.5rem;
-  background-color: var(--clr-bg-dark);
-  color: var(--clr-text-light);
-  padding: 0.5rem 1.2rem;
-  border-radius: 30px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  box-shadow: var(--shadow-md);
-}
-
-.brand-info {
-  padding: 2.5rem;
+.brand-info-box {
+  padding: 28px;
+  background-color: #ffffff !important;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
 }
 
-.brand-logo-text {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.6rem;
+.brand-info-box h3 {
+  font-size: 1.2rem;
   font-weight: 800;
-  letter-spacing: -0.5px;
-  margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.brand-logo-text span {
-  color: var(--clr-primary);
-  font-weight: 300;
+  color: #212529;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
 }
 
 .brand-desc {
-  font-size: 0.95rem;
-  color: var(--clr-text-muted);
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  flex-grow: 1;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #495057;
+  word-break: keep-all; /* 한글 단어가 어색하게 찢어지는 현상 방지 */
+  margin: 0;
 }
 
-.brand-triggers {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-.brand-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.9rem 1rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: var(--transition-fast);
-}
-
-.brand-btn-baemin {
-  background-color: #2AC1BC;
-  color: #fff;
-}
-
-.brand-btn-baemin:hover {
-  background-color: #20a09c;
-  transform: translateY(-2px);
-}
-
-.brand-btn-map {
-  background-color: #fff;
-  border: 1px solid var(--clr-border);
-  color: var(--clr-text-dark);
-}
-
-.brand-btn-map:hover {
-  background-color: var(--clr-text-dark);
-  border-color: var(--clr-text-dark);
-  color: #fff;
-  transform: translateY(-2px);
+/* 📱 모바일 반응형 디테일 처리 (1개 브랜드씩 큼직하게 노출) */
+@media (max-width: 768px) {
+  .brands-grid {
+    grid-template-columns: 1fr !important; /* 모바일 화면: 무조건 1열 배치로 가독성 확보 */
+    gap: 20px;
+  }
+  
+  .brand-logo-box {
+    height: 180px;
+    padding: 25px;
+  }
+  
+  .brand-info-box {
+    padding: 22px;
+  }
 }
 
 /* ==========================================
@@ -2207,111 +2158,7 @@ textarea.form-input {
   }
 }
 
-/* PC Desktop Hiding Safeguard (Vite Build Standard) */
-@media (min-width: 1025px) {
-  .brand-card-mobile {
-    display: none !important; /* PC 화면에서는 모바일 카드를 강제로 숨김 */
-  }
-}
 
-/* Mobile Sub-Brands List (Vertical Layout Override) */
-@media (max-width: 768px) {
-  .brands-grid-mobile {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 2rem !important;
-    padding: 1rem 0 !important;
-    margin-top: 1rem !important;
-    overflow-x: visible !important;
-    scroll-snap-type: none !important;
-    -webkit-overflow-scrolling: auto !important;
-  }
-  
-  .brands-grid-mobile::-webkit-scrollbar {
-    display: none !important;
-  }
-  
-  .brand-card-mobile {
-    width: 100% !important;
-    flex: 0 0 auto !important;
-    scroll-snap-align: none !important;
-    background-color: var(--clr-bg-card);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(0, 0, 0, 0.03);
-    transition: transform 0.3s ease;
-  }
-}
-
-.brand-img-wrap-mobile {
-  width: 100%;
-  height: 200px;
-  position: relative;
-  overflow: hidden;
-  background-color: #f9f9f9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.brand-img-wrap-mobile img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  padding: 15px;
-  transition: transform 0.3s ease;
-}
-
-.brand-info-mobile {
-  padding: 1.5rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.brand-logo-text-mobile {
-  font-size: 1.4rem;
-  font-weight: 800;
-  margin-bottom: 0.8rem;
-  color: var(--clr-text-dark);
-}
-
-.brand-logo-text-mobile span {
-  color: var(--clr-primary);
-}
-
-.brand-desc-mobile {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: var(--clr-text-muted);
-  margin-bottom: 1.5rem;
-  flex-grow: 1;
-}
-
-.brand-triggers-mobile {
-  margin-top: auto;
-}
-
-.brand-btn-mobile {
-  width: 100%;
-  background-color: #ff6b35;
-  color: #ffffff !important;
-  font-size: 0.95rem;
-  font-weight: 700;
-  padding: 1.05rem 1.5rem;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(255, 107, 53, 0.25);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-}
 
 /* Mobile Signature Menu Carousel (Single visible card to prevent shrinking & text wrapping) */
 @media (max-width: 768px) {
@@ -2372,19 +2219,6 @@ textarea.form-input {
    16. PC Brand Cards Hardware Acceleration & Smooth Scroll Reveals
    ========================================================================== */
 @media (min-width: 1025px) {
-  /* 1. 브랜드 섹션 전체를 감싸는 최상위 컨테이너 중앙 정렬 */
-  #brands-container-pc {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important; /* 깔끔한 2x2 그리드 유지 */
-    gap: 40px 30px !important;                        /* 카드 간 여백 조정 */
-    
-    /* 핵심 정렬 방어 코드 */
-    width: 100% !important;
-    max-width: 1200px !important;                     /* 본문 영역 최대 너비 제한 */
-    margin: 80px auto !important;                     /* 상하 여백 및 좌우 자동 중앙 정렬 */
-    box-sizing: border-box !important;
-  }
-
   /* 2. 하단 '이츠베럴만의 핵심 독점 경쟁력' 섹션 컨테이너 점검 */
   #advantages-container {
     display: grid !important;
@@ -2394,34 +2228,6 @@ textarea.form-input {
     max-width: 1200px !important;                     /* 상단 브랜드 섹션과 대칭을 이루도록 폭 일치 */
     margin: 0 auto !important;                        /* 좌우 자동 중앙 정렬 */
     box-sizing: border-box !important;
-  }
-
-  /* [초기 상태] 부모로 위로 떠오를 준비 (important 제거 및 자연스러운 모션 복구) */
-  #brands-container-pc .brand-card-pc {
-    opacity: 0;
-    transform: translateY(40px); /* 아래에서 위로 올라오는 거리 세팅 */
-    will-change: transform, opacity;
-    transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
-                transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  /* [발동 상태] JS에서 컨테이너에 active가 붙으면 스르륵 안착 */
-  #brands-container-pc.active .brand-card-pc {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* 4개 카드의 고급스러운 순차적 등장 시차(Delay) 부여 */
-  #brands-container-pc.active .brand-card-pc:nth-child(1) { transition-delay: 0s; }
-  #brands-container-pc.active .brand-card-pc:nth-child(2) { transition-delay: 0.15s; }
-  #brands-container-pc.active .brand-card-pc:nth-child(3) { transition-delay: 0.3s; }
-  #brands-container-pc.active .brand-card-pc:nth-child(4) { transition-delay: 0.45s; }
-
-  /* 팝업을 감싸고 있는 PC용 브랜드 컨테이너 최적화 */
-  .brands-container-pc, #brands-container-pc {
-    will-change: opacity;
-    transform: none !important;
-    contain: paint; 
   }
 
   /* 레이어 팝업 초기 상태 방어막 점검 */

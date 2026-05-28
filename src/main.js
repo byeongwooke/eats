@@ -180,16 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Brand card click listeners (navigate to Baedal Minjok search portal in new window)
-  const brandCards = document.querySelectorAll('.brand-card, .brand-card-mobile');
-  brandCards.forEach(card => {
-    card.addEventListener('click', (e) => {
-      // If clicking the intro/detail modal button, keep its default popup handler active
-      if (e.target.closest('.brand-btn-intro')) return;
-      // Navigate to Baedal Minjok search in new tab
-      window.open('https://www.baemin.com', '_blank');
-    });
-  });
+
 
   /* ==========================================================================
      4. BEST MENU Section - Dynamic Load More & Filename Auto-Classification
@@ -382,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const brandModal = document.getElementById('brand-detail-modal');
   const brandModalClose = document.getElementById('brand-modal-close');
-  const brandIntroBtns = document.querySelectorAll('.brand-btn-intro');
+  const brandIntroBtns = document.querySelectorAll('.brand-card-item');
   const brandTabBtns = document.querySelectorAll('.brand-tab-btn');
   const brandTabPanels = document.querySelectorAll('.brand-tab-panel');
 
