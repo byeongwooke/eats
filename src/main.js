@@ -2,23 +2,7 @@ import './style.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   
-  /* ==========================================================================
-     0.0 Signature Menu Accordion UI [더보기] Toggle (e.stopPropagation applied)
-     ========================================================================== */
-  const moreButtons = document.querySelectorAll('.btn-menu-more');
-  moreButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
-      e.stopPropagation(); // Prevent popup modal trigger on card element
-      const subMenu = this.previousElementSibling;
-      if (subMenu.style.display === 'none' || subMenu.style.display === '') {
-        subMenu.style.display = 'block';
-        this.innerText = '[닫기]';
-      } else {
-        subMenu.style.display = 'none';
-        this.innerText = '[더보기]';
-      }
-    });
-  });
+
 
   /* ==========================================================================
      0. Mobile Safari 100vh Viewport Height Fix
