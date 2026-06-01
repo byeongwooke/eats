@@ -2993,8 +2993,9 @@ textarea.form-input {
    멀티브랜드 소개 섹션 (Multi-Brand Intro)
    ========================================== */
 
-/* 섹션 기본 */
+/* 섹션 기본: 라이트 테마 배경 적용 */
 #multi-brand-intro {
+  background-color: #FFF5F2; 
   padding: 100px 0;
 }
 
@@ -3010,24 +3011,16 @@ textarea.form-input {
   font-weight: 700;
   letter-spacing: 4px;
   text-transform: uppercase;
-  color: #FF5722;
+  color: #fe5622;
   margin-bottom: 16px;
 }
 
-#multi-brand-intro .text-white {
-  color: #ffffff;
+#multi-brand-intro .section-title {
+  color: #212529; /* 진한 흑회색 */
 }
 
-#multi-brand-intro .section-title.text-white {
-  margin-bottom: 14px;
-}
-
-#multi-brand-intro .section-subtitle.text-white {
-  font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.75);
-  font-weight: 300;
-  line-height: 1.6;
-  word-break: keep-all;
+#multi-brand-intro .section-subtitle {
+  color: #495057; /* 부드러운 중간 회색 */
 }
 
 /* PC: 가로 4개 배열 그리드 */
@@ -3037,35 +3030,37 @@ textarea.form-input {
   gap: 24px;
 }
 
-/* 카드 내부 음식 이미지 */
+/* 사진 원본 유지 (그림자만 밝은 테마에 맞게 조정) */
 .intro-brand-img {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); 
 }
 
-/* 브랜드 소개 카드 */
+/* 브랜드 소개 카드: 순백색 및 부드러운 그림자 추가 */
 .intro-card {
-  background: #2a2a2a;
-  border: 1px solid #333333;
+  background: #ffffff;
+  border: 1px solid #FFEBE5; /* 브랜드 컬러가 살짝 도는 아주 옅은 테두리 */
   padding: 24px;
   border-radius: 12px;
   text-align: left;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04); /* 밝은 배경에 맞는 은은한 그림자 */
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .intro-card:hover {
   transform: translateY(-5px);
-  border-color: #FF5722;
+  border-color: #fe5622;
+  box-shadow: 0 8px 24px rgba(254, 86, 34, 0.12); /* 호버 시 브랜드 컬러 그림자 발산 */
 }
 
 .intro-brand-name {
   font-size: 1.4rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #fe5622; /* 이름은 브랜드 포인트 컬러로 강조 */
   margin-bottom: 12px;
   word-break: keep-all;
 }
@@ -3073,7 +3068,7 @@ textarea.form-input {
 .intro-brand-desc {
   font-size: 1rem;
   line-height: 1.6;
-  color: #cccccc;
+  color: #495057; /* 가독성 높은 다크 그레이 */
   word-break: keep-all;
 }
 
