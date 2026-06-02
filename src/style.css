@@ -3180,3 +3180,67 @@ textarea.form-input {
   .pc-global-toggle-wrap { display: none; }
 }
 
+
+/* ========================================== */
+/* multibrand 파격적 텍스트 디자인 리뉴얼 */
+/* ========================================== */
+
+/* 1. Before: 단일브랜드 (구시대적, 답답함, 한계 표현) */
+.text-only-before {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 120px;
+  background: #f1f3f5; /* 칙칙한 회색 배경 */
+  border: 2px dashed #ced4da; /* 점선 테두리로 불안정함 암시 */
+  border-radius: 12px;
+  margin-bottom: 24px;
+  opacity: 0.7; /* 의도적으로 흐릿하게 처리 */
+}
+
+.text-only-before h3 {
+  font-size: 1.6rem;
+  color: #868e96;
+  font-weight: 700;
+  text-decoration: line-through; /* 파격적 요소: 기존 방식 폐기 선언 */
+  word-break: keep-all;
+}
+
+/* 2. After: 멀티브랜드 (압도적, 혁신, 생동감 표현) */
+.text-only-after {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 140px; /* Before보다 물리적으로 더 크게 배치 */
+  background: linear-gradient(135deg, #fe5622 0%, #ff8a66 100%);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 24px rgba(254, 86, 34, 0.4);
+  transform: scale(1.05); /* 튀어나오는 듯한 입체감 */
+  animation: pulseGlow 2s infinite; /* 시선을 사로잡는 숨쉬기 애니메이션 */
+}
+
+.text-only-after h3 {
+  font-size: 1.8rem;
+  color: #ffffff;
+  font-weight: 900;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  text-align: center;
+  line-height: 1.4;
+  word-break: keep-all;
+  padding: 0 10px;
+}
+
+/* 후광 숨쉬기 애니메이션 효과 */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 8px 24px rgba(254, 86, 34, 0.3); transform: scale(1.05); }
+  50% { box-shadow: 0 15px 35px rgba(254, 86, 34, 0.6); transform: scale(1.08); }
+  100% { box-shadow: 0 8px 24px rgba(254, 86, 34, 0.3); transform: scale(1.05); }
+}
+
+/* 모바일 환경 텍스트 크기 조정 */
+@media (max-width: 768px) {
+  .text-only-before h3 { font-size: 1.3rem; }
+  .text-only-after h3 { font-size: 1.5rem; }
+}
+
