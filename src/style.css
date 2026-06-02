@@ -3088,3 +3088,43 @@ textarea.form-input {
   }
 }
 
+
+/* ==========================================
+   대표 메뉴 섹션 (Menu Section)
+   ========================================== */
+
+/* 대표 메뉴 그리드 기본 설정 (PC: 무조건 1줄에 4개 나열) */
+#menu .menu-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  align-items: start; /* 더보기 클릭 시 다른 카드 높이에 영향을 주지 않음 */
+}
+
+/* 메뉴 메인 이미지 크기 극대화 (PC 가로 비율 자유도 확보) */
+.menu-main-img {
+  width: 100%;
+  aspect-ratio: 4 / 5; /* 세로로 긴 비율을 주어 음식 사진을 최대한 크게 노출 */
+  object-fit: cover;
+  display: block;
+}
+
+.hidden-menus .menu-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* 모바일 환경 (768px 이하): 1개씩 순서대로 노출 */
+@media (max-width: 768px) {
+  #menu .menu-grid {
+    grid-template-columns: 1fr; /* 1줄에 1개씩 세로 나열 */
+    gap: 40px;
+  }
+  
+  .menu-main-img {
+    aspect-ratio: 4 / 3; /* 모바일에서는 가로형으로 안정감 있게 조정 */
+  }
+}
+

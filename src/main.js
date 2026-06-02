@@ -2,7 +2,27 @@ import './style.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   
+  // 대표 메뉴 '더보기' 토글 기능 (이벤트 리스너 부착 방식)
+  const menuToggleBtns = document.querySelectorAll('.menu-floating-btn');
 
+  menuToggleBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const brandGroup = this.closest('.menu-brand-group');
+      const hiddenMenus = brandGroup.querySelector('.hidden-menus');
+      
+      // 숨겨진 메뉴가 닫혀있거나 상태가 없을 때 열기
+      if (hiddenMenus.style.display === 'none' || hiddenMenus.style.display === '') {
+        hiddenMenus.style.display = 'flex';
+        this.innerHTML = '메뉴 닫기 ▲';
+        this.style.background = '#fe5622'; // 포인트 컬러
+      } else {
+        // 열려있을 때 닫기
+        hiddenMenus.style.display = 'none';
+        this.innerHTML = '메뉴 더보기 ▼';
+        this.style.background = 'rgba(0,0,0,0.7)'; // 원상 복구
+      }
+    });
+  });
 
   /* ==========================================================================
      0. Mobile Safari 100vh Viewport Height Fix
@@ -723,24 +743,4 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(multibrandSection);
   }
 });
-
-
-// 메뉴 더보기 토글 기능
-function toggleMenus(button) {
-  const brandGroup = button.closest('.menu-brand-group');
-  const hiddenMenus = brandGroup.querySelector('.hidden-menus');
-  
-  if (hiddenMenus.style.display === 'none') {
-    hiddenMenus.style.display = 'flex';
-    button.innerHTML = '메뉴 닫기 ▲';
-    button.style.background = '#fe5622'; // 열렸을 때 포인트 컬러로 변경
-  } else {
-    hiddenMenus.style.display = 'none';
-    button.innerHTML = '메뉴 더보기 ▼';
-    button.style.background = 'rgba(0,0,0,0.7)'; // 닫혔을 때 원래 색상 복귀
-  }
-}
-
-// 전역 함수로 등록 (onclick 속성에서 접근 가능하도록)
-window.toggleMenus = toggleMenus;
 
