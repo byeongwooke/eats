@@ -405,34 +405,23 @@
 
         <div class="branch-map-grid">
           <!-- Left Column: Address List -->
-          <div class="branch-map-left-col scroll-reveal-left revealed">
-            <div class="section-header" style="text-align: left; margin-bottom: 30px;">
-              <h2 class="section-title">전국 가맹점 안내</h2>
-              <p class="section-subtitle">한 매장에서 여러 브랜드를 동시에! 압도적 효율을 증명하는 매장들입니다.</p>
+          <div class="branch-map-left-col scroll-reveal-left">
+            <div class="branch-map-filter-wrap">
+              <button type="button" class="map-filter-btn active" data-brand="all">전체보기</button>
+              <button type="button" class="map-filter-btn" data-brand="pasta">파스타히어</button>
+              <button type="button" class="map-filter-btn" data-brand="deopbap">정담덮밥</button>
+              <button type="button" class="map-filter-btn" data-brand="omuzip">오므집</button>
+              <button type="button" class="map-filter-btn" data-brand="kimchi">부여김치찜</button>
             </div>
-
-            <div class="branch-list-wrap">
-              <div class="branch-card"><div class="branch-card-name">별내직영점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span><span class="brand-badge badge-ome">오므집</span><span class="brand-badge badge-kimchi">부여 김치찜</span></div></div>
-              <div class="branch-card"><div class="branch-card-name">노원본점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span><span class="brand-badge badge-ome">오므집</span><span class="brand-badge badge-kimchi">부여 김치찜</span></div></div>
-              <div class="branch-card"><div class="branch-card-name">목천점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span><span class="brand-badge badge-ome">오므집</span><span class="brand-badge badge-kimchi">부여 김치찜</span></div></div>
-              <div class="branch-card"><div class="branch-card-name">의정부점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span><span class="brand-badge badge-ome">오므집</span><span class="brand-badge badge-kimchi">부여 김치찜</span></div></div>
-              <div class="branch-card"><div class="branch-card-name">진접오남점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span><span class="brand-badge badge-ome">오므집</span><span class="brand-badge badge-kimchi">부여 김치찜</span></div></div>
-              <div class="branch-card"><div class="branch-card-name">양주점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span><span class="brand-badge badge-ome">오므집</span><span class="brand-badge badge-kimchi">부여 김치찜</span></div></div>
-              <div class="branch-card"><div class="branch-card-name">평내호평점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span><span class="brand-badge badge-ome">오므집</span><span class="brand-badge badge-kimchi">부여 김치찜</span></div></div>
-              <div class="branch-card"><div class="branch-card-name">포천본점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span><span class="brand-badge badge-ome">오므집</span><span class="brand-badge badge-kimchi">부여 김치찜</span></div></div>
-
-              <div class="branch-card"><div class="branch-card-name">인천주안점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span><span class="brand-badge badge-ome">오므집</span></div></div>
-              <div class="branch-card"><div class="branch-card-name">청라연희점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span><span class="brand-badge badge-ome">오므집</span></div></div>
-              <div class="branch-card"><div class="branch-card-name">장안점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span><span class="brand-badge badge-ome">오므집</span></div></div>
-              <div class="branch-card"><div class="branch-card-name">상봉점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span><span class="brand-badge badge-ome">오므집</span></div></div>
-              <div class="branch-card"><div class="branch-card-name">화도마석점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span><span class="brand-badge badge-ome">오므집</span></div></div>
-
-              <div class="branch-card"><div class="branch-card-name">강북본점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span><span class="brand-badge badge-kimchi">부여 김치찜</span></div></div>
-
-              <div class="branch-card"><div class="branch-card-name">구리다산점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span></div></div>
-              <div class="branch-card"><div class="branch-card-name">풍세점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span></div></div>
-              <div class="branch-card"><div class="branch-card-name">일산장항점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span></div></div>
-              <div class="branch-card"><div class="branch-card-name">월계공릉점</div><div class="branch-badges"><span class="brand-badge badge-pasta">파스타히어</span><span class="brand-badge badge-rice">정담덮밥</span></div></div>
+            
+            <div class="branch-map-list-wrap" id="branch-map-list-wrap">
+              <!-- Dynamically populated scrollable list -->
+              <div class="branch-list-loading">가맹점 정보를 불러오는 중입니다...</div>
+            </div>
+            
+            <div class="brand-footer-text">
+              <p class="main-text">이츠배럴은, 가맹점의 매출과 철저한 상권 보장을 진행하고있습니다.</p>
+              <p class="sub-text">같은 동네, 같은 프랜차이즈 No!</p>
             </div>
           </div>
 
