@@ -725,27 +725,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // [신규 추가] 대표 메뉴 '더보기' 토글 기능 (이벤트 위임 방식 - DOM 타이밍 무관하게 무조건 동작)
 document.addEventListener('click', function(event) {
-  // 클릭한 곳이 .menu-floating-btn (또는 그 내부)인지 확인
-  const toggleBtn = event.target.closest('.menu-floating-btn');
   
-  // 버튼을 클릭한 게 아니라면 함수 종료
-  if (!toggleBtn) return; 
+  // [1] 모바일 환경: 개별 토글 동작
+  const mobileBtn = event.target.closest('.mobile-toggle-btn');
+  if (mobileBtn) {
+    const brandGroup = mobileBtn.closest('.menu-brand-group');
+    const hiddenMenus = brandGroup.querySelector('.hidden-menus');
+    
+    if (hiddenMenus.style.display === 'none' || hiddenMenus.style.display === '') {
+      hiddenMenus.style.display = 'flex';
+      mobileBtn.innerHTML = '메뉴 닫기 ▲';
+      mobileBtn.style.background = '#fe5622';
+      mobileBtn.style.color = '#fff';
+      mobileBtn.style.borderColor = '#fe5622';
+    } else {
+      hiddenMenus.style.display = 'none';
+      mobileBtn.innerHTML = '메뉴 더보기 ▼';
+      mobileBtn.style.background = '#fff';
+      mobileBtn.style.color = '#333';
+      mobileBtn.style.borderColor = '#ccc';
+    }
+    return; // 실행 후 종료
+  }
 
-  // 클릭된 버튼이 속한 브랜드 그룹과 숨김 메뉴 영역 찾기
-  const brandGroup = toggleBtn.closest('.menu-brand-group');
-  const hiddenMenus = brandGroup.querySelector('.hidden-menus');
-  
-  // 숨겨진 메뉴가 닫혀있을 때 -> 열기
-  if (hiddenMenus.style.display === 'none' || hiddenMenus.style.display === '') {
-    hiddenMenus.style.display = 'flex';
-    toggleBtn.innerHTML = '메뉴 닫기 ▲';
-    toggleBtn.style.background = '#fe5622'; 
-  } 
-  // 열려있을 때 -> 닫기
-  else {
-    hiddenMenus.style.display = 'none';
-    toggleBtn.innerHTML = '메뉴 더보기 ▼';
-    toggleBtn.style.background = 'rgba(0,0,0,0.7)'; 
+  // [2] PC 환경: 전체 통합 토글 동작
+  const pcBtn = event.target.closest('.pc-global-toggle-btn');
+  if (pcBtn) {
+    const allHiddenMenus = document.querySelectorAll('#menu .hidden-menus');
+    // 첫 번째 메뉴의 상태를 기준으로 전체 열림/닫힘 판단
+    const isClosed = allHiddenMenus[0].style.display === 'none' || allHiddenMenus[0].style.display === '';
+    
+    allHiddenMenus.forEach(menu => {
+      menu.style.display = isClosed ? 'flex' : 'none';
+    });
+
+    if (isClosed) {
+      pcBtn.innerHTML = '전체 브랜드 메뉴 접기 ▲';
+      pcBtn.style.background = '#fe5622'; // 포인트 컬러
+    } else {
+      pcBtn.innerHTML = '전체 브랜드 메뉴 펼치기 ▼';
+      pcBtn.style.background = '#212529'; // 기본 다크 컬러
+    }
+    return; // 실행 후 종료
   }
 });
 

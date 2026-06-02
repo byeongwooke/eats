@@ -3116,7 +3116,56 @@ textarea.form-input {
   border-radius: 8px;
 }
 
-/* 모바일 환경 (768px 이하): 1개씩 순서대로 노출 */
+/* --- 공통 스타일 --- */
+/* 사진 위 메뉴명 라벨 */
+.menu-name-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.60);
+  color: #ffffff;
+  text-align: center;
+  padding: 12px 0;
+  font-weight: bold;
+  font-size: 1.1rem;
+  pointer-events: none; /* 클릭 방해 금지 */
+}
+
+/* 모바일 개별 버튼 디자인 */
+.mobile-toggle-btn {
+  width: 100%;
+  padding: 14px;
+  margin-top: 15px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #333333;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+/* PC 통합 버튼 디자인 */
+.pc-global-toggle-btn {
+  display: inline-block;
+  padding: 16px 40px;
+  background-color: #212529;
+  color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* --- 반응형 분기 처리 --- */
+/* 기본 (PC 환경): 모바일 버튼 숨김, PC 버튼 노출 */
+.mobile-toggle-btn { display: none; }
+.pc-global-toggle-wrap { display: block; }
+
+/* 모바일 환경 (768px 이하): 모바일 버튼 노출, PC 버튼 숨김 */
 @media (max-width: 768px) {
   #menu .menu-grid {
     grid-template-columns: 1fr; /* 1줄에 1개씩 세로 나열 */
@@ -3126,5 +3175,8 @@ textarea.form-input {
   .menu-main-img {
     aspect-ratio: 4 / 3; /* 모바일에서는 가로형으로 안정감 있게 조정 */
   }
+
+  .mobile-toggle-btn { display: block; }
+  .pc-global-toggle-wrap { display: none; }
 }
 
