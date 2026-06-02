@@ -164,50 +164,51 @@
       </div>
     </section>
 
-
     <!-- ==========================================
-         2.6 BRANCH MAP SECTION (Interactive Map & Address List)
+         2.8 MULTI-BRAND SUCCESS SHOWCASE SECTION
          ========================================== -->
-    <section id="branch-map" class="section branch-map-section">
+    <section id="multibrand" class="section section-dark multibrand-section">
       <div class="container">
-        <div class="section-title-wrap light scroll-reveal">
-          <span class="section-subtitle">National Store Status</span>
-          <h2 class="section-title">전국 가맹점 현황</h2>
+        <div class="case-header">
+          <span class="tag-accent">REAL SUCCESS CASE</span>
+          <h2 class="section-title">멀티브랜드 도입, 압도적인 수익 증명</h2>
+          <p class="section-sub">이츠베럴 멀티브랜드 실제 PC점 한식 브랜드 변경 사례</p>
         </div>
 
-        <div class="branch-map-grid">
-          <!-- Left Column: Address List -->
-          <div class="branch-map-left-col scroll-reveal-left">
-            <div class="branch-map-filter-wrap">
-              <button type="button" class="map-filter-btn active" data-brand="all">전체보기</button>
-              <button type="button" class="map-filter-btn" data-brand="pasta">파스타히어</button>
-              <button type="button" class="map-filter-btn" data-brand="deopbap">정담덮밥</button>
-              <button type="button" class="map-filter-btn" data-brand="omuzip">오므집</button>
-              <button type="button" class="map-filter-btn" data-brand="kimchi">부여김치찜</button>
+        <div class="case-showcase">
+          <!-- Before Card -->
+          <div class="case-card before">
+            <div class="brand-tag">BEFORE</div>
+            <div class="logo-wrap">
+              <img src="/images/brand_pasta_here.png" alt="파스타히어" class="before-logo">
             </div>
-            
-            <div class="branch-map-list-wrap" id="branch-map-list-wrap">
-              <!-- Dynamically populated scrollable list -->
-              <div class="branch-list-loading">가맹점 정보를 불러오는 중입니다...</div>
-            </div>
-            
-            <div class="brand-footer-text">
-              <p class="main-text">이츠배럴은, 가맹점의 매출과 철저한 상권 보장을 진행하고있습니다.</p>
-              <p class="sub-text">같은 동네, 같은 프랜차이즈 No!</p>
+            <p class="label">브랜드 변경 전 월 매출</p>
+            <div class="price-wrap">
+              <span class="currency">₩</span>
+              <span class="price-static">1,400</span>
+              <span class="unit">만원</span>
             </div>
           </div>
 
-          <!-- Right Column: Interactive Map -->
-          <div class="branch-map-right-col scroll-reveal-right">
-            <div class="branch-map-container" id="branch-map-container">
-              <!-- Leaflet Map will be initialized here -->
+          <!-- Transition Arrow SVG -->
+          <div class="transformation-arrow">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z"/>
+            </svg>
+          </div>
+
+          <!-- After Card -->
+          <div class="case-card after">
+            <div class="brand-tag accent">AFTER</div>
+            <div class="logo-group">
+              <img src="/images/brand_steak_here.png" alt="한식브랜드" class="after-logo">
+              <img src="/images/brand_pilaf_here.png" alt="PC점" class="after-logo">
             </div>
-            
-            <div class="map-caption-box">
-              <p class="map-caption-text">
-                <svg class="caption-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                지도의 마커나 좌측 가맹점을 마우스 오버하시면 실시간 위치를 확인할 수 있습니다. 주소를 클릭하면 상세 지도로 연결됩니다.
-              </p>
+            <p class="label">브랜드 변경 후 월 매출</p>
+            <div class="price-wrap counted">
+              <span class="currency accent">₩</span>
+              <span class="price-count" data-target="4500">1400</span>
+              <span class="unit accent">만원</span>
             </div>
           </div>
         </div>
@@ -277,50 +278,48 @@
     </section>
 
     <!-- ==========================================
-         2.8 MULTI-BRAND SUCCESS SHOWCASE SECTION
+         2.6 BRANCH MAP SECTION (Interactive Map & Address List)
          ========================================== -->
-    <section id="multibrand" class="section section-dark multibrand-section">
+    <section id="branch-map" class="section branch-map-section">
       <div class="container">
-        <div class="case-header">
-          <span class="tag-accent">REAL SUCCESS CASE</span>
-          <h2 class="section-title">멀티브랜드 도입, 압도적인 수익 증명</h2>
-          <p class="section-sub">이츠베럴 멀티브랜드 실제 PC점 한식 브랜드 변경 사례</p>
+        <div class="section-title-wrap light scroll-reveal">
+          <span class="section-subtitle">National Store Status</span>
+          <h2 class="section-title">전국 가맹점 현황</h2>
         </div>
 
-        <div class="case-showcase">
-          <!-- Before Card -->
-          <div class="case-card before">
-            <div class="brand-tag">BEFORE</div>
-            <div class="logo-wrap">
-              <img src="/images/brand_pasta_here.png" alt="파스타히어" class="before-logo">
+        <div class="branch-map-grid">
+          <!-- Left Column: Address List -->
+          <div class="branch-map-left-col scroll-reveal-left">
+            <div class="branch-map-filter-wrap">
+              <button type="button" class="map-filter-btn active" data-brand="all">전체보기</button>
+              <button type="button" class="map-filter-btn" data-brand="pasta">파스타히어</button>
+              <button type="button" class="map-filter-btn" data-brand="deopbap">정담덮밥</button>
+              <button type="button" class="map-filter-btn" data-brand="omuzip">오므집</button>
+              <button type="button" class="map-filter-btn" data-brand="kimchi">부여김치찜</button>
             </div>
-            <p class="label">브랜드 변경 전 월 매출</p>
-            <div class="price-wrap">
-              <span class="currency">₩</span>
-              <span class="price-static">1,400</span>
-              <span class="unit">만원</span>
+            
+            <div class="branch-map-list-wrap" id="branch-map-list-wrap">
+              <!-- Dynamically populated scrollable list -->
+              <div class="branch-list-loading">가맹점 정보를 불러오는 중입니다...</div>
+            </div>
+            
+            <div class="brand-footer-text">
+              <p class="main-text">이츠배럴은, 가맹점의 매출과 철저한 상권 보장을 진행하고있습니다.</p>
+              <p class="sub-text">같은 동네, 같은 프랜차이즈 No!</p>
             </div>
           </div>
 
-          <!-- Transition Arrow SVG -->
-          <div class="transformation-arrow">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z"/>
-            </svg>
-          </div>
-
-          <!-- After Card -->
-          <div class="case-card after">
-            <div class="brand-tag accent">AFTER</div>
-            <div class="logo-group">
-              <img src="/images/brand_steak_here.png" alt="한식브랜드" class="after-logo">
-              <img src="/images/brand_pilaf_here.png" alt="PC점" class="after-logo">
+          <!-- Right Column: Interactive Map -->
+          <div class="branch-map-right-col scroll-reveal-right">
+            <div class="branch-map-container" id="branch-map-container">
+              <!-- Leaflet Map will be initialized here -->
             </div>
-            <p class="label">브랜드 변경 후 월 매출</p>
-            <div class="price-wrap counted">
-              <span class="currency accent">₩</span>
-              <span class="price-count" data-target="4500">1400</span>
-              <span class="unit accent">만원</span>
+            
+            <div class="map-caption-box">
+              <p class="map-caption-text">
+                <svg class="caption-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                지도의 마커나 좌측 가맹점을 마우스 오버하시면 실시간 위치를 확인할 수 있습니다. 주소를 클릭하면 상세 지도로 연결됩니다.
+              </p>
             </div>
           </div>
         </div>
