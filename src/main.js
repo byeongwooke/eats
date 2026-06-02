@@ -1,7 +1,7 @@
 import './style.css';
 
 document.addEventListener('DOMContentLoaded', () => {
-  
+
   /* ==========================================================================
      0. Mobile Safari 100vh Viewport Height Fix
      ========================================================================== */
@@ -11,12 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   setVh();
   window.addEventListener('resize', setVh, { passive: true });
-  
+
   /* ==========================================================================
      1. Sticky Header & Shrink Scroll Effect
      ========================================================================== */
   const header = document.getElementById('main-header');
-  
+
   const handleHeaderScroll = () => {
     if (window.scrollY > 50) {
       header.classList.add('scrolled');
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
       header.classList.remove('scrolled');
     }
   };
-  
+
   window.addEventListener('scroll', handleHeaderScroll, { passive: true });
   // Call once immediately in case the page loaded mid-scroll
   handleHeaderScroll();
@@ -35,11 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
   const navList = document.getElementById('nav-items-container');
   const navLinks = document.querySelectorAll('.nav-link, .nav-cta');
-  
+
   const toggleMobileMenu = () => {
     const isActive = mobileMenuToggle.classList.toggle('active');
     navList.classList.toggle('active');
-    
+
     // Prevent background scrolling when mobile menu is active
     if (isActive) {
       document.body.style.overflow = 'hidden';
@@ -47,9 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.style.overflow = '';
     }
   };
-  
+
   mobileMenuToggle.addEventListener('click', toggleMobileMenu);
-  
+
   // Close menu when clicking any link
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const target = parseInt(el.getAttribute('data-target'));
     let current = 0;
     const increment = target / 30; // 속도 조절
-    
+
     const update = () => {
       current += increment;
       if (current < target) {
@@ -216,11 +216,11 @@ document.addEventListener('DOMContentLoaded', () => {
       extraMenus.forEach((filename, index) => {
         const brand = getBrandFromFilename(filename);
         const menuName = getCleanMenuName(filename);
-        
+
         const menuItem = document.createElement('div');
         menuItem.className = 'menu-item fade-in-card';
         menuItem.style.animationDelay = `${index * 0.1}s`;
-        
+
         menuItem.innerHTML = `
           <div class="menu-card">
             <span class="brand-tag">${brand}</span>
@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="menu-name">${menuName}</span>
           </div>
         `;
-        
+
         menuContainer.appendChild(menuItem);
       });
 
@@ -243,12 +243,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('franchise-application-form');
   const successModal = document.getElementById('inquiry-success-modal');
   const modalCloseBtn = document.getElementById('modal-close-button');
-  
+
   if (form && successModal && modalCloseBtn) {
-    
+
     const handleFormSubmit = (e) => {
       e.preventDefault();
-      
+
       // Perform final fields verification
       const name = document.getElementById('input-name').value.trim();
       const contact = document.getElementById('input-contact').value.trim();
@@ -256,31 +256,31 @@ document.addEventListener('DOMContentLoaded', () => {
       const cost = document.getElementById('input-cost').value;
       const content = document.getElementById('input-content').value.trim();
       const agreement = document.getElementById('input-agreement').checked;
-      
+
       if (!name || !contact || !region || !cost || !content || !agreement) {
         alert('모든 필수 항목을 기입해 주시고 개인정보 제공에 동의해 주세요.');
         return;
       }
-      
+
       // Greet submission (Simulate backend sending)
       console.log('Sending Inquiry:', { name, contact, region, cost, content });
-      
+
       // Show success modal popup
       successModal.classList.add('active');
       document.body.style.overflow = 'hidden'; // Lock background scroll
-      
+
       // Reset form fields
       form.reset();
     };
-    
+
     const closeSuccessModal = () => {
       successModal.classList.remove('active');
       document.body.style.overflow = ''; // Unlock background scroll
     };
-    
+
     form.addEventListener('submit', handleFormSubmit);
     modalCloseBtn.addEventListener('click', closeSuccessModal);
-    
+
     // Close modal when clicking outside content (overlay)
     successModal.addEventListener('click', (e) => {
       if (e.target === successModal) {
@@ -376,15 +376,15 @@ document.addEventListener('DOMContentLoaded', () => {
      6. Smooth Scroll Navigation Spy (Highlight active nav link)
      ========================================================================== */
   const sections = document.querySelectorAll('section[id]');
-  
+
   const handleScrollSpy = () => {
     const scrollY = window.scrollY;
-    
+
     sections.forEach(current => {
       const sectionHeight = current.offsetHeight;
       const sectionTop = current.offsetTop - 120; // Offset for sticky header
       const sectionId = current.getAttribute('id');
-      
+
       const navItem = document.querySelector(`.nav-link[href*="${sectionId}"]`);
       if (navItem) {
         if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
@@ -395,15 +395,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   };
-  
+
   window.addEventListener('scroll', handleScrollSpy, { passive: true });
   handleScrollSpy();
-  
+
   /* ==========================================================================
      7. Infographic Roadmap Stepper Animation (Hover effects and progressive scroll)
      ========================================================================== */
   const roadmapSteps = document.querySelectorAll('.roadmap-step');
-  
+
   roadmapSteps.forEach((step, index) => {
     step.addEventListener('mouseenter', () => {
       // Deactivate all steps
@@ -429,9 +429,9 @@ document.addEventListener('DOMContentLoaded', () => {
           ...branch,
           brandKey: brandKey,
           brandName: brandKey === 'pasta' ? '파스타히어' :
-                     brandKey === 'deopbap' ? '정담덮밥' :
-                     brandKey === 'omuzip' ? '오므집' :
-                     brandKey === 'kimchi' ? '부여김치찜' : '이츠베럴'
+            brandKey === 'deopbap' ? '정담덮밥' :
+              brandKey === 'omuzip' ? '오므집' :
+                brandKey === 'kimchi' ? '부여김치찜' : '이츠베럴'
         });
       });
     });
@@ -458,7 +458,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (name.includes('장안')) return [37.5614, 127.0645];
     if (name.includes('상봉')) return [37.5962, 127.0855];
     if (name.includes('화도') || name.includes('마석')) return [37.6508, 127.2435];
-    
+
     // Default region mappings based on address text
     if (address.includes('역삼') || name.includes('강남')) return [37.4979, 127.0276];
     if (address.includes('마포') || address.includes('홍대') || name.includes('홍대')) return [37.5568, 126.9238];
@@ -466,7 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (address.includes('남양주')) return [37.6360, 127.2165];
     if (address.includes('인천')) return [37.4563, 126.7052];
     if (address.includes('천안')) return [36.8151, 127.1139];
-    
+
     // Fallback coordinates (South Korea Center)
     return [36.5, 127.5];
   };
@@ -508,12 +508,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (markerGroup) {
       markerGroup.clearLayers();
     }
-    
+
     // Reset active marker references
     Object.keys(activeMarkers).forEach(key => delete activeMarkers[key]);
 
-    const filtered = brandFilter === 'all' 
-      ? allBranches 
+    const filtered = brandFilter === 'all'
+      ? allBranches
       : allBranches.filter(b => b.brandKey === brandFilter);
 
     if (filtered.length === 0) {
@@ -562,7 +562,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const marker = L.marker(coords, { icon: pulseIcon }).addTo(markerGroup);
-        
+
         // Bind responsive tooltip
         marker.bindTooltip(`<strong>${branch.name}</strong><br><span style="font-size:0.65rem; opacity:0.8;">${branch.address}</span>`, {
           direction: 'top',
@@ -575,7 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
         marker.on('mouseover', () => {
           card.classList.add('active');
           card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          
+
           const iconElement = marker.getElement();
           if (iconElement) {
             iconElement.classList.add('highlight');
@@ -584,7 +584,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         marker.on('mouseout', () => {
           card.classList.remove('active');
-          
+
           const iconElement = marker.getElement();
           if (iconElement) {
             iconElement.classList.remove('highlight');
@@ -678,24 +678,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const targetVal = parseInt(priceCountEl.getAttribute('data-target')) || 4500;
     const duration = 2000; // 2 seconds
     const intervalTime = 16; // ~60fps (16ms)
-    
+
     const countUp = () => {
       // Add spinning effect (motion blur + jitter)
       priceCountEl.classList.add('spinning');
-      
+
       const startTime = Date.now();
-      
+
       const timer = setInterval(() => {
         const timePassed = Date.now() - startTime;
         let progress = timePassed / duration;
         if (progress > 1) progress = 1;
-        
+
         // Easing function for smooth slowing down at the end (cubic ease-out)
         const easeOutCubic = 1 - Math.pow(1 - progress, 3);
         const currentVal = startVal + (targetVal - startVal) * easeOutCubic;
-        
+
         priceCountEl.textContent = Math.floor(currentVal).toLocaleString();
-        
+
         if (progress === 1) {
           clearInterval(timer);
           priceCountEl.classList.remove('spinning');
@@ -708,7 +708,7 @@ document.addEventListener('DOMContentLoaded', () => {
       root: null,
       threshold: 0.25 // Trigger when 25% of the section is visible
     };
-    
+
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -717,32 +717,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }, observerOptions);
-    
+
     observer.observe(multibrandSection);
   }
+});
 
-  // [신규 추가] 대표 메뉴 '더보기' 토글 기능
-  const menuToggleBtns = document.querySelectorAll('.menu-floating-btn');
 
-  menuToggleBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-      // 클릭된 버튼이 속한 브랜드 그룹과 숨김 메뉴 영역 찾기
-      const brandGroup = this.closest('.menu-brand-group');
-      const hiddenMenus = brandGroup.querySelector('.hidden-menus');
-      
-      // 숨겨진 메뉴가 닫혀있을 때 -> 열기
-      if (hiddenMenus.style.display === 'none' || hiddenMenus.style.display === '') {
-        hiddenMenus.style.display = 'flex';
-        this.innerHTML = '메뉴 닫기 ▲';
-        this.style.background = '#fe5622'; // 이츠베럴 포인트 컬러로 하이라이트
-      } 
-      // 열려있을 때 -> 닫기
-      else {
-        hiddenMenus.style.display = 'none';
-        this.innerHTML = '메뉴 더보기 ▼';
-        this.style.background = 'rgba(0,0,0,0.7)'; // 기존 반투명 검정으로 복구
-      }
-    });
-  });
+// [신규 추가] 대표 메뉴 '더보기' 토글 기능 (이벤트 위임 방식 - DOM 타이밍 무관하게 무조건 동작)
+document.addEventListener('click', function(event) {
+  // 클릭한 곳이 .menu-floating-btn (또는 그 내부)인지 확인
+  const toggleBtn = event.target.closest('.menu-floating-btn');
+  
+  // 버튼을 클릭한 게 아니라면 함수 종료
+  if (!toggleBtn) return; 
+
+  // 클릭된 버튼이 속한 브랜드 그룹과 숨김 메뉴 영역 찾기
+  const brandGroup = toggleBtn.closest('.menu-brand-group');
+  const hiddenMenus = brandGroup.querySelector('.hidden-menus');
+  
+  // 숨겨진 메뉴가 닫혀있을 때 -> 열기
+  if (hiddenMenus.style.display === 'none' || hiddenMenus.style.display === '') {
+    hiddenMenus.style.display = 'flex';
+    toggleBtn.innerHTML = '메뉴 닫기 ▲';
+    toggleBtn.style.background = '#fe5622'; 
+  } 
+  // 열려있을 때 -> 닫기
+  else {
+    hiddenMenus.style.display = 'none';
+    toggleBtn.innerHTML = '메뉴 더보기 ▼';
+    toggleBtn.style.background = 'rgba(0,0,0,0.7)'; 
+  }
 });
 
