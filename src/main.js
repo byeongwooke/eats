@@ -2,28 +2,6 @@ import './style.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   
-  // 대표 메뉴 '더보기' 토글 기능 (이벤트 리스너 부착 방식)
-  const menuToggleBtns = document.querySelectorAll('.menu-floating-btn');
-
-  menuToggleBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const brandGroup = this.closest('.menu-brand-group');
-      const hiddenMenus = brandGroup.querySelector('.hidden-menus');
-      
-      // 숨겨진 메뉴가 닫혀있거나 상태가 없을 때 열기
-      if (hiddenMenus.style.display === 'none' || hiddenMenus.style.display === '') {
-        hiddenMenus.style.display = 'flex';
-        this.innerHTML = '메뉴 닫기 ▲';
-        this.style.background = '#fe5622'; // 포인트 컬러
-      } else {
-        // 열려있을 때 닫기
-        hiddenMenus.style.display = 'none';
-        this.innerHTML = '메뉴 더보기 ▼';
-        this.style.background = 'rgba(0,0,0,0.7)'; // 원상 복구
-      }
-    });
-  });
-
   /* ==========================================================================
      0. Mobile Safari 100vh Viewport Height Fix
      ========================================================================== */
@@ -742,5 +720,29 @@ document.addEventListener('DOMContentLoaded', () => {
     
     observer.observe(multibrandSection);
   }
+
+  // [신규 추가] 대표 메뉴 '더보기' 토글 기능
+  const menuToggleBtns = document.querySelectorAll('.menu-floating-btn');
+
+  menuToggleBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      // 클릭된 버튼이 속한 브랜드 그룹과 숨김 메뉴 영역 찾기
+      const brandGroup = this.closest('.menu-brand-group');
+      const hiddenMenus = brandGroup.querySelector('.hidden-menus');
+      
+      // 숨겨진 메뉴가 닫혀있을 때 -> 열기
+      if (hiddenMenus.style.display === 'none' || hiddenMenus.style.display === '') {
+        hiddenMenus.style.display = 'flex';
+        this.innerHTML = '메뉴 닫기 ▲';
+        this.style.background = '#fe5622'; // 이츠베럴 포인트 컬러로 하이라이트
+      } 
+      // 열려있을 때 -> 닫기
+      else {
+        hiddenMenus.style.display = 'none';
+        this.innerHTML = '메뉴 더보기 ▼';
+        this.style.background = 'rgba(0,0,0,0.7)'; // 기존 반투명 검정으로 복구
+      }
+    });
+  });
 });
 
