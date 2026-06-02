@@ -3206,41 +3206,49 @@ textarea.form-input {
   word-break: keep-all;
 }
 
-/* 2. After: 멀티브랜드 (압도적, 혁신, 생동감 표현) */
+/* 2. After: 멀티브랜드 (미니멀하고 직관적인 강조) */
 .text-only-after {
   display: flex;
+  flex-direction: column; /* 텍스트와 로고를 위아래로 배치 */
   justify-content: center;
   align-items: center;
-  min-height: 140px; /* Before보다 물리적으로 더 크게 배치 */
-  background: linear-gradient(135deg, #fe5622 0%, #ff8a66 100%);
+  min-height: 140px;
+  background: #fe5622; /* 깔끔한 메인 컬러 단색 */
   border-radius: 12px;
   margin-bottom: 24px;
-  box-shadow: 0 8px 24px rgba(254, 86, 34, 0.4);
-  transform: scale(1.05); /* 튀어나오는 듯한 입체감 */
-  animation: pulseGlow 2s infinite; /* 시선을 사로잡는 숨쉬기 애니메이션 */
+  padding: 20px 10px;
 }
 
 .text-only-after h3 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: #ffffff;
-  font-weight: 900;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  font-weight: 800;
   text-align: center;
-  line-height: 1.4;
   word-break: keep-all;
-  padding: 0 10px;
+  margin-bottom: 12px; /* 로고와의 간격 */
 }
 
-/* 후광 숨쉬기 애니메이션 효과 */
-@keyframes pulseGlow {
-  0% { box-shadow: 0 8px 24px rgba(254, 86, 34, 0.3); transform: scale(1.05); }
-  50% { box-shadow: 0 15px 35px rgba(254, 86, 34, 0.6); transform: scale(1.08); }
-  100% { box-shadow: 0 8px 24px rgba(254, 86, 34, 0.3); transform: scale(1.05); }
+/* 추가된 로고 1줄 나열 컨테이너 */
+.after-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px; /* 로고 사이 간격 */
+  width: 100%;
 }
 
-/* 모바일 환경 텍스트 크기 조정 */
+.after-logos img {
+  height: 24px; /* 로고 높이 통일 (비율에 맞춰 크기 조절) */
+  object-fit: contain;
+  background: #ffffff; /* 로고가 잘 보이도록 흰색 둥근 배경 추가 */
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* 모바일 환경 크기 조정 */
 @media (max-width: 768px) {
   .text-only-before h3 { font-size: 1.3rem; }
-  .text-only-after h3 { font-size: 1.5rem; }
+  .text-only-after h3 { font-size: 1.4rem; }
+  .after-logos img { height: 18px; padding: 2px 4px; gap: 6px; }
 }
 
