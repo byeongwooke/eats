@@ -3580,7 +3580,11 @@ textarea.form-input {
 .badge-pasta { background-color: #fe5622; } /* 메인 오렌지 */
 .badge-rice { background-color: #ff7a45; }  /* 밝은 오렌지 */
 .badge-ome { background-color: #ff9c6e; }   /* 살구색 */
-.badge-kimchi { background-color: #ffc069; color: #d4380d; } /* 김치찜: 가독성을 위해 텍스트 컬러 어둡게 */
+/* 부여김치찜: 시인성 대폭 개선 버전 */
+.badge-kimchi { 
+  background-color: #a83232 !important; /* 깊은 김치찜 레드 톤 */
+  color: #ffffff !important; /* 흰색 글자로 가독성 극대화 */
+}
 
 .branch-card-name {
   font-size: 1.2rem;
