@@ -414,28 +414,41 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ==========================================================================
-     8. National Branch Map - Leaflet.js Interactive Map & Geocoded Address Links
+     8. National Branch Map - 멀티브랜드 자동 병합 및 Leaflet Map
      ========================================================================== */
   const mapListWrap = document.getElementById('branch-map-list-wrap');
-  const mapFilterBtns = document.querySelectorAll('.map-filter-btn');
 
-  // Extract and combine all branches from BRAND_DATA
-  const allBranches = [];
+  // 1. BRAND_DATA를 순회하며 지점명 기준으로 운영 브랜드 병합 (파스타히어 등의 접두사 자동 제거)
+  const consolidatedBranches = {};
+
   if (typeof BRAND_DATA !== 'undefined') {
     Object.keys(BRAND_DATA).forEach(brandKey => {
-      const brandInfo = BRAND_DATA[brandKey];
-      brandInfo.branches.forEach(branch => {
-        allBranches.push({
-          ...branch,
-          brandKey: brandKey,
-          brandName: brandKey === 'pasta' ? '파스타히어' :
-            brandKey === 'deopbap' ? '정담덮밥' :
-              brandKey === 'omuzip' ? '오므집' :
-                brandKey === 'kimchi' ? '부여김치찜' : '이츠베럴'
-        });
+      const brandName = brandKey === 'pasta' ? '파스타히어' :
+                        brandKey === 'deopbap' ? '정담덮밥' :
+                        brandKey === 'omuzip' ? '오므집' :
+                        brandKey === 'kimchi' ? '부여김치찜' : '이츠베럴';
+
+      BRAND_DATA[brandKey].branches.forEach(branch => {
+        // "파스타히어 별내직영점" 등에서 브랜드명 제거 후 순수 지점명만 추출
+        let pureName = branch.name.replace(/(파스타히어|정담덮밥|오므집|부여김치찜|부여 김치찜)\s*/g, '').trim();
+
+        if (!consolidatedBranches[pureName]) {
+          consolidatedBranches[pureName] = {
+            name: pureName,
+            address: branch.address,
+            brands: []
+          };
+        }
+        // 해당 지점에 현재 브랜드가 없다면 뱃지 리스트에 추가
+        if (!consolidatedBranches[pureName].brands.includes(brandName)) {
+          consolidatedBranches[pureName].brands.push(brandName);
+        }
       });
     });
   }
+
+  // 브랜드를 많이 운영하는 지점(4개->3개->2개) 순서대로 정렬하여 배열 변환
+  const allBranches = Object.values(consolidatedBranches).sort((a, b) => b.brands.length - a.brands.length);
 
   // Geocoding Helper: Map branch names to real South Korea Latitude/Longitude coordinates
   const getBranchCoords = (name, address) => {
@@ -499,8 +512,8 @@ document.addEventListener('DOMContentLoaded', () => {
     markerGroup = L.layerGroup().addTo(map);
   };
 
-  // Render branches list and Leaflet markers
-  const renderMapBranches = (brandFilter = 'all', isInitial = false) => {
+  // 2. 렌더링 함수 수정 (필터 삭제, 뱃지 HTML 추가)
+  const renderMapBranches = (isInitial = false) => {
     if (!mapListWrap) return;
     mapListWrap.innerHTML = '';
 
@@ -512,21 +525,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Reset active marker references
     Object.keys(activeMarkers).forEach(key => delete activeMarkers[key]);
 
-    const filtered = brandFilter === 'all'
-      ? allBranches
-      : allBranches.filter(b => b.brandKey === brandFilter);
-
-    if (filtered.length === 0) {
-      mapListWrap.innerHTML = '<div class="branch-list-empty">해당 브랜드의 가맹점이 없습니다.</div>';
+    if (allBranches.length === 0) {
+      mapListWrap.innerHTML = '<div class="branch-list-empty">가맹점 정보가 없습니다.</div>';
       return;
     }
 
-    filtered.forEach(branch => {
+    allBranches.forEach(branch => {
       const coords = getBranchCoords(branch.name, branch.address);
       const card = document.createElement('div');
       card.className = 'branch-card-item';
 
-      // Clean address for map search URL
       let pureAddress = branch.address;
       if (pureAddress.includes('|')) {
         pureAddress = pureAddress.split('|')[1].trim();
@@ -537,11 +545,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       const searchUrl = `https://map.naver.com/v5/search/${encodeURIComponent(pureAddress)}`;
 
+      // 뱃지 HTML 생성
+      const badgesHtml = branch.brands.map(b => {
+        let badgeClass = '';
+        if (b === '파스타히어') badgeClass = 'badge-pasta';
+        if (b === '정담덮밥') badgeClass = 'badge-rice';
+        if (b === '오므집') badgeClass = 'badge-ome';
+        if (b === '부여김치찜') badgeClass = 'badge-kimchi';
+        return `<span class="brand-badge ${badgeClass}">${b}</span>`;
+      }).join('');
+
       card.innerHTML = `
         <div class="branch-card-item-content">
-          <div class="branch-card-item-header">
-            <span class="branch-brand-tag ${branch.brandKey}">${branch.brandName}</span>
+          <div class="branch-card-item-header" style="display: block; margin-bottom: 12px;">
             <h4 class="branch-card-name">${branch.name}</h4>
+            <div class="branch-badges">
+              ${badgesHtml}
+            </div>
           </div>
           <p class="branch-card-addr">${branch.address}</p>
         </div>
@@ -634,7 +654,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Fit map view to show all markers beautifully (Bypassed during initial load)
-    if (map && markerGroup && filtered.length > 0 && !isInitial) {
+    if (map && markerGroup && allBranches.length > 0 && !isInitial) {
       try {
         const markersArray = Object.values(activeMarkers);
         const groupBounds = L.featureGroup(markersArray).getBounds();
@@ -650,21 +670,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Initialize Map and Render List
+  // 3. 초기화 (필터 버튼 이벤트 리스너 관련 코드 삭제)
   setTimeout(() => {
     initLeafletMap();
-    renderMapBranches('all', true);
+    renderMapBranches(true);
   }, 100);
-
-  // Filter click handler
-  mapFilterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      mapFilterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const brand = btn.getAttribute('data-brand');
-      renderMapBranches(brand);
-    });
-  });
 
   /* ==========================================================================
      9. Multi-brand Success Showcase - Intersection Observer & 60FPS Rolling Counter
@@ -724,14 +734,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // [신규 추가] 대표 메뉴 '더보기' 토글 기능 (이벤트 위임 방식 - DOM 타이밍 무관하게 무조건 동작)
-document.addEventListener('click', function(event) {
-  
+document.addEventListener('click', function (event) {
+
   // [1] 모바일 환경: 개별 토글 동작
   const mobileBtn = event.target.closest('.mobile-toggle-btn');
   if (mobileBtn) {
     const brandGroup = mobileBtn.closest('.menu-brand-group');
     const hiddenMenus = brandGroup.querySelector('.hidden-menus');
-    
+
     if (hiddenMenus.style.display === 'none' || hiddenMenus.style.display === '') {
       hiddenMenus.style.display = 'flex';
       mobileBtn.innerHTML = '메뉴 닫기 ▲';
@@ -754,7 +764,7 @@ document.addEventListener('click', function(event) {
     const allHiddenMenus = document.querySelectorAll('#menu .hidden-menus');
     // 첫 번째 메뉴의 상태를 기준으로 전체 열림/닫힘 판단
     const isClosed = allHiddenMenus[0].style.display === 'none' || allHiddenMenus[0].style.display === '';
-    
+
     allHiddenMenus.forEach(menu => {
       menu.style.display = isClosed ? 'flex' : 'none';
     });

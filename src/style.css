@@ -5,35 +5,46 @@
    ========================================== */
 :root {
   /* Color Palette - Premium HSL System */
-  --clr-bg-light: hsl(38, 40%, 98%);      /* Warm cream */
-  --clr-bg-dark: hsl(210, 24%, 6%);        /* Deep luxury charcoal */
-  --clr-bg-card: hsl(38, 30%, 96%);        /* Card background cream */
-  --clr-bg-card-dark: hsl(210, 20%, 10%);  /* Card background dark */
-  
-  --clr-primary: hsl(24, 48%, 52%);       /* Warm appetizing copper/orange */
-  --clr-primary-hover: hsl(24, 55%, 45%); /* Hover state */
-  --clr-accent: rgb(212, 175, 55);        /* Elegant Metallic Gold */
-  
-  --clr-text-dark: hsl(210, 24%, 10%);    /* Rich text dark mode */
-  --clr-text-light: hsl(38, 40%, 96%);    /* High-contrast text on dark background */
-  --clr-text-muted: hsl(210, 10%, 45%);   /* Muted secondary text (dark theme) */
-  --clr-text-muted-light: hsl(38, 10%, 70%); /* Muted secondary text (light theme) */
-  
+  --clr-bg-light: hsl(38, 40%, 98%);
+  /* Warm cream */
+  --clr-bg-dark: hsl(210, 24%, 6%);
+  /* Deep luxury charcoal */
+  --clr-bg-card: hsl(38, 30%, 96%);
+  /* Card background cream */
+  --clr-bg-card-dark: hsl(210, 20%, 10%);
+  /* Card background dark */
+
+  --clr-primary: hsl(24, 48%, 52%);
+  /* Warm appetizing copper/orange */
+  --clr-primary-hover: hsl(24, 55%, 45%);
+  /* Hover state */
+  --clr-accent: rgb(212, 175, 55);
+  /* Elegant Metallic Gold */
+
+  --clr-text-dark: hsl(210, 24%, 10%);
+  /* Rich text dark mode */
+  --clr-text-light: hsl(38, 40%, 96%);
+  /* High-contrast text on dark background */
+  --clr-text-muted: hsl(210, 10%, 45%);
+  /* Muted secondary text (dark theme) */
+  --clr-text-muted-light: hsl(38, 10%, 70%);
+  /* Muted secondary text (light theme) */
+
   --clr-border: hsl(210, 14%, 88%);
   --clr-border-dark: hsl(210, 14%, 20%);
-  
+
   /* Typography Tokens */
   --font-family: 'Outfit', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
+
   /* Layout Tokens */
   --header-height: 90px;
   --header-height-scrolled: 70px;
   --max-width: 1200px;
-  
+
   /* Transitions */
   --transition-smooth: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
   --transition-fast: all 0.2s ease;
-  
+
   /* Shadows */
   --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
   --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.06);
@@ -44,7 +55,9 @@
 /* ==========================================
    2. Reset & Global Styles
    ========================================== */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -66,7 +79,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img, video {
+img,
+video {
   max-width: 100%;
   height: auto;
   display: block;
@@ -78,7 +92,10 @@ a {
   transition: var(--transition-fast);
 }
 
-button, input, textarea, select {
+button,
+input,
+textarea,
+select {
   font-family: inherit;
   background: none;
   border: none;
@@ -93,14 +110,17 @@ ul {
 ::-webkit-scrollbar {
   width: 10px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--clr-bg-light);
 }
+
 ::-webkit-scrollbar-thumb {
   background: hsl(24, 20%, 80%);
   border-radius: 10px;
   border: 2px solid var(--clr-bg-light);
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--clr-primary);
 }
@@ -218,7 +238,8 @@ ul {
   background-color: transparent;
 }
 
-.btn-outline:hover, .btn-outline-light:hover {
+.btn-outline:hover,
+.btn-outline-light:hover {
   background-color: var(--clr-text-dark);
   color: #fff;
   border-color: var(--clr-text-dark);
@@ -481,20 +502,33 @@ ul {
 
 /* Animations */
 @keyframes slideUp {
-  0% { transform: translateY(100%); }
-  100% { transform: translateY(0); }
+  0% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ==========================================
    5.5. Achievement Section (Brand Dominance)
    ========================================== */
 .achievement-section {
-  background-color: #0a0d10; /* 더 깊은 블랙으로 대비 극대화 */
+  background-color: #0a0d10;
+  /* 더 깊은 블랙으로 대비 극대화 */
   padding: 100px 0;
   text-align: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -531,7 +565,8 @@ ul {
 }
 
 .stat-value {
-  font-size: 120px; /* 압도적인 크기 */
+  font-size: 120px;
+  /* 압도적인 크기 */
   font-weight: 900;
   color: #ff6b35;
   line-height: 1;
@@ -562,9 +597,11 @@ ul {
   .achievement-grid {
     grid-template-columns: 1fr;
   }
+
   .stat-value {
     font-size: 80px;
   }
+
   .stat-card {
     padding: 50px 20px;
   }
@@ -679,7 +716,8 @@ ul {
 }
 
 .menu-slide {
-  flex: 0 0 calc((100% - 4rem) / 3); /* 3 visible cards on PC */
+  flex: 0 0 calc((100% - 4rem) / 3);
+  /* 3 visible cards on PC */
   min-width: 280px;
   border-radius: 20px;
   overflow: hidden;
@@ -736,7 +774,8 @@ ul {
 }
 
 .menu-signature-badge {
-  background: linear-gradient(135deg, #ff5e36, #ff2a68); /* Highly visible hot F&B gold best badge */
+  background: linear-gradient(135deg, #ff5e36, #ff2a68);
+  /* Highly visible hot F&B gold best badge */
   color: #fff;
   font-size: 0.72rem;
   font-weight: 900;
@@ -748,10 +787,13 @@ ul {
 }
 
 @keyframes shine-badge {
-  0%, 100% {
+
+  0%,
+  100% {
     filter: brightness(1);
     transform: scale(1);
   }
+
   50% {
     filter: brightness(1.2) contrast(1.1);
     transform: scale(1.05);
@@ -1127,7 +1169,7 @@ ul {
   transition: var(--transition-fast);
 }
 
-.form-input:focus + .form-select-wrap::after {
+.form-input:focus+.form-select-wrap::after {
   border-color: var(--clr-primary);
 }
 
@@ -1172,7 +1214,7 @@ textarea.form-input {
   transition: var(--transition-fast);
 }
 
-.checkbox-custom:checked ~ .checkbox-box {
+.checkbox-custom:checked~.checkbox-box {
   background-color: var(--clr-primary);
   border-color: var(--clr-primary);
 }
@@ -1190,7 +1232,7 @@ textarea.form-input {
   transform: rotate(45deg);
 }
 
-.checkbox-custom:checked ~ .checkbox-box::after {
+.checkbox-custom:checked~.checkbox-box::after {
   display: block;
 }
 
@@ -1366,10 +1408,21 @@ textarea.form-input {
 }
 
 /* Sequential Reveals helper with delay */
-.delay-1 { transition-delay: 0.1s; }
-.delay-2 { transition-delay: 0.2s; }
-.delay-3 { transition-delay: 0.3s; }
-.delay-4 { transition-delay: 0.4s; }
+.delay-1 {
+  transition-delay: 0.1s;
+}
+
+.delay-2 {
+  transition-delay: 0.2s;
+}
+
+.delay-3 {
+  transition-delay: 0.3s;
+}
+
+.delay-4 {
+  transition-delay: 0.4s;
+}
 
 /* Horizontal reveal */
 .scroll-reveal-left {
@@ -1412,13 +1465,15 @@ textarea.form-input {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease;
-  display: none !important; /* ★ 닫혀있을 때 연산 완전 제외 display: none */
+  display: none !important;
+  /* ★ 닫혀있을 때 연산 완전 제외 display: none */
   align-items: center;
   justify-content: center;
 }
 
 .modal-overlay.active {
-  display: flex !important; /* ★ 활성화 시에만 display: flex */
+  display: flex !important;
+  /* ★ 활성화 시에만 display: flex */
   opacity: 1;
   pointer-events: auto;
 }
@@ -1516,21 +1571,23 @@ textarea.form-input {
 .branch-item-link,
 .branch-card {
   /* 카드 규격 강제 고정 */
-  width: 100%;       /* 부모 컨테이너 너비에 맞춤 */
-  height: 100px;     /* 정담덮밥 기준의 깔끔한 높이로 강제 고정 */
+  width: 100%;
+  /* 부모 컨테이너 너비에 맞춤 */
+  height: 100px;
+  /* 정담덮밥 기준의 깔끔한 높이로 강제 고정 */
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.04);
-  
+
   /* 내부 정렬 */
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  
+
   /* 잘림 방지 및 레이아웃 유지 */
-  overflow: hidden; 
+  overflow: hidden;
   box-sizing: border-box;
-  
+
   /* 디자인 요소 */
   border-radius: 12px;
   text-decoration: none;
@@ -1551,9 +1608,12 @@ textarea.form-input {
   flex-direction: column;
   gap: 0.3rem;
   text-align: left;
-  overflow: hidden; /* 영역 밖 콘텐츠 숨김 */
-  flex-grow: 1;     /* 남은 가로 공간 채움 */
-  margin-right: 15px; /* 아이콘과의 여백 확보 */
+  overflow: hidden;
+  /* 영역 밖 콘텐츠 숨김 */
+  flex-grow: 1;
+  /* 남은 가로 공간 채움 */
+  margin-right: 15px;
+  /* 아이콘과의 여백 확보 */
 }
 
 .branch-item-name {
@@ -1561,9 +1621,12 @@ textarea.form-input {
   font-weight: 700;
   color: #fff;
   transition: color 0.3s ease;
-  white-space: nowrap;      /* 줄바꿈 금지 */
-  overflow: hidden;         /* 넘치는 텍스트 숨김 */
-  text-overflow: ellipsis;  /* 생략 부호(...) 표시 */
+  white-space: nowrap;
+  /* 줄바꿈 금지 */
+  overflow: hidden;
+  /* 넘치는 텍스트 숨김 */
+  text-overflow: ellipsis;
+  /* 생략 부호(...) 표시 */
 }
 
 .branch-item-link:hover .branch-item-name,
@@ -1575,9 +1638,12 @@ textarea.form-input {
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.5);
   line-height: 1.4;
-  white-space: nowrap;      /* 줄바꿈 금지 */
-  overflow: hidden;         /* 넘치는 텍스트 숨김 */
-  text-overflow: ellipsis;  /* 생략 부호(...) 표시 */
+  white-space: nowrap;
+  /* 줄바꿈 금지 */
+  overflow: hidden;
+  /* 넘치는 텍스트 숨김 */
+  text-overflow: ellipsis;
+  /* 생략 부호(...) 표시 */
 }
 
 .branch-item-icon {
@@ -1603,11 +1669,14 @@ textarea.form-input {
 /* Redesigned consolidated Introduce button (Vibrant Orange Highlight for maximum visibility) */
 .brand-btn-intro {
   width: 100%;
-  background-color: #ff6b35; /* Eyecatching vibrant orange accent */
-  color: #ffffff !important; /* Pure white high-contrast text */
+  background-color: #ff6b35;
+  /* Eyecatching vibrant orange accent */
+  color: #ffffff !important;
+  /* Pure white high-contrast text */
   font-size: 0.95rem;
   font-weight: 700;
-  padding: 1.05rem 1.5rem; /* Balanced comfortable padding */
+  padding: 1.05rem 1.5rem;
+  /* Balanced comfortable padding */
   border-radius: 12px;
   border: none;
   cursor: pointer;
@@ -1616,7 +1685,8 @@ textarea.form-input {
 }
 
 .brand-btn-intro:hover {
-  background-color: #e0531c; /* Deeper tone on hover for visual depth */
+  background-color: #e0531c;
+  /* Deeper tone on hover for visual depth */
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(255, 107, 53, 0.45);
 }
@@ -1629,9 +1699,10 @@ textarea.form-input {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
-  
+
   .menu-slide {
-    flex: 0 0 calc((100% - 2rem) / 2); /* 2 visible cards */
+    flex: 0 0 calc((100% - 2rem) / 2);
+    /* 2 visible cards */
   }
 }
 
@@ -1640,32 +1711,36 @@ textarea.form-input {
   .nav-list {
     gap: 1.2rem;
   }
-  
+
   .nav-link {
     font-size: 0.85rem;
   }
-  
+
   .adv-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 1.5rem;
   }
-  
+
   .menu-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 12px;
   }
-  
+
   /* Hide scrollbars on all touch-scrollable areas on tablet/mobile for maximum screen space */
   .branches-scroll-container,
   .menu-carousel-track-container {
-    -ms-overflow-style: none !important;  /* IE and Edge */
-    scrollbar-width: none !important;  /* Firefox */
-    -webkit-overflow-scrolling: touch !important; /* Inertial scrolling */
+    -ms-overflow-style: none !important;
+    /* IE and Edge */
+    scrollbar-width: none !important;
+    /* Firefox */
+    -webkit-overflow-scrolling: touch !important;
+    /* Inertial scrolling */
   }
-  
+
   .branches-scroll-container::-webkit-scrollbar,
   .menu-carousel-track-container::-webkit-scrollbar {
-    display: none !important; /* Chrome, Safari, Opera */
+    display: none !important;
+    /* Chrome, Safari, Opera */
   }
 }
 
@@ -1673,29 +1748,29 @@ textarea.form-input {
   :root {
     --header-height: 80px;
   }
-  
+
   .section {
     padding: 6rem 0;
   }
-  
+
   .hero-title {
     font-size: 3.2rem;
   }
-  
+
   .brands-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .brand-img-wrap {
     height: 240px;
   }
-  
+
   .franchise-cost-wrap {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
-  
+
   .footer-top {
     grid-template-columns: 1fr;
     gap: 3rem;
@@ -1706,12 +1781,12 @@ textarea.form-input {
   .container {
     padding: 0 1.5rem;
   }
-  
+
   /* Sticky Header Menu for Mobile */
   .mobile-nav-toggle {
     display: flex;
   }
-  
+
   .nav-list {
     position: fixed;
     top: 0;
@@ -1730,48 +1805,49 @@ textarea.form-input {
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.25);
     z-index: 999;
   }
-  
+
   .nav-list.active {
     right: 0;
   }
-  
+
   .header.scrolled .nav-list {
     background-color: hsl(210, 24%, 6%);
   }
-  
+
   .mobile-nav-toggle.active span:nth-child(1) {
     -webkit-transform: translateY(8px) rotate(45deg);
     transform: translateY(8px) rotate(45deg);
   }
-  
+
   .mobile-nav-toggle.active span:nth-child(2) {
     opacity: 0;
   }
-  
+
   .mobile-nav-toggle.active span:nth-child(3) {
     -webkit-transform: translateY(-8px) rotate(-45deg);
     transform: translateY(-8px) rotate(-45deg);
   }
-  
+
   .nav-link {
     font-size: 1.1rem;
-    padding: 0.8rem 0 !important; /* 터치 영역 확장 */
+    padding: 0.8rem 0 !important;
+    /* 터치 영역 확장 */
     width: 100%;
     display: block;
   }
-  
+
   .hero-title {
     font-size: 2.5rem;
   }
-  
+
   .hero-desc {
     font-size: 1rem;
   }
-  
+
   .section-title {
     font-size: 2.2rem;
   }
-  
+
   /* Reflow brand grid to premium horizontal card swipe on mobile */
   .brands-grid {
     display: flex;
@@ -1784,50 +1860,52 @@ textarea.form-input {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
+
   .brands-grid::-webkit-scrollbar {
     display: none;
   }
-  
+
   .brand-card {
-    flex: 0 0 85vw; /* 85% width card layout */
+    flex: 0 0 85vw;
+    /* 85% width card layout */
     scroll-snap-align: center;
   }
-  
+
   .adv-grid {
     grid-template-columns: 1fr !important;
     gap: 1.5rem;
   }
-  
+
   .menu-grid {
     grid-template-columns: 1fr !important;
     gap: 15px;
   }
-  
+
   .menu-slide {
-    flex: 0 0 100%; /* 1 visible card */
+    flex: 0 0 100%;
+    /* 1 visible card */
   }
-  
+
   .inquiry-wrap {
     padding: 2.5rem 1.5rem;
   }
-  
+
   .form-group-row {
     grid-template-columns: 1fr;
     gap: 0;
   }
-  
+
   .footer-bottom {
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
   }
-  
+
   .footer-corporate-info span {
     display: block;
     margin-bottom: 0.5rem;
   }
-  
+
   .footer-corporate-info span::after {
     display: none !important;
   }
@@ -1835,23 +1913,24 @@ textarea.form-input {
 
 @media (max-width: 480px) {
   .container {
-    padding: 0 1.2rem !important; /* 모바일에서 좌우 여백을 타이트하게 조절하여 컨텐츠 공간 확보 */
+    padding: 0 1.2rem !important;
+    /* 모바일에서 좌우 여백을 타이트하게 조절하여 컨텐츠 공간 확보 */
   }
-  
+
   .hero-actions {
     flex-direction: column;
     width: 100%;
     gap: 1rem;
   }
-  
+
   .hero-actions .btn {
     width: 100%;
   }
-  
+
   .brand-triggers {
     grid-template-columns: 1fr;
   }
-  
+
   .adv-grid {
     grid-template-columns: 1fr;
   }
@@ -1888,18 +1967,18 @@ textarea.form-input {
     position: relative;
     overflow: hidden;
   }
-  
+
   #menu-slider-container-mobile {
     width: 100%;
     overflow: hidden;
   }
-  
+
   #menu-slider-track-mobile {
     display: flex;
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     width: 100%;
   }
-  
+
   .menu-slide-mobile {
     flex: 0 0 100% !important;
     max-width: 100% !important;
@@ -1910,6 +1989,7 @@ textarea.form-input {
 
 /* Touch Target Minimum Comfort Area (44px Minimum Tap Targets) */
 @media (max-width: 768px) {
+
   .mobile-tap-target,
   .brand-btn-mobile,
   .carousel-btn,
@@ -1931,6 +2011,7 @@ textarea.form-input {
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
   }
+
   .cost-table {
     min-width: 600px;
   }
@@ -1940,20 +2021,26 @@ textarea.form-input {
    16. PC Brand Cards Hardware Acceleration & Smooth Scroll Reveals
    ========================================================================== */
 @media (min-width: 1025px) {
+
   /* 2. 하단 '이츠베럴만의 핵심 독점 경쟁력' 섹션 컨테이너 점검 */
   #advantages-container {
     display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important; /* 4열 카드 유지 */
+    grid-template-columns: repeat(4, 1fr) !important;
+    /* 4열 카드 유지 */
     gap: 2rem !important;
     width: 100% !important;
-    max-width: 1200px !important;                     /* 상단 브랜드 섹션과 대칭을 이루도록 폭 일치 */
-    margin: 0 auto !important;                        /* 좌우 자동 중앙 정렬 */
+    max-width: 1200px !important;
+    /* 상단 브랜드 섹션과 대칭을 이루도록 폭 일치 */
+    margin: 0 auto !important;
+    /* 좌우 자동 중앙 정렬 */
     box-sizing: border-box !important;
   }
 
   /* 레이어 팝업 초기 상태 방어막 점검 */
-  .brand-popup-layer, .modal-overlay, #brand-detail-modal {
-    will-change: auto; 
+  .brand-popup-layer,
+  .modal-overlay,
+  #brand-detail-modal {
+    will-change: auto;
   }
 }
 
@@ -1963,7 +2050,8 @@ textarea.form-input {
 #review {
   padding: 80px 0;
   overflow: hidden;
-  background: var(--clr-bg-light); /* HSL light theme cream background */
+  background: var(--clr-bg-light);
+  /* HSL light theme cream background */
   border-top: 1px solid var(--clr-border);
   border-bottom: 1px solid var(--clr-border);
 }
@@ -2022,6 +2110,7 @@ textarea.form-input {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -2034,7 +2123,7 @@ textarea.form-input {
   border-radius: 15px;
   box-shadow: var(--shadow-sm);
   transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-              box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
@@ -2050,9 +2139,11 @@ textarea.form-input {
   #review {
     padding: 50px 0;
   }
+
   .review-message h2 {
     font-size: 1.6rem;
   }
+
   .track-inner img {
     width: 150px;
     height: 150px;
@@ -2065,34 +2156,38 @@ textarea.form-input {
    ========================================================================== */
 .menu-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 무조건 4열 고정 */
+  grid-template-columns: repeat(4, 1fr);
+  /* 무조건 4열 고정 */
   gap: 15px;
   margin-top: 40px;
 }
 
 .menu-card {
   position: relative;
-  aspect-ratio: 3/4; /* 직사각형 이미지 비율 */
+  aspect-ratio: 3/4;
+  /* 직사각형 이미지 비율 */
   border-radius: 15px;
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-              box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  background-color: var(--clr-bg-dark); /* Fallback dark background */
+    box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background-color: var(--clr-bg-dark);
+  /* Fallback dark background */
 }
 
 /* Semi-transparent dark overlay for high readability of text */
 .menu-card::after {
   content: '';
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(10, 13, 16, 0.5) 0%,
-    rgba(10, 13, 16, 0.15) 30%,
-    rgba(10, 13, 16, 0.15) 70%,
-    rgba(10, 13, 16, 0.75) 100%
-  );
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom,
+      rgba(10, 13, 16, 0.5) 0%,
+      rgba(10, 13, 16, 0.15) 30%,
+      rgba(10, 13, 16, 0.15) 70%,
+      rgba(10, 13, 16, 0.75) 100%);
   z-index: 1;
   transition: opacity 0.3s ease;
 }
@@ -2106,7 +2201,9 @@ textarea.form-input {
 
 .brand-tag {
   position: absolute;
-  top: 15px; left: 0; right: 0;
+  top: 15px;
+  left: 0;
+  right: 0;
   text-align: center;
   color: #fff;
   font-weight: 800;
@@ -2120,7 +2217,9 @@ textarea.form-input {
 
 .menu-name {
   position: absolute;
-  bottom: 15px; left: 0; right: 0;
+  bottom: 15px;
+  left: 0;
+  right: 0;
   text-align: center;
   color: #fff;
   font-weight: 700;
@@ -2192,14 +2291,17 @@ textarea.form-input {
     top: 8px;
     letter-spacing: 1px;
   }
+
   .menu-name {
     font-size: 0.7rem;
     bottom: 8px;
   }
+
   .menu-grid {
     gap: 8px;
     margin-top: 25px;
   }
+
   .btn-more {
     padding: 10px 25px;
     font-size: 0.9rem;
@@ -2226,20 +2328,26 @@ textarea.form-input {
 /* Left Column: Filter & Scrollable List */
 .branch-map-filter-wrap {
   display: flex;
-  flex-wrap: nowrap; /* 강제 한 줄 유지 */
-  overflow-x: auto;  /* 가로로 길어지면 스크롤 가능 */
+  flex-wrap: nowrap;
+  /* 강제 한 줄 유지 */
+  overflow-x: auto;
+  /* 가로로 길어지면 스크롤 가능 */
   gap: 8px;
-  font-size: 0.85rem; /* 텍스트 크기 축소 */
+  font-size: 0.85rem;
+  /* 텍스트 크기 축소 */
   margin-bottom: 1.5rem;
   border-bottom: 1px solid var(--clr-border);
   padding-bottom: 1.2rem;
   -webkit-overflow-scrolling: touch;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .branch-map-filter-wrap::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera 스크롤바 숨김 */
+  display: none;
+  /* Chrome, Safari, Opera 스크롤바 숨김 */
 }
 
 .map-filter-btn {
@@ -2248,12 +2356,14 @@ textarea.form-input {
   color: var(--clr-text-muted);
   border: 1px solid var(--clr-border);
   background-color: #fff;
-  padding: 12px 22px; /* 가로세로 넉넉하게 확장하여 44px+ 터치 타겟 확보 */
+  padding: 12px 22px;
+  /* 가로세로 넉넉하게 확장하여 44px+ 터치 타겟 확보 */
   border-radius: 30px;
   cursor: pointer;
   -webkit-transition: var(--transition-fast);
   transition: var(--transition-fast);
-  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+  white-space: nowrap;
+  /* 텍스트 줄바꿈 방지 */
 }
 
 .map-filter-btn:hover {
@@ -2274,14 +2384,17 @@ textarea.form-input {
 .branch-map-list-wrap {
   display: flex;
   flex-direction: column;
-  gap: 12px;                  /* 카드 사이의 여유로운 간격 */
-  
+  gap: 12px;
+  /* 카드 사이의 여유로운 간격 */
+
   /* 딱 5개 정도만 보이고 나머지는 스크롤되도록 높이 강제 제한 */
-  max-height: 530px;          /* 96px 카드 5개 + 간격 높이 */
-  overflow-y: auto;           /* 넘치면 무조건 세로 스크롤 생성 */
-  
+  max-height: 530px;
+  /* 96px 카드 5개 + 간격 높이 */
+  overflow-y: auto;
+  /* 넘치면 무조건 세로 스크롤 생성 */
+
   /* 스크롤바가 카드 디자인을 파먹지 않도록 우측 여백 확보 */
-  padding-right: 5px; 
+  padding-right: 5px;
   scrollbar-width: thin;
   scrollbar-color: hsl(24, 20%, 80%) var(--clr-bg-light);
 }
@@ -2313,13 +2426,16 @@ textarea.form-input {
 .branch-map-list-wrap::-webkit-scrollbar {
   width: 6px;
 }
+
 .branch-map-list-wrap::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .branch-map-list-wrap::-webkit-scrollbar-thumb {
   background: hsl(24, 20%, 80%);
   border-radius: 10px;
 }
+
 .branch-map-list-wrap::-webkit-scrollbar-thumb:hover {
   background: var(--clr-primary);
 }
@@ -2339,11 +2455,13 @@ textarea.form-input {
 /* 2. 개별 브랜드 카드 (절대 찌그러지지 않게 방어) */
 .branch-card-item {
   /* ★ 핵심: 카드가 많아져도 절대 자기 높이(96px)를 줄이지 않게 강제 방어 ★ */
-  flex-shrink: 0 !important;  
-  
-  height: 96px !important;    /* 정담덮밥 기준 깔끔한 높이 고정 */
-  min-height: 96px;           /* 혹시 모를 축소 한 번 더 방어 */
-  
+  flex-shrink: 0 !important;
+
+  height: 96px !important;
+  /* 정담덮밥 기준 깔끔한 높이 고정 */
+  min-height: 96px;
+  /* 혹시 모를 축소 한 번 더 방어 */
+
   /* 아래는 기존 스타일 유지 */
   background-color: var(--clr-bg-card);
   border-radius: 14px;
@@ -2364,7 +2482,10 @@ textarea.form-input {
 .branch-card-item::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; width: 4px; height: 100%;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
   background-color: transparent;
   transition: var(--transition-fast);
 }
@@ -2387,7 +2508,8 @@ textarea.form-input {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.3rem; /* 여백 조율 */
+  gap: 0.3rem;
+  /* 여백 조율 */
   overflow: hidden;
   height: 100%;
 }
@@ -2397,7 +2519,8 @@ textarea.form-input {
   align-items: center;
   gap: 0.6rem;
   overflow: hidden;
-  width: 100%; /* 너비를 꽉 채워 말줄임표가 작동할 공간 확보 */
+  width: 100%;
+  /* 너비를 꽉 채워 말줄임표가 작동할 공간 확보 */
 }
 
 .branch-brand-tag {
@@ -2412,17 +2535,32 @@ textarea.form-input {
 }
 
 /* Brand specific badge colors */
-.branch-brand-tag.pasta { background-color: var(--clr-primary); }
-.branch-brand-tag.deopbap { background-color: #4caf50; }
-.branch-brand-tag.omuzip { background-color: var(--clr-accent); color: var(--clr-bg-dark); }
-.branch-brand-tag.kimchi { background-color: #e53935; }
+.branch-brand-tag.pasta {
+  background-color: var(--clr-primary);
+}
+
+.branch-brand-tag.deopbap {
+  background-color: #4caf50;
+}
+
+.branch-brand-tag.omuzip {
+  background-color: var(--clr-accent);
+  color: var(--clr-bg-dark);
+}
+
+.branch-brand-tag.kimchi {
+  background-color: #e53935;
+}
 
 /* 상호명과 주소 텍스트가 줄바꿈되지 않도록 강제 제어 */
 .branch-card-item-content h4,
 .branch-card-item-content p {
-  white-space: nowrap;          /* 절대 다음 줄로 넘어가지 않게 고정 */
-  overflow: hidden;             /* 삐져나간 글자 숨김 */
-  text-overflow: ellipsis;      /* 잘린 부분은 '...'으로 예쁘게 처리 */
+  white-space: nowrap;
+  /* 절대 다음 줄로 넘어가지 않게 고정 */
+  overflow: hidden;
+  /* 삐져나간 글자 숨김 */
+  text-overflow: ellipsis;
+  /* 잘린 부분은 '...'으로 예쁘게 처리 */
   margin: 0;
   width: 100%;
 }
@@ -2499,7 +2637,8 @@ textarea.form-input {
 .pulse-ring {
   width: 14px;
   height: 14px;
-  background-color: #ff5722; /* 브랜드 포인트 컬러 */
+  background-color: #ff5722;
+  /* 브랜드 포인트 컬러 */
   border-radius: 50%;
   position: relative;
   border: 2px solid #fff;
@@ -2510,7 +2649,10 @@ textarea.form-input {
 .pulse-ring::after {
   content: '';
   position: absolute;
-  top: -8px; left: -8px; right: -8px; bottom: -8px;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
   border: 2px solid #ff5722;
   border-radius: 50%;
   -webkit-animation: ripple 2s infinite;
@@ -2519,13 +2661,31 @@ textarea.form-input {
 }
 
 @-webkit-keyframes ripple {
-  0% { -webkit-transform: scale(1); transform: scale(1); opacity: 1; }
-  100% { -webkit-transform: scale(3.5); transform: scale(3.5); opacity: 0; }
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: scale(3.5);
+    transform: scale(3.5);
+    opacity: 0;
+  }
 }
 
 @keyframes ripple {
-  0% { -webkit-transform: scale(1); transform: scale(1); opacity: 1; }
-  100% { -webkit-transform: scale(3.5); transform: scale(3.5); opacity: 0; }
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: scale(3.5);
+    transform: scale(3.5);
+    opacity: 0;
+  }
 }
 
 /* Highlight state (from hovering list cards) */
@@ -2544,13 +2704,31 @@ textarea.form-input {
 }
 
 @-webkit-keyframes ripple-fast {
-  0% { -webkit-transform: scale(1); transform: scale(1); opacity: 1; }
-  100% { -webkit-transform: scale(4.5); transform: scale(4.5); opacity: 0; }
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: scale(4.5);
+    transform: scale(4.5);
+    opacity: 0;
+  }
 }
 
 @keyframes ripple-fast {
-  0% { -webkit-transform: scale(1); transform: scale(1); opacity: 1; }
-  100% { -webkit-transform: scale(4.5); transform: scale(4.5); opacity: 0; }
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: scale(4.5);
+    transform: scale(4.5);
+    opacity: 0;
+  }
 }
 
 /* Custom Styled Leaflet Tooltips */
@@ -2566,10 +2744,21 @@ textarea.form-input {
   white-space: nowrap;
 }
 
-.leaflet-tooltip-left:before { border-left-color: var(--clr-bg-dark) !important; }
-.leaflet-tooltip-right:before { border-right-color: var(--clr-bg-dark) !important; }
-.leaflet-tooltip-top:before { border-top-color: var(--clr-bg-dark) !important; }
-.leaflet-tooltip-bottom:before { border-bottom-color: var(--clr-bg-dark) !important; }
+.leaflet-tooltip-left:before {
+  border-left-color: var(--clr-bg-dark) !important;
+}
+
+.leaflet-tooltip-right:before {
+  border-right-color: var(--clr-bg-dark) !important;
+}
+
+.leaflet-tooltip-top:before {
+  border-top-color: var(--clr-bg-dark) !important;
+}
+
+.leaflet-tooltip-bottom:before {
+  border-bottom-color: var(--clr-bg-dark) !important;
+}
 
 /* Elegant Custom Zoom Controls */
 .leaflet-bar {
@@ -2629,17 +2818,18 @@ textarea.form-input {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
-  
+
   .branch-map-right-col {
-    order: -1; /* Map goes on top, address list below */
+    order: -1;
+    /* Map goes on top, address list below */
     display: flex;
     flex-direction: column;
   }
-  
+
   .branch-map-container {
     height: 400px;
   }
-  
+
   .branch-map-list-wrap {
     max-height: 380px;
   }
@@ -2649,15 +2839,15 @@ textarea.form-input {
   .branch-map-container {
     height: 350px;
   }
-  
+
   .branch-card-item {
     padding: 1rem;
   }
-  
+
   .branch-card-name {
     font-size: 0.95rem;
   }
-  
+
   .branch-card-addr {
     font-size: 0.8rem;
   }
@@ -2800,7 +2990,7 @@ textarea.form-input {
   max-height: 65px;
   max-width: 110px;
   object-fit: contain;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 .case-card .label {
@@ -2873,11 +3063,15 @@ textarea.form-input {
 
 /* AFTER Price Counter (Vibrant 100px with glow) */
 .case-card.after .price-count {
-  font-size: 100px; /* PC 기준 */
+  font-size: 100px;
+  /* PC 기준 */
   font-weight: 900;
-  color: #ff5722; /* 이츠베럴 브랜드 오렌지 */
-  text-shadow: 0 0 15px rgba(255, 87, 34, 0.5); /* 은은한 글로우 */
-  font-family: 'Outfit', sans-serif; /* 숫자가 돋보이는 폰트 */
+  color: #ff5722;
+  /* 이츠베럴 브랜드 오렌지 */
+  text-shadow: 0 0 15px rgba(255, 87, 34, 0.5);
+  /* 은은한 글로우 */
+  font-family: 'Outfit', sans-serif;
+  /* 숫자가 돋보이는 폰트 */
   letter-spacing: -2px;
   line-height: 1;
 }
@@ -2888,19 +3082,44 @@ textarea.form-input {
   -webkit-animation: tumblerSpin 0.3s linear infinite;
   animation: tumblerSpin 0.3s linear infinite;
   -webkit-filter: blur(1.5px);
-  filter: blur(1.5px); /* 빠른 속도감을 위한 블러 효과 추가 */
+  filter: blur(1.5px);
+  /* 빠른 속도감을 위한 블러 효과 추가 */
 }
 
 @-webkit-keyframes tumblerSpin {
-  0% { -webkit-transform: translateY(0); transform: translateY(0); }
-  50% { -webkit-transform: translateY(-8%); transform: translateY(-8%); } /* 살짝 위로 튀는 느낌 */
-  100% { -webkit-transform: translateY(0); transform: translateY(0); }
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  50% {
+    -webkit-transform: translateY(-8%);
+    transform: translateY(-8%);
+  }
+
+  /* 살짝 위로 튀는 느낌 */
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
 }
 
 @keyframes tumblerSpin {
-  0% { -webkit-transform: translateY(0); transform: translateY(0); }
-  50% { -webkit-transform: translateY(-8%); transform: translateY(-8%); } /* 살짝 위로 튀는 느낌 */
-  100% { -webkit-transform: translateY(0); transform: translateY(0); }
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  50% {
+    -webkit-transform: translateY(-8%);
+    transform: translateY(-8%);
+  }
+
+  /* 살짝 위로 튀는 느낌 */
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
 }
 
 /* 2. "슉슉!" (카운팅 완료 후 AFTER 영역 최종 폭발 강조) */
@@ -2910,15 +3129,47 @@ textarea.form-input {
 }
 
 @-webkit-keyframes revealPulse {
-  0% { -webkit-transform: scale(0.8); transform: scale(0.8); opacity: 0; }
-  70% { -webkit-transform: scale(1.1); transform: scale(1.1); } /* 살짝 커졌다가 */
-  100% { -webkit-transform: scale(1.05); transform: scale(1.05); opacity: 1; } /* 제자리 */
+  0% {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  70% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* 살짝 커졌다가 */
+  100% {
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+    opacity: 1;
+  }
+
+  /* 제자리 */
 }
 
 @keyframes revealPulse {
-  0% { -webkit-transform: scale(0.8); transform: scale(0.8); opacity: 0; }
-  70% { -webkit-transform: scale(1.1); transform: scale(1.1); } /* 살짝 커졌다가 */
-  100% { -webkit-transform: scale(1.05); transform: scale(1.05); opacity: 1; } /* 제자리 */
+  0% {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  70% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* 살짝 커졌다가 */
+  100% {
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+    opacity: 1;
+  }
+
+  /* 제자리 */
 }
 
 /* ==========================================
@@ -2928,21 +3179,21 @@ textarea.form-input {
   .case-showcase {
     gap: 1.5rem;
   }
-  
+
   .case-card.before {
     width: 290px;
     padding: 3rem 1.8rem;
   }
-  
+
   .case-card.before .price-static {
     font-size: 50px;
   }
-  
+
   .case-card.after {
     width: 330px;
     padding: 3rem 1.8rem;
   }
-  
+
   .case-card.after .price-count {
     font-size: 80px;
   }
@@ -2952,37 +3203,38 @@ textarea.form-input {
   .multibrand-section {
     padding: 5rem 0;
   }
-  
+
   .case-showcase {
     flex-direction: column;
     gap: 2.2rem;
   }
-  
+
   .case-card.before {
     width: 100%;
     max-width: 350px;
     transform: scale(0.95);
   }
-  
+
   .case-card.before:hover {
     transform: scale(0.97);
   }
-  
+
   .case-card.after {
     width: 100%;
     max-width: 380px;
     transform: scale(1);
   }
-  
+
   .case-card.after:hover {
     transform: scale(1.03);
   }
-  
+
   .transformation-arrow {
-    transform: rotate(90deg); /* 세로 방향으로 화살표 회전 */
+    transform: rotate(90deg);
+    /* 세로 방향으로 화살표 회전 */
     margin: 0.5rem 0;
   }
-  
+
   .case-showcase:hover .transformation-arrow {
     transform: rotate(90deg) translateX(5px);
   }
@@ -2995,7 +3247,7 @@ textarea.form-input {
 
 /* 섹션 기본: 라이트 테마 배경 적용 */
 #multi-brand-intro {
-  background-color: #FFF5F2; 
+  background-color: #FFF5F2;
   padding: 100px 0;
 }
 
@@ -3016,11 +3268,13 @@ textarea.form-input {
 }
 
 #multi-brand-intro .section-title {
-  color: #212529; /* 진한 흑회색 */
+  color: #212529;
+  /* 진한 흑회색 */
 }
 
 #multi-brand-intro .section-subtitle {
-  color: #495057; /* 부드러운 중간 회색 */
+  color: #495057;
+  /* 부드러운 중간 회색 */
 }
 
 /* PC: 가로 4개 배열 그리드 */
@@ -3037,30 +3291,34 @@ textarea.form-input {
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); 
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 /* 브랜드 소개 카드: 순백색 및 부드러운 그림자 추가 */
 .intro-card {
   background: #ffffff;
-  border: 1px solid #FFEBE5; /* 브랜드 컬러가 살짝 도는 아주 옅은 테두리 */
+  border: 1px solid #FFEBE5;
+  /* 브랜드 컬러가 살짝 도는 아주 옅은 테두리 */
   padding: 24px;
   border-radius: 12px;
   text-align: left;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04); /* 밝은 배경에 맞는 은은한 그림자 */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  /* 밝은 배경에 맞는 은은한 그림자 */
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .intro-card:hover {
   transform: translateY(-5px);
   border-color: #fe5622;
-  box-shadow: 0 8px 24px rgba(254, 86, 34, 0.12); /* 호버 시 브랜드 컬러 그림자 발산 */
+  box-shadow: 0 8px 24px rgba(254, 86, 34, 0.12);
+  /* 호버 시 브랜드 컬러 그림자 발산 */
 }
 
 .intro-brand-name {
   font-size: 1.4rem;
   font-weight: 800;
-  color: #fe5622; /* 이름은 브랜드 포인트 컬러로 강조 */
+  color: #fe5622;
+  /* 이름은 브랜드 포인트 컬러로 강조 */
   margin-bottom: 12px;
   word-break: keep-all;
 }
@@ -3068,7 +3326,8 @@ textarea.form-input {
 .intro-brand-desc {
   font-size: 1rem;
   line-height: 1.6;
-  color: #495057; /* 가독성 높은 다크 그레이 */
+  color: #495057;
+  /* 가독성 높은 다크 그레이 */
   word-break: keep-all;
 }
 
@@ -3098,13 +3357,15 @@ textarea.form-input {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
-  align-items: start; /* 더보기 클릭 시 다른 카드 높이에 영향을 주지 않음 */
+  align-items: start;
+  /* 더보기 클릭 시 다른 카드 높이에 영향을 주지 않음 */
 }
 
 /* 메뉴 메인 이미지 크기 극대화 (PC 가로 비율 자유도 확보) */
 .menu-main-img {
   width: 100%;
-  aspect-ratio: 4 / 5; /* 세로로 긴 비율을 주어 음식 사진을 최대한 크게 노출 */
+  aspect-ratio: 4 / 5;
+  /* 세로로 긴 비율을 주어 음식 사진을 최대한 크게 노출 */
   object-fit: cover;
   display: block;
 }
@@ -3128,7 +3389,8 @@ textarea.form-input {
   padding: 12px 0;
   font-weight: bold;
   font-size: 1.1rem;
-  pointer-events: none; /* 클릭 방해 금지 */
+  pointer-events: none;
+  /* 클릭 방해 금지 */
 }
 
 /* 모바일 개별 버튼 디자인 */
@@ -3157,27 +3419,39 @@ textarea.form-input {
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 /* --- 반응형 분기 처리 --- */
 /* 기본 (PC 환경): 모바일 버튼 숨김, PC 버튼 노출 */
-.mobile-toggle-btn { display: none; }
-.pc-global-toggle-wrap { display: block; }
+.mobile-toggle-btn {
+  display: none;
+}
+
+.pc-global-toggle-wrap {
+  display: block;
+}
 
 /* 모바일 환경 (768px 이하): 모바일 버튼 노출, PC 버튼 숨김 */
 @media (max-width: 768px) {
   #menu .menu-grid {
-    grid-template-columns: 1fr; /* 1줄에 1개씩 세로 나열 */
+    grid-template-columns: 1fr;
+    /* 1줄에 1개씩 세로 나열 */
     gap: 40px;
   }
-  
+
   .menu-main-img {
-    aspect-ratio: 4 / 3; /* 모바일에서는 가로형으로 안정감 있게 조정 */
+    aspect-ratio: 4 / 3;
+    /* 모바일에서는 가로형으로 안정감 있게 조정 */
   }
 
-  .mobile-toggle-btn { display: block; }
-  .pc-global-toggle-wrap { display: none; }
+  .mobile-toggle-btn {
+    display: block;
+  }
+
+  .pc-global-toggle-wrap {
+    display: none;
+  }
 }
 
 
@@ -3191,15 +3465,19 @@ textarea.form-input {
   justify-content: center;
   align-items: center;
   margin-bottom: 24px;
-  background: transparent; /* 칙칙한 배경 제거 */
-  border: none; /* 점선 테두리 제거 */
+  background: transparent;
+  /* 칙칙한 배경 제거 */
+  border: none;
+  /* 점선 테두리 제거 */
 }
 
 .text-only-before h3 {
   font-size: 1.4rem;
-  color: #868e96; /* 눈에 덜 띄는 회색톤 */
+  color: #868e96;
+  /* 눈에 덜 띄는 회색톤 */
   font-weight: 500;
-  text-decoration: line-through; /* 기존 방식 폐기 의미 유지 */
+  text-decoration: line-through;
+  /* 기존 방식 폐기 의미 유지 */
   margin: 0;
   word-break: keep-all;
 }
@@ -3211,17 +3489,20 @@ textarea.form-input {
   justify-content: center;
   align-items: center;
   margin-bottom: 24px;
-  background: transparent; /* 오렌지 배경 박스 제거 */
+  background: transparent;
+  /* 오렌지 배경 박스 제거 */
   border: none;
 }
 
 .text-only-after h3 {
   font-size: 1.8rem;
-  color: #fe5622; /* 박스 대신 텍스트 자체를 브랜드 컬러로 강력하게 강조 */
+  color: #fe5622;
+  /* 박스 대신 텍스트 자체를 브랜드 컬러로 강력하게 강조 */
   font-weight: 900;
   text-align: center;
   margin-top: 0;
-  margin-bottom: 12px; /* 로고와의 간격 */
+  margin-bottom: 12px;
+  /* 로고와의 간격 */
   word-break: keep-all;
 }
 
@@ -3237,15 +3518,73 @@ textarea.form-input {
 .after-logos img {
   height: 24px;
   object-fit: contain;
-  background: #ffffff; /* 로고 시인성을 위한 흰색 베이스 */
+  background: #ffffff;
+  /* 로고 시인성을 위한 흰색 베이스 */
   padding: 4px 8px;
   border-radius: 4px;
 }
 
 /* 모바일 환경 텍스트/로고 크기 조정 */
 @media (max-width: 768px) {
-  .text-only-before h3 { font-size: 1.2rem; }
-  .text-only-after h3 { font-size: 1.4rem; }
-  .after-logos img { height: 18px; padding: 2px 4px; gap: 6px; }
+  .text-only-before h3 {
+    font-size: 1.2rem;
+  }
+
+  .text-only-after h3 {
+    font-size: 1.4rem;
+  }
+
+  .after-logos img {
+    height: 18px;
+    padding: 2px 4px;
+    gap: 6px;
+  }
 }
 
+/* ========================================== */
+/* branch-map 반응형 버그 수정 및 멀티브랜드 뱃지 */
+/* ========================================== */
+
+/* 모바일 우측 맵 가로 오버플로우 방지 */
+@media (max-width: 768px) {
+  .branch-map-right-col {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 15px; /* 좌측과 동일한 여백 적용 */
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .branch-map-container, 
+  .branch-map-right-col iframe {
+    width: 100% !important;
+    max-width: 100%;
+  }
+}
+
+/* 뱃지 컨테이너 및 디자인 */
+.branch-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.brand-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #ffffff;
+}
+
+/* 브랜드별 이츠베럴 톤온톤 컬러 매칭 */
+.badge-pasta { background-color: #fe5622; } /* 메인 오렌지 */
+.badge-rice { background-color: #ff7a45; }  /* 밝은 오렌지 */
+.badge-ome { background-color: #ff9c6e; }   /* 살구색 */
+.badge-kimchi { background-color: #ffc069; color: #d4380d; } /* 김치찜: 가독성을 위해 텍스트 컬러 어둡게 */
+
+.branch-card-name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #212529;
+  margin-bottom: 0;
+}
