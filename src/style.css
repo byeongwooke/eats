@@ -3588,3 +3588,43 @@ textarea.form-input {
   color: #212529;
   margin-bottom: 0;
 }
+
+/* ========================================== */
+/* branch-card 고정 높이 해제 및 양끝 정렬 UI */
+/* ========================================== */
+
+/* 1. 고정 높이 해제 (콘텐츠 잘림 원천 차단) */
+.branch-card-item {
+  height: auto !important; /* 기존 96px 등 고정 높이 무력화 */
+  min-height: 96px; /* 최소 높이만 유지 */
+  padding: 18px 20px !important; /* 상하좌우 여백을 넉넉히 주어 답답함 해소 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* 2. 지점명(좌)과 뱃지그룹(우) 가로 양끝 정렬 */
+.branch-card-item-header {
+  display: flex !important; /* JS에서 주입된 block 무력화 */
+  justify-content: space-between !important; /* 양 끝으로 밀어내기 */
+  align-items: center !important; /* 세로 중앙 정렬 맞춤 */
+  margin-bottom: 8px !important;
+  width: 100%;
+  gap: 15px; /* 지점명과 뱃지가 너무 붙지 않도록 간격 확보 */
+}
+
+/* 지점명 스타일 (줄바꿈 방지) */
+.branch-card-name {
+  margin-bottom: 0 !important;
+  white-space: nowrap; /* 이름이 밑으로 떨어지지 않게 고정 */
+  flex-shrink: 0; /* 뱃지가 많아도 지점명 영역이 찌그러지지 않게 보호 */
+}
+
+/* 3. 뱃지 컨테이너 우측 정렬 */
+.branch-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end; /* 우측 끝으로 정렬 */
+  gap: 6px;
+  margin-top: 0 !important;
+}
