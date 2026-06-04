@@ -3590,41 +3590,72 @@ textarea.form-input {
 }
 
 /* ========================================== */
-/* branch-card 고정 높이 해제 및 양끝 정렬 UI */
+/* branch-card 레이아웃 충돌 해결 및 콘텐츠 밸런스 */
 /* ========================================== */
 
-/* 1. 고정 높이 해제 (콘텐츠 잘림 원천 차단) */
+/* 1. 카드 전체 뼈대 (가로 배열 유지, 높이 유연화) */
 .branch-card-item {
-  height: auto !important; /* 기존 96px 등 고정 높이 무력화 */
-  min-height: 96px; /* 최소 높이만 유지 */
-  padding: 18px 20px !important; /* 상하좌우 여백을 넉넉히 주어 답답함 해소 */
+  display: flex !important;
+  flex-direction: row !important; /* 아이콘을 우측에 두기 위해 가로 유지 */
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important; /* 고정 높이 해제 */
+  min-height: 96px;
+  padding: 16px 20px !important;
+  gap: 15px; /* 텍스트 그룹과 우측 아이콘 사이 간격 */
+}
+
+/* 2. 텍스트 그룹 래퍼 (남은 공간 모두 차지) */
+.branch-card-item-content {
+  flex: 1;
+  min-width: 0; /* 텍스트가 길어져도 카드를 뚫고 나가지 않게 방어 */
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-/* 2. 지점명(좌)과 뱃지그룹(우) 가로 양끝 정렬 */
+/* 3. 헤더 영역 (지점명 좌측, 뱃지 우측 양끝 정렬) */
 .branch-card-item-header {
-  display: flex !important; /* JS에서 주입된 block 무력화 */
-  justify-content: space-between !important; /* 양 끝으로 밀어내기 */
-  align-items: center !important; /* 세로 중앙 정렬 맞춤 */
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important; /* 뱃지가 많아 2줄이 될 경우를 대비해 상단 맞춤 */
+  flex-wrap: wrap !important; /* 모바일에서 공간 부족 시 자연스러운 줄바꿈 */
+  gap: 8px;
   margin-bottom: 8px !important;
   width: 100%;
-  gap: 15px; /* 지점명과 뱃지가 너무 붙지 않도록 간격 확보 */
 }
 
-/* 지점명 스타일 (줄바꿈 방지) */
+/* 지점명 텍스트 */
 .branch-card-name {
-  margin-bottom: 0 !important;
-  white-space: nowrap; /* 이름이 밑으로 떨어지지 않게 고정 */
-  flex-shrink: 0; /* 뱃지가 많아도 지점명 영역이 찌그러지지 않게 보호 */
+  margin: 0 !important;
+  font-size: 1.15rem !important;
+  font-weight: 800;
+  white-space: nowrap; /* 지점명 자체는 줄바꿈 금지 */
+  flex-shrink: 0;
 }
 
-/* 3. 뱃지 컨테이너 우측 정렬 */
+/* 뱃지 컨테이너 */
 .branch-badges {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end; /* 우측 끝으로 정렬 */
-  gap: 6px;
+  justify-content: flex-end; /* 뱃지는 우측 끝으로 정렬 */
+  gap: 4px;
+  flex: 1; /* 지점명 옆의 남은 공간 활용 */
+  min-width: 140px; /* 화면이 너무 좁아지면 지점명 아래로 깔끔하게 떨어지도록 설정 */
   margin-top: 0 !important;
+}
+
+/* 4. 주소 텍스트 (하단에 깔끔하게 노출) */
+.branch-card-addr {
+  margin: 0 !important;
+  color: #6c757d !important;
+  font-size: 0.85rem !important;
+  line-height: 1.4 !important;
+  word-break: keep-all; /* 단어 단위로 줄바꿈되어 읽기 편하게 */
+}
+
+/* 우측 지도 아이콘 찌그러짐 방지 */
+.branch-card-icon {
+  flex-shrink: 0; 
 }
