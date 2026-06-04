@@ -418,36 +418,47 @@ document.addEventListener('DOMContentLoaded', () => {
      ========================================================================== */
   const mapListWrap = document.getElementById('branch-map-list-wrap');
 
-  // 1. BRAND_DATA를 순회하며 지점명 기준으로 운영 브랜드 병합 (파스타히어 등의 접두사 자동 제거)
+  // 1. BRAND_DATA 기반 지점명/주소 확보 및 임시 데이터 필터링
   const consolidatedBranches = {};
 
   if (typeof BRAND_DATA !== 'undefined') {
     Object.keys(BRAND_DATA).forEach(brandKey => {
-      const brandName = brandKey === 'pasta' ? '파스타히어' :
-                        brandKey === 'deopbap' ? '정담덮밥' :
-                        brandKey === 'omuzip' ? '오므집' :
-                        brandKey === 'kimchi' ? '부여김치찜' : '이츠베럴';
-
       BRAND_DATA[brandKey].branches.forEach(branch => {
-        // "파스타히어 별내직영점" 등에서 브랜드명 제거 후 순수 지점명만 추출
+        // 접두사 제거 후 순수 지점명만 추출
         let pureName = branch.name.replace(/(파스타히어|정담덮밥|오므집|부여김치찜|부여 김치찜)\s*/g, '').trim();
+
+        // 🚫 [요청 반영] 강남점, 홍대점 등 테스트용 임시 데이터 원천 차단 (렌더링 제외)
+        if (pureName.includes('강남') || pureName.includes('홍대')) return;
 
         if (!consolidatedBranches[pureName]) {
           consolidatedBranches[pureName] = {
             name: pureName,
             address: branch.address,
-            brands: []
+            brands: [] // 뱃지는 아래에서 공식 데이터로 꽂아줍니다.
           };
-        }
-        // 해당 지점에 현재 브랜드가 없다면 뱃지 리스트에 추가
-        if (!consolidatedBranches[pureName].brands.includes(brandName)) {
-          consolidatedBranches[pureName].brands.push(brandName);
         }
       });
     });
   }
 
-  // 브랜드를 많이 운영하는 지점(4개->3개->2개) 순서대로 정렬하여 배열 변환
+  // 2. 🎯 [요청 반영] 전달받은 공식 운영 데이터를 기반으로 뱃지 강제 맵핑 (데이터 무결성 100% 보장)
+  const officialMappings = {
+    '파스타히어': ['별내직영점','강북본점','노원본점','구리다산점','목천점','풍세점','의정부점','진접오남점','인천주안점','양주점','일산장항점','평내호평점','포천본점','청라연희점','월계공릉점','장안점','상봉점','화도마석점'],
+    '정담덮밥': ['별내직영점','강북본점','노원본점','구리다산점','목천점','풍세점','의정부점','진접오남점','인천주안점','양주점','일산장항점','평내호평점','포천본점','청라연희점','월계공릉점','장안점','상봉점','화도마석점'],
+    '오므집': ['별내직영점','노원본점','목천점','의정부점','진접오남점','인천주안점','양주점','평내호평점','포천본점','청라연희점','장안점','상봉점','화도마석점'],
+    '부여김치찜': ['별내직영점','강북본점','노원본점','목천점','의정부점','진접오남점','양주점','평내호평점','포천본점']
+  };
+
+  // 추출된 지점명에 맞춰 뱃지 정확하게 할당
+  Object.keys(consolidatedBranches).forEach(branchName => {
+    const b = consolidatedBranches[branchName];
+    if (officialMappings['파스타히어'].includes(branchName)) b.brands.push('파스타히어');
+    if (officialMappings['정담덮밥'].includes(branchName)) b.brands.push('정담덮밥');
+    if (officialMappings['오므집'].includes(branchName)) b.brands.push('오므집');
+    if (officialMappings['부여김치찜'].includes(branchName)) b.brands.push('부여 김치찜'); // UI 노출용 띄어쓰기 적용
+  });
+
+  // 3. 브랜드를 많이 운영하는 지점(4개->3개->2개) 순서대로 정렬하여 배열 변환
   const allBranches = Object.values(consolidatedBranches).sort((a, b) => b.brands.length - a.brands.length);
 
   // Geocoding Helper: Map branch names to real South Korea Latitude/Longitude coordinates
@@ -473,8 +484,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (name.includes('화도') || name.includes('마석')) return [37.6508, 127.2435];
 
     // Default region mappings based on address text
-    if (address.includes('역삼') || name.includes('강남')) return [37.4979, 127.0276];
-    if (address.includes('마포') || address.includes('홍대') || name.includes('홍대')) return [37.5568, 126.9238];
     if (address.includes('서울')) return [37.5665, 126.9780];
     if (address.includes('남양주')) return [37.6360, 127.2165];
     if (address.includes('인천')) return [37.4563, 126.7052];
